@@ -1,0 +1,25 @@
+.container form{
+    display: flex;
+    height: 50%;
+    width:50%;
+    gap: 0.5rem;
+    background-color: rgb(80, 74, 95);
+    flex-direction: column;
+    align-items: center;
+    margin: auto auto;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.button{
+    margin: 1rem;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    border: 0px;
+    background-color: rgb(172, 59, 143);
+    color: white;
+    flex-wrap: wrap;
+    margin-left: auto;
+}
