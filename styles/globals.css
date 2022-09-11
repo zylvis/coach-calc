@@ -2,11 +2,16 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Roboto
+  font-family: 'Varta', sans-serif;
 }
-
+.colorPallete{
+  --accent-color: #97FB57;
+  --dark-color: #121212;
+  --main-color: #929292;
+  --light-colot: #F6F2F2;
+}
 a {
-  color: inherit;
+  color: #121212;
   text-decoration: none;
 }
 
@@ -19,7 +24,7 @@ a {
     color-scheme: light;
   }
   body {
-    color: white;
-    background: rgb(110, 104, 104);
+    color: #121212;
+    background:#F6F2F2;
   }
 }

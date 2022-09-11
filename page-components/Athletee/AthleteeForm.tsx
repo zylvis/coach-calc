@@ -66,6 +66,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
           <form onSubmit={FormHandler}>
             <label>First Name*</label>
             <input
+              className={styles.input}
               type="text"
               value={firstName}
               onChange={(event) => SetFirstName(event.target.value)}
@@ -73,6 +74,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
             ></input>
             <label>Last Name*</label>
             <input
+              className={styles.input}
               type="text"
               value={lastName}
               onChange={(event) => SetLastName(event.target.value)}
@@ -80,6 +82,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
             ></input>
             <label>Birth Date*</label>
             <input
+              className={styles.input}
               type="Date"
               value={birthDate}
               onChange={(event) => SetBirthDate(event.target.value)}

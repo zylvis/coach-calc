@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 1rem;
+    align-items: center;
+    height: 3rem;
+    margin: 1rem;
+}
+
+.profile{
+    display: flex;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    border: 1px solid #929292
+}

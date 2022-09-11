@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.home{
+    margin: 2rem;
+}
+
+.button{
+    background-color: #97FB57;
+    border: none;
+    border-radius: 0.5rem;
+    height: 2rem;
+    font-weight: 700;
+}

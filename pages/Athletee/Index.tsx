@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import AthleteeForm from "../../page-components/Athletee/AthleteeForm";
 import Modal from "../../components/Modal"
+import Header from "../../page-components/Athletee/Header"
+import styles from "../../styles/pages/Athletee/Athletee.module.css"
 
 
 const Athletee: NextPage = () => {
@@ -60,16 +62,18 @@ const Athletee: NextPage = () => {
 
 
     return(
-       <>
-        <button onClick={CreateClickHandler}>Create Athletee</button>
+       <div className={styles.container}>
+        <Header/>
+        <h1 className={styles.home}> Home </h1>
+        <button className={styles.button} onClick={CreateClickHandler}>Create Athletee</button>
         <div>
             {modal}
             { showForm && athleteeForm}
         </div>
             
         {athletees}
-     
-       </> 
+      
+       </div> 
     )
 }
 

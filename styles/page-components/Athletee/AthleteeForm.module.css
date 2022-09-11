@@ -1,10 +1,11 @@
 .container form{
     position: absolute;
     display: flex;
-    height: 50%;
-    width:50%;
+    height: 90%;
+    width:90%;
     gap: 0.5rem;
-    background-color: rgb(80, 74, 95);
+    background-color: #F6F2F2;
+    color: #121212;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -17,14 +18,19 @@
     padding: 1rem;
 }
 
+.input {
+    background-color: #F6F2F2;
+    border-radius: 0.25rem;
+}
+
 .button{
     margin: 1rem;
     width: 6rem;
     height: 2rem;
     border-radius: 0.5rem;
     border: 0px;
-    background-color: rgb(172, 59, 143);
-    color: white;
+    background-color: #97FB57;
+    color: #121212;
     flex-wrap: wrap;
     margin-left: auto;
 }
