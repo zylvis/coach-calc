@@ -31,11 +31,7 @@ const Athletee: NextPage = () => {
         };
         getData();
 
-
-
-      }, [loadCount]);
-
-
+      }, [showForm]);
 
 
     const CreateClickHandler = () =>{
