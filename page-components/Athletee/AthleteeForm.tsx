@@ -1,13 +1,17 @@
-import { NextPage } from "next/types";
 import { useState } from "react";
-import styles from "../../styles/Athletee/AthleteeForm.module.css"
-import Modal from "../../components/Modal"
-import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
+import styles from "../../styles/page-components/Athletee/AthleteeForm.module.css"
+import axios from "axios"
 
 interface AthleteeProps {
 
   showForm: (show: boolean) => void
-  
+
+}
+
+interface AthleteePost {
+  FirstName: string,
+  LastName: string,
+  BirthDate: string
 }
 
 const AthleteeForm: React.FC<AthleteeProps> = (props) => {
@@ -15,7 +19,11 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
     const [firstName, SetFirstName] = useState("");
     const [lastName, SetLastName] = useState("");
     const [birthDate, SetBirthDate] = useState("");
+    const [posts, setPosts] = useState({});
  
+    const client = axios.create({
+      baseURL: "https://localhost:7104/api/Athletee" 
+    });
 
     const CancelButtonHandler = () => {
 
@@ -23,18 +31,37 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
       
     }
 
-    const FormHandler = (event: { preventDefault: () => void; }) =>{
+    const addPosts = (firstName: string, lastName: string, birthDate: string) => {
+      client
+         .post('', {
+            FirstName: firstName,
+            LastName: lastName,
+            BirthDate: birthDate
+         })
+         .then((response) => {
+            setPosts(response.data);
+         }).catch((error) => {
+          console.log(error);
+       });
 
-        event.preventDefault();
+   };
+
+    const FormHandler = (event: any) =>{
         
-        SetFirstName("");
-        SetLastName("");
-        SetBirthDate("");
+      event.preventDefault();
+      
+      addPosts(firstName, lastName, birthDate);
+
+      SetFirstName("");
+      SetLastName("");
+      SetBirthDate("");
+
+      props.showForm(false)
 
     }
 
     return (
-      <div>
+      <>
         <div className={styles.container}>
           <form onSubmit={FormHandler}>
             <label>First Name*</label>
@@ -64,7 +91,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
             </div>
           </form>
         </div>
-      </div>
+      </>
     );
 }
 export default AthleteeForm;

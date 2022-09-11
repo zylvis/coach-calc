@@ -1,16 +1,25 @@
 import { NextPage } from "next";
 import { useState } from "react";
-import styles from "../styles/Modal.module.css"
+import styles from "../styles/components/Modal.module.css"
 
-const Modal: NextPage = () =>{
+interface ModalProps {
 
-    const [showModal, SetShowModal] = useState(false);
+    showForm: boolean
+  
+  }
+
+const Modal: React.FC<ModalProps> = (props) =>{
+
+    const [showModal, setShowModal] = useState(false);
+    
+    
+
     const modal =  <div className={styles.container}></div>
 
     return (
-        <div>
-            {showModal && modal}
-        </div>
+        <>
+            {props.showForm && modal}
+        </>
     )
 }
 

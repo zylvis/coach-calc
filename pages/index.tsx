@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/pages/Athletee/Home.module.css'
 
 const Home: NextPage = () => {
   return (
@@ -13,19 +13,19 @@ const Home: NextPage = () => {
           </div>
           <div className={styles["login-mode"]}>
             {/* <Comp-icons-google className="login-icon" />*/}
-            <Link href="/Athletee/Index">
+            <Link href="/Athletee">
               <div className={styles["l-mode"]}>LOG IN WITH GOOGLE</div>
             </Link>
           </div>
           <div className={styles["login-mode"]}>
             {/* <Comp-icons-facebook className="login-icon" />*/}
-            <Link href="/Athletee/Index">
+            <Link href="/Athletee">
               <div className={styles["l-mode"]}>LOG IN WITH FACEBOOK</div>
             </Link>
           </div>
           <div className={styles["login-mode"]}>
             {/*<Comp-icons-email className="login-icon" />*/}
-            <Link href="/Athletee/Index">
+            <Link href="/Athletee">
               <div className={styles["l-mode"]}>LOG IN WITH EMAIL</div>
             </Link>
           </div>

@@ -2,27 +2,15 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import axios from "axios"
 import AthleteeForm from "../../page-components/Athletee/AthleteeForm";
+import Modal from "../../components/Modal"
 
 
 const Athletee: NextPage = () => {
-
+    
     const [showForm, setShowForm] = useState(false);
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-
-    const CreateClickHandler = () =>{
-        setShowForm(true)
-    }
-
-    const GetCancelForm = (show: boolean) => {
-        setShowForm(show)
-    }
-
-    const obj = {showForm: GetCancelForm};
-
-    const athleteeForm = <div><AthleteeForm {...obj}/></div>
 
     useEffect(() => {
         const getData = async () => {
@@ -35,24 +23,57 @@ const Athletee: NextPage = () => {
             setError(null);
           } catch (err: any) {
             setError(err.message);
-            setData(null);
+            console.log(error)
+            setData([]);
           } finally {
             setLoading(false);
           }
         };
         getData();
-      }, []);
+
+
+
+      }, [loadCount]);
+
+
+
+
+    const CreateClickHandler = () =>{
+        setShowForm(true)
+    }
+
+    const ModalHandler = () => {
+        setShowForm(false)
+    }
+
+    const GetCancelForm = (show: boolean) => {
+        setShowForm(show);
+    }
+
+    const objForm = {showForm: GetCancelForm};
+    const objModal = {showForm: showForm}
+
+
+    const athleteeForm = <div><AthleteeForm {...objForm}/></div>
+
+    const modal = <div onClick={ModalHandler}><Modal {...objModal}/></div>
 
     const athletees = data.map((item: any) =>
-    <li>{item.FirstName}</li>)
+    <li key={item.id}>{item.lastName} {item.firstName} {item.birthDate}</li>)
+
+
 
     return(
-       <div>
+       <>
         <button onClick={CreateClickHandler}>Create Athletee</button>
-        { showForm && athleteeForm}
-        
+        <div>
+            {modal}
+            { showForm && athleteeForm}
+        </div>
+            
+        {athletees}
      
-       </div> 
+       </> 
     )
 }
 
