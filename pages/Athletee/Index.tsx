@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import AthleteeForm from "../../page-components/Athletee/AthleteeForm";
 import Modal from "../../components/Modal"
-import Header from "../../page-components/Athletee/Header"
+import Header from "../../page-components/Athletee/Header";
+import Footer from "../../page-components/Athletee/Footer"
 import styles from "../../styles/pages/Athletee/Athletee.module.css"
 
 
@@ -56,13 +57,18 @@ const Athletee: NextPage = () => {
 
     const modal = <div onClick={ModalHandler}><Modal {...objModal}/></div>
 
-    const athletees = data.map((item: any) =>
-    <li key={item.id}>{item.lastName} {item.firstName} {item.birthDate}</li>)
-
+    const athletees = data.map((item: any, index: number) =>
+    <div className={styles.athletee} key={item.id}>
+      <div>{index+1}.</div>
+      <div>{item.firstName}</div>
+      <div>{item.lastName}</div>
+      <div>{item.birthDate}</div>
+     
+    </div>)
 
 
     return(
-       <div className={styles.container}>
+      <div className={styles.container}>
         <Header/>
         <h1 className={styles.home}> Home </h1>
         <button className={styles.button} onClick={CreateClickHandler}>Create Athletee</button>
@@ -70,10 +76,12 @@ const Athletee: NextPage = () => {
             {modal}
             { showForm && athleteeForm}
         </div>
-            
-        {athletees}
+        <div className={styles.render}>
+          {athletees}
+        </div>
+        <Footer/>
       
-       </div> 
+      </div> 
     )
 }
 

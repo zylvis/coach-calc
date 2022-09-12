@@ -1,7 +1,7 @@
 .container{
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 1rem;
     align-items: center;
     height: 3rem;
@@ -13,5 +13,5 @@
     height: 3rem;
     width: 3rem;
     border-radius: 50%;
-    border: 1px solid #929292
+    border: 1px solid #909090
 }

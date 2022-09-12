@@ -7,12 +7,24 @@ body {
 .colorPallete{
   --accent-color: #97FB57;
   --dark-color: #121212;
-  --main-color: #929292;
+  --main-color: #909090;
   --light-colot: #F6F2F2;
 }
 a {
   color: #121212;
   text-decoration: none;
+}
+input[type="text"], input[type="date"]{
+  border: 1px solid #929292;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  background-color: #F6F2F2;
+  transition: 0.25s;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border: 3px solid #929292;
 }
 
 * {

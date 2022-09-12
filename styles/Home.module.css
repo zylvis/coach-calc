@@ -2,7 +2,7 @@
   display: grid;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(180deg, #9e9e9e 0%, #F6F2F2 100%);
+  background: linear-gradient(180deg, #909090 0%, #F6F2F2 100%);
 
   grid-template-rows: 1fr auto;
   grid-template-areas:
@@ -26,7 +26,7 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
-  border: 3px solid #bdbdbd;
+  border: 3px solid #909090;
 }
 .terms-text {
   font-size: 0.5rem;
