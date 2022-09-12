@@ -16,17 +16,21 @@
    align-items: center;
    justify-content: center;
    flex-direction: column;
-   height: 2rem;
+   height: 1.75rem;
+   width: 1.75rem;
 }
 .iexercises{
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    align-items: center;
     justify-content: flex-end;
     height: 3rem;     
 }
 .icoinline{
     display: flex;
     flex-direction: row;
-    height: 1rem;
+    gap: 0.5rem;
+    height: 2rem;
+    width: 2rem;
 }
