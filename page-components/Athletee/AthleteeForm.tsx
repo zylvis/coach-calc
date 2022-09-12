@@ -5,6 +5,7 @@ import axios from "axios"
 interface AthleteeProps {
 
   showForm: (show: boolean) => void
+  counter: (count: number) => void
 
 }
 
@@ -57,6 +58,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
       SetBirthDate("");
 
       props.showForm(false)
+      props.counter(1)
 
     }
 

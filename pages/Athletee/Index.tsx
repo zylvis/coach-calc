@@ -12,6 +12,7 @@ const Athletee: NextPage = () => {
     
     const [showForm, setShowForm] = useState(false);
     const [data, setData] = useState([]);
+    const [dataLoadCount, setDataLoadCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -49,9 +50,18 @@ const Athletee: NextPage = () => {
         setShowForm(show);
     }
 
-    const objForm = {showForm: GetCancelForm};
-    const objModal = {showForm: showForm}
+    const LoadCount = (count: number) => {
+      console.log(count)
+      let temp = dataLoadCount + count;
+      console.log(temp)
+      setDataLoadCount(temp);
+      console.log(dataLoadCount)
+      window.location.reload();
+    }
 
+    const objForm = {showForm: GetCancelForm, counter: LoadCount};
+
+    const objModal = {showForm: showForm}
 
     const athleteeForm = <div><AthleteeForm {...objForm}/></div>
 
@@ -63,9 +73,7 @@ const Athletee: NextPage = () => {
       <div>{item.firstName}</div>
       <div>{item.lastName}</div>
       <div>{item.birthDate}</div>
-     
     </div>)
-
 
     return(
       <div className={styles.container}>
@@ -80,10 +88,8 @@ const Athletee: NextPage = () => {
           {athletees}
         </div>
         <Footer/>
-      
       </div> 
     )
 }
-
 
 export default Athletee;
