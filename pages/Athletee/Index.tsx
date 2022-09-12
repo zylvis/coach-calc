@@ -14,7 +14,6 @@ const Athletee: NextPage = () => {
     const [data, setData] = useState([]);
     const [dataLoadCount, setDataLoadCount] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const getData = async () => {
@@ -24,10 +23,9 @@ const Athletee: NextPage = () => {
             );
             setData(response.data);
             console.log(response.data);
-            setError(null);
           } catch (err: any) {
-            setError(err.message);
-            console.log(error)
+            console.log(err.message)
+            alert(err.message)
             setData([]);
           } finally {
             setLoading(false);
@@ -59,6 +57,17 @@ const Athletee: NextPage = () => {
       window.location.reload();
     }
 
+    const ConvertBirthDateToAge = (date: string) : number => {
+
+      const tmpDate = new Date(date)
+
+      const deltaDate = Date.now() - tmpDate.getTime();
+      
+      const age = new Date(deltaDate).getFullYear() - 1970;
+
+      return age;
+    }
+
     const objForm = {showForm: GetCancelForm, counter: LoadCount};
 
     const objModal = {showForm: showForm}
@@ -70,9 +79,11 @@ const Athletee: NextPage = () => {
     const athletees = data.map((item: any, index: number) =>
     <div className={styles.athletee} key={item.id}>
       <div>{index+1}.</div>
-      <div>{item.firstName}</div>
-      <div>{item.lastName}</div>
-      <div>{item.birthDate}</div>
+      <div className={styles.image}></div>
+      <div className={styles.containerItems}>
+        <span>Name: {item.firstName} {item.lastName}</span>
+        <div>Age: {ConvertBirthDateToAge(item.birthDate)} (years)</div>
+      </div>
     </div>)
 
     return(
@@ -80,6 +91,7 @@ const Athletee: NextPage = () => {
         <Header/>
         <h1 className={styles.home}> Home </h1>
         <button className={styles.button} onClick={CreateClickHandler}>Create Athletee</button>
+        <div className={styles.search} > <input type="text" placeholder="Search athletees ..."/></div>
         <div>
             {modal}
             { showForm && athleteeForm}

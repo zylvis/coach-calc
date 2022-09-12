@@ -1,6 +1,12 @@
 .container{
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.conatiner-items{
+    display: flex;
+    flex-direction: column;
 }
 
 .home{
@@ -14,15 +20,29 @@
     height: 2rem;
     font-weight: 700;
 }
+.search {
+   display: flex;
+   margin: 0.5rem;
+   justify-content: flex-end;
+}
 .render{
     position: realtive;
+    overflow: scroll;
+    overflow-y: hidden;
     height: 100%;
     width: 100%;
 }
 .athletee{
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 1rem;
     border-bottom: 1px solid #909090;
-    height: 2rem;
+    height: 8rem;
+}
+.image{
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    background-color: #909090;
 }

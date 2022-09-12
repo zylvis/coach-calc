@@ -1,5 +1,5 @@
 .container{
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -8,6 +8,7 @@
     width: 100%;
     gap: 2rem;
     bottom:0;
+    background-color: #f6f2f2;
 }
 .ihome{
    position: relative;
