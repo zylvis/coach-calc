@@ -5,14 +5,16 @@ import axios from "axios"
 interface AthleteeProps {
 
   showForm: (show: boolean) => void
-  counter: (count: number) => void
+  GetPost: (post: AthleteePost) => void
 
 }
 
 interface AthleteePost {
-  FirstName: string,
-  LastName: string,
-  BirthDate: string
+  id: string,
+  firstName: string,
+  lastName: string,
+  birthDate: string,
+  searchColumn: string
 }
 
 const AthleteeForm: React.FC<AthleteeProps> = (props) => {
@@ -20,17 +22,13 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
     const [firstName, SetFirstName] = useState("");
     const [lastName, SetLastName] = useState("");
     const [birthDate, SetBirthDate] = useState("");
-    const [posts, setPosts] = useState({});
+    const [post, setPost] = useState({} as AthleteePost);
+
+    let posts = {} as AthleteePost
  
     const client = axios.create({
       baseURL: "https://localhost:7104/api/Athletee" 
     });
-
-    const CancelButtonHandler = () => {
-
-      props.showForm(false)
-      
-    }
 
     const addPosts = (firstName: string, lastName: string, birthDate: string) => {
       client
@@ -40,12 +38,17 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
             BirthDate: birthDate
          })
          .then((response) => {
-            setPosts(response.data);
+            posts = response.data;
+            props.GetPost(response.data)
          }).catch((error) => {
           console.log(error);
        });
 
-   };
+    };
+
+    const CancelButtonHandler = () => {
+      props.showForm(false)
+    }
 
     const FormHandler = (event: any) =>{
         
@@ -56,10 +59,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
       SetFirstName("");
       SetLastName("");
       SetBirthDate("");
-
       props.showForm(false)
-      props.counter(1)
-
     }
 
     return (

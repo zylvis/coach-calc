@@ -1,15 +1,14 @@
 import Footer from "../../page-components/Athletee/Footer"
 import Header from "../../page-components/Athletee/Header"
-import styles from "../../styles/pages/Exercises/Exercises.module.css"
+import styles from "../../styles/pages/Exercises/Details.module.css"
 
-const Exercises = () => {
-    return (
+const Details = () => {
+    return(
         <div className={styles.container}>
             <Header/>
-            <h1 className={styles.exercises}>Exercises</h1>
+            <h1 className={styles.details}>Details</h1>
             <Footer/>
         </div>
     )
 }
-
-export default Exercises;
+export default Details;

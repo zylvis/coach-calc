@@ -1,0 +1,10 @@
+.container{
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.exercises{
+    margin: 2rem;
+}

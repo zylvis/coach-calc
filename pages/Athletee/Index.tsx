@@ -6,12 +6,22 @@ import Modal from "../../components/Modal"
 import Header from "../../page-components/Athletee/Header";
 import Footer from "../../page-components/Athletee/Footer"
 import styles from "../../styles/pages/Athletee/Athletee.module.css"
+import Search from "../../components/Search"
+import Link from "next/link";
 
+interface AthleteePost {
+  id: string,
+  firstName: string,
+  lastName: string,
+  birthDate: string,
+  searchColumn: string,
+}
 
 const Athletee: NextPage = () => {
     
     const [showForm, setShowForm] = useState(false);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<AthleteePost[]>([]);
+    const[dataToShow, setDataToShow] = useState<AthleteePost[]>([]);
     const [dataLoadCount, setDataLoadCount] = useState(0);
     const [loading, setLoading] = useState(true);
 
@@ -22,6 +32,7 @@ const Athletee: NextPage = () => {
               "https://localhost:7104/api/Athletee"
             );
             setData(response.data);
+            setDataToShow(response.data);
             console.log(response.data);
           } catch (err: any) {
             console.log(err.message)
@@ -33,7 +44,7 @@ const Athletee: NextPage = () => {
         };
         getData();
 
-      }, [showForm]);
+      }, []);
 
 
     const CreateClickHandler = () =>{
@@ -48,41 +59,38 @@ const Athletee: NextPage = () => {
         setShowForm(show);
     }
 
-    const LoadCount = (count: number) => {
-      console.log(count)
-      let temp = dataLoadCount + count;
-      console.log(temp)
-      setDataLoadCount(temp);
-      console.log(dataLoadCount)
-      window.location.reload();
+    const GetPost = (post: AthleteePost) => {
+      setData([...data, post])
+    }
+
+    const GetSearchText = (text: string) => {
+
+      setDataToShow(data.filter(item => item.searchColumn.toLowerCase().includes(text.toLowerCase())));
     }
 
     const ConvertBirthDateToAge = (date: string) : number => {
-
-      const tmpDate = new Date(date)
-
-      const deltaDate = Date.now() - tmpDate.getTime();
-      
-      const age = new Date(deltaDate).getFullYear() - 1970;
-
+      const tmpDate: Date = new Date(date)
+      const deltaDate: number = Date.now() - tmpDate.getTime();
+      const age: number = new Date(deltaDate).getFullYear() - 1970;
       return age;
     }
 
-    const objForm = {showForm: GetCancelForm, counter: LoadCount};
-
+    const objForm = {showForm: GetCancelForm, GetPost: GetPost};
     const objModal = {showForm: showForm}
+    const searchObj = {getText: GetSearchText}
 
     const athleteeForm = <div><AthleteeForm {...objForm}/></div>
 
     const modal = <div onClick={ModalHandler}><Modal {...objModal}/></div>
 
-    const athletees = data.map((item: any, index: number) =>
+    const athletees = dataToShow.map((item: any, index: number) =>
     <div className={styles.athletee} key={item.id}>
       <div>{index+1}.</div>
       <div className={styles.image}></div>
-      <div className={styles.containerItems}>
-        <span>Name: {item.firstName} {item.lastName}</span>
+      <div className={styles["container-items"]}>
+        <div><span>Name: {item.firstName} {item.lastName}</span></div>
         <div>Age: {ConvertBirthDateToAge(item.birthDate)} (years)</div>
+        {item.searchColumn}
       </div>
     </div>)
 
@@ -91,14 +99,16 @@ const Athletee: NextPage = () => {
         <Header/>
         <h1 className={styles.home}> Home </h1>
         <button className={styles.button} onClick={CreateClickHandler}>Create Athletee</button>
-        <div className={styles.search} > <input type="text" placeholder="Search athletees ..."/></div>
+        <div className={styles.search} > <Search {...searchObj}/></div>
         <div>
             {modal}
             { showForm && athleteeForm}
         </div>
-        <div className={styles.render}>
-          {athletees}
-        </div>
+        <Link href="/Athletee/Details">
+          <div className={styles.render}>
+            {athletees}
+          </div>
+        </Link>
         <Footer/>
       </div> 
     )
