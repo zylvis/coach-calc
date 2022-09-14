@@ -100,7 +100,7 @@ const Athletee: NextPage = () => {
         <div className={styles.wrapper}>
           <Header/>
           <h1 className={styles.home}> Home </h1>
-          <button className={styles.button} onClick={CreateClickHandler}>Create Athletee</button>
+          <button className={styles.button} onClick={CreateClickHandler}>+ Create Athletee</button>
           <div className={styles.search} > <Search {...searchObj}/></div>
         </div>
         <div>
