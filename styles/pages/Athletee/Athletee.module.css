@@ -6,7 +6,8 @@
     width: 100%;
 }
 .wrapper {
-    display: fixed;
+    flex: auto;
+    overflow: hidden;
 }
 .container-items{
     display: flex;
@@ -33,7 +34,7 @@
    border-radius: 0.5rem;
 }
 .render{
-    overflow: scroll;
+    overflow-y: auto;
     height: 100%;
     width: 100%;
 }
