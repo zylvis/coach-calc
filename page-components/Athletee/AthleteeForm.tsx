@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "../../styles/page-components/Athletee/AthleteeForm.module.css"
 import axios from "axios"
-import ConvertToBase64 from "../../Helpers/ConvertToBase64"
+import ConvertToBase64 from "../../Helpers/ConvertAndResizeToBase64"
 
 interface AthleteeProps {
 
@@ -51,10 +51,15 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
     }
 
     const ImageHandler = async (event: any) => {
+      try {
       const files = event.target.files;
       const file = files[0];
       SetImage(await ConvertToBase64(file));
-      console.log(await ConvertToBase64(file))
+      //console.log(await ConvertToBase64(file))
+      }
+      catch(err)  {
+        alert(err);
+      }
     }
 
     const FormHandler = (event: any) =>{
@@ -112,7 +117,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
               <button className={styles.button} type="submit">Save</button>
             </div>
           </form>
-          
+
         </div>
       </>
     );

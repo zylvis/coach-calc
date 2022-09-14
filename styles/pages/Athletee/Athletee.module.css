@@ -5,6 +5,9 @@
     height: 100%;
     width: 100%;
 }
+.wrapper {
+    display: fixed;
+}
 .container-items{
     display: flex;
     flex-direction: column;
@@ -22,15 +25,15 @@
     height: 2rem;
     font-weight: 700;
 }
-.search {
+.search input {
    display: flex;
-   margin: 0.5rem;
-   justify-content: flex-end;
+   margin: 0.5rem 0 0 auto;
+   width: 8rem;
+   height: 2rem;
+   border-radius: 0.5rem;
 }
 .render{
-    position: realtive;
     overflow: scroll;
-    overflow-y: hidden;
     height: 100%;
     width: 100%;
 }
@@ -39,7 +42,7 @@
     flex-direction: row;
     align-items: center;
     gap: 1rem;
-    border-bottom: 1px solid #909090;
+    border-bottom: 1px solid #F6F2F2;
     height: 8rem;
 }
 .image{

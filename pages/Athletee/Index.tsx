@@ -91,18 +91,18 @@ const Athletee: NextPage = () => {
       <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
       <div className={styles["container-items"]}>
         <div><span><b>Name:</b> {item.firstName} {item.lastName}</span></div>
-        <div><b>Age:</b> {ConvertBirthDateToAge(item.birthDate)} (years)</div>
-        {item.searchColumn}
-       
+        <div><b>Age:</b> {ConvertBirthDateToAge(item.birthDate)} (years)</div>     
       </div>
     </div>)
 
     return(
       <div className={styles.container}>
-        <Header/>
-        <h1 className={styles.home}> Home </h1>
-        <button className={styles.button} onClick={CreateClickHandler}>Create Athletee</button>
-        <div className={styles.search} > <Search {...searchObj}/></div>
+        <div className={styles.wrapper}>
+          <Header/>
+          <h1 className={styles.home}> Home </h1>
+          <button className={styles.button} onClick={CreateClickHandler}>Create Athletee</button>
+          <div className={styles.search} > <Search {...searchObj}/></div>
+        </div>
         <div>
             {modal}
             { showForm && athleteeForm}

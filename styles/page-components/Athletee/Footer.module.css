@@ -5,8 +5,10 @@
     align-items: center;
     justify-content: center;
     height: 8rem;
-    width: 100%;
+   
     gap: 2rem;
+    right: 0;
+    left: 0;
     bottom:0;
     background-color: #f6f2f2;
 }

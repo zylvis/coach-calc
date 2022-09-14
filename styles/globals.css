@@ -36,7 +36,7 @@ input[type="text"]:focus {
     color-scheme: light;
   }
   body {
-    color: #121212;
-    background:#F6F2F2;
+    color: #F6F2F2;
+    background: #909090;
   }
 }
