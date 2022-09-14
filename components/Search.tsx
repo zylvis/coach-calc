@@ -6,10 +6,7 @@ interface IAthleteeProps{
 
 const Search: React.FC<IAthleteeProps> = (props) => {
 
-    const [searchText, setSearchText] = useState<String>();
-
     const SearchHandler = (event: any) =>{
-        //setSearchText(event.target.value);
         props.getText(event.target.value)
     }
    

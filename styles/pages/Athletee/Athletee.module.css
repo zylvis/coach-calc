@@ -47,4 +47,6 @@
     width: 5rem;
     border-radius: 50%;
     background-color: #909090;
+    background-size: cover;
+    background-position: center;
 }

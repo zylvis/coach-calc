@@ -9,20 +9,20 @@ import styles from "../../styles/pages/Athletee/Athletee.module.css"
 import Search from "../../components/Search"
 import Link from "next/link";
 
-interface AthleteePost {
+interface IAthleteePost {
   id: string,
   firstName: string,
   lastName: string,
   birthDate: string,
+  image: string,
   searchColumn: string,
 }
 
 const Athletee: NextPage = () => {
     
     const [showForm, setShowForm] = useState(false);
-    const [data, setData] = useState<AthleteePost[]>([]);
-    const[dataToShow, setDataToShow] = useState<AthleteePost[]>([]);
-    const [dataLoadCount, setDataLoadCount] = useState(0);
+    const [data, setData] = useState<IAthleteePost[]>([]);
+    const [dataToShow, setDataToShow] = useState<IAthleteePost[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -31,8 +31,8 @@ const Athletee: NextPage = () => {
             const response = await axios.get(
               "https://localhost:7104/api/Athletee"
             );
-            setData(response.data);
             setDataToShow(response.data);
+            setData(response.data);
             console.log(response.data);
           } catch (err: any) {
             console.log(err.message)
@@ -45,7 +45,7 @@ const Athletee: NextPage = () => {
         getData();
 
       }, []);
-
+ 
 
     const CreateClickHandler = () =>{
         setShowForm(true)
@@ -59,12 +59,13 @@ const Athletee: NextPage = () => {
         setShowForm(show);
     }
 
-    const GetPost = (post: AthleteePost) => {
-      setData([...data, post])
+    const GetPost = (post: IAthleteePost) => {
+      setData([post, ...data])
+      setDataToShow([post, ...dataToShow])
     }
 
     const GetSearchText = (text: string) => {
-
+      
       setDataToShow(data.filter(item => item.searchColumn.toLowerCase().includes(text.toLowerCase())));
     }
 
@@ -75,7 +76,7 @@ const Athletee: NextPage = () => {
       return age;
     }
 
-    const objForm = {showForm: GetCancelForm, GetPost: GetPost};
+    const objForm = {ShowForm: GetCancelForm, GetPost: GetPost};
     const objModal = {showForm: showForm}
     const searchObj = {getText: GetSearchText}
 
@@ -86,11 +87,13 @@ const Athletee: NextPage = () => {
     const athletees = dataToShow.map((item: any, index: number) =>
     <div className={styles.athletee} key={item.id}>
       <div>{index+1}.</div>
-      <div className={styles.image}></div>
+      {/* <div className={styles.image}><img className={styles.image} src={`${item.image}`} height="50"></img></div> */}
+      <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
       <div className={styles["container-items"]}>
-        <div><span>Name: {item.firstName} {item.lastName}</span></div>
-        <div>Age: {ConvertBirthDateToAge(item.birthDate)} (years)</div>
+        <div><span><b>Name:</b> {item.firstName} {item.lastName}</span></div>
+        <div><b>Age:</b> {ConvertBirthDateToAge(item.birthDate)} (years)</div>
         {item.searchColumn}
+       
       </div>
     </div>)
 
