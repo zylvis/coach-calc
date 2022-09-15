@@ -4,14 +4,14 @@
     justify-content: flex-end;
     gap: 1rem;
     align-items: center;
-    height: 4rem;
+    height: 2rem;
     margin: 1rem;
 }
 
 .profile{
     display: flex;
-    height: 3rem;
-    width: 3rem;
+    height: 2.5rem;
+    width: 2.5rem;
     border-radius: 50%;
     border: 1px solid #F6F2F2;
 }

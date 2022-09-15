@@ -10,8 +10,19 @@
     position: sticky;
     z-index: 1;
     top: 0;
-    padding: 1rem;;
+    padding: 0 1rem 1rem 1rem;
     background-color: #909090;
+}
+.count{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    top: 12.25rem;
+    width: 100%;
+    margin: auto auto;
+    background-color: #F6F2F2;
 }
 
 .home{
@@ -40,9 +51,7 @@
 }
 
 .render{
- 
     padding: 1rem;
-
     overflow-y: hidden; 
     min-height: 100%;
     background-color: #90909085;

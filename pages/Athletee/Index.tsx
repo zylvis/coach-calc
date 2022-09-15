@@ -80,7 +80,7 @@ const Athletee: NextPage = () => {
     const objModal = {showForm: showForm}
     const searchObj = {getText: GetSearchText}
 
-    const addfirstAthletee = <div>Add first Athletee ...</div>
+    const addfirstAthletee = <div style={{marginTop: "4rem"}}>Create first Athletee ...</div>
  
     const athleteeForm = <div><AthleteeForm {...objForm}/></div>
 
@@ -88,7 +88,6 @@ const Athletee: NextPage = () => {
 
     const athletees = dataToShow.map((item: any, index: number) =>
     <div className={styles.athletee} key={item.id}>
-      <div>{index+1}.</div>
       <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
       <div className={styles["container-items"]}>
         <div><span><b>Name:</b> {item.firstName} {item.lastName}</span></div>
@@ -107,7 +106,9 @@ const Athletee: NextPage = () => {
               <button className={styles.button} onClick={CreateClickHandler}>+ Create Athletee</button>
               <div className={styles.search} > <Search {...searchObj}/></div>
             </div>
+            
           </div>
+          <div className={styles.count}> Total ({dataToShow.length})</div>
           <div className={styles.render} style={dataToShow.length == 0 ? {paddingBottom: "120%"} : {paddingBottom: "0"}}>
             {dataToShow.length == 0 && addfirstAthletee}
             <Link  href="/Athletee/Details">
@@ -117,8 +118,7 @@ const Athletee: NextPage = () => {
             </Link>
           </div>
           <Footer/>
-        </div>
-        
+        </div>        
       </>)
 
     return(
