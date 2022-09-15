@@ -1,15 +1,16 @@
 .container{
-    position: fixed;
+    position: sticky;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 8rem;
     gap: 2rem;
-    right: 0;
     left: 0;
-    bottom:0;
+    right: 0;
+    bottom: 0;
     background-color: #f6f2f2;
+    color: #121212;
 }
 .ihome{
    position: relative;

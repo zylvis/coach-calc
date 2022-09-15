@@ -80,6 +80,8 @@ const Athletee: NextPage = () => {
     const objModal = {showForm: showForm}
     const searchObj = {getText: GetSearchText}
 
+    const addfirstAthletee = <div>Add first Athletee ...</div>
+ 
     const athleteeForm = <div><AthleteeForm {...objForm}/></div>
 
     const modal = <div onClick={ModalHandler}><Modal {...objModal}/></div>
@@ -87,7 +89,6 @@ const Athletee: NextPage = () => {
     const athletees = dataToShow.map((item: any, index: number) =>
     <div className={styles.athletee} key={item.id}>
       <div>{index+1}.</div>
-      {/* <div className={styles.image}><img className={styles.image} src={`${item.image}`} height="50"></img></div> */}
       <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
       <div className={styles["container-items"]}>
         <div><span><b>Name:</b> {item.firstName} {item.lastName}</span></div>
@@ -95,25 +96,37 @@ const Athletee: NextPage = () => {
       </div>
     </div>)
 
-    return(
-      <div className={styles.container}>
-        <div className={styles.wrapper}>
-          <Header/>
-          <h1 className={styles.home}> Home </h1>
-          <button className={styles.button} onClick={CreateClickHandler}>+ Create Athletee</button>
-          <div className={styles.search} > <Search {...searchObj}/></div>
-        </div>
-        <div>
-            {modal}
-            { showForm && athleteeForm}
-        </div>
-        <Link href="/Athletee/Details">
-          <div className={styles.render}>
-            {athletees}
+
+    const athleteePage = 
+      (<>
+        <div className={styles.container}>
+          <div className={styles.wrapper}>
+            <Header/>
+            <h1 className={styles.home}> Home </h1>
+            <div className={styles["btn-search-container"]}>
+              <button className={styles.button} onClick={CreateClickHandler}>+ Create Athletee</button>
+              <div className={styles.search} > <Search {...searchObj}/></div>
+            </div>
           </div>
-        </Link>
-        <Footer/>
-      </div> 
+          <div className={styles.render} style={dataToShow.length == 0 ? {paddingBottom: "120%"} : {paddingBottom: "0"}}>
+            {dataToShow.length == 0 && addfirstAthletee}
+            <Link  href="/Athletee/Details">
+              <div >
+                {athletees}
+              </div>
+            </Link>
+          </div>
+          <Footer/>
+        </div>
+        
+      </>)
+
+    return(
+      <>    
+        {modal}
+        {showForm && athleteeForm}
+        {!showForm && athleteePage}
+      </>
     )
 }
 

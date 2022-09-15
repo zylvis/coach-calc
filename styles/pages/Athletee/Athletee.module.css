@@ -1,15 +1,17 @@
 .container{
-    padding: 0.5rem;
     display: flex;
     flex-direction: column;
+    position: relative;
+    
     height: 100%;
     width: 100%;
 }
-
-.container-items{
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
+.wrapper{
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    padding: 1rem;;
+    background-color: #909090;
 }
 
 .home{
@@ -24,16 +26,32 @@
     font-weight: 700;
 }
 .search input {
-   display: flex;
-   margin: 0.5rem 0 0 auto;
-   width: 8rem;
-   height: 2rem;
-   border-radius: 0.5rem;
+    display: flex;
+    width: 8rem;
+    height: 2rem;
+    border-radius: 0.5rem;
 }
+
+.btn-search-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .render{
-    overflow-y: auto;
-    height: 100%;
-    width: 100%;
+ 
+    padding: 1rem;
+
+    overflow-y: hidden; 
+    min-height: 100%;
+    background-color: #90909085;
+}
+
+.container-items{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
 }
 .athletee{
     display: flex;
