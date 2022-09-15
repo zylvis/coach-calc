@@ -2,16 +2,18 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    margin-top: 2vh;
     gap: 1rem;
     align-items: center;
-    height: 2rem;
-    margin: 1rem;
+    height: 5vh;
+    width: 100%;
 }
 
 .profile{
     display: flex;
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 5vh;
+    width: 5vh;
+    
     border-radius: 50%;
     border: 1px solid #F6F2F2;
 }

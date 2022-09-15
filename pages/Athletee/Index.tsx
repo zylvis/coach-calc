@@ -101,16 +101,16 @@ const Athletee: NextPage = () => {
         <div className={styles.container}>
           <div className={styles.wrapper}>
             <Header/>
-            <h1 className={styles.home}> Home </h1>
+            <div className={styles.home}> Home </div>
             <div className={styles["btn-search-container"]}>
               <button className={styles.button} onClick={CreateClickHandler}>+ Create Athletee</button>
               <div className={styles.search} > <Search {...searchObj}/></div>
             </div>
-            
+            <div className={styles.count}> Total ({dataToShow.length})</div>
           </div>
-          <div className={styles.count}> Total ({dataToShow.length})</div>
-          <div className={styles.render} style={dataToShow.length == 0 ? {paddingBottom: "120%"} : {paddingBottom: "0"}}>
-            {dataToShow.length == 0 && addfirstAthletee}
+          
+          <div className={styles.render}>
+            {data.length == 0 && addfirstAthletee}
             <Link  href="/Athletee/Details">
               <div >
                 {athletees}
