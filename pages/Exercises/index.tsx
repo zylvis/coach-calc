@@ -5,8 +5,10 @@ import styles from "../../styles/pages/Exercises/Exercises.module.css"
 const Exercises = () => {
     return (
         <div className={styles.container}>
-            <Header/>
-            <h1 className={styles.exercises}>Exercises</h1>
+                <div className={styles.wrapper}>
+                    <Header/>
+                    <h1 className={styles.exercises}>Details</h1>
+                </div>
             <Footer/>
         </div>
     )

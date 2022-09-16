@@ -11,7 +11,7 @@ const Search: React.FC<IAthleteeProps> = (props) => {
     }
    
     return(
-        <input type="text" onChange={SearchHandler} placeholder="Search athletees ..."/>
+        <input type="text" onChange={SearchHandler} placeholder="Search..."/>
     )
 }
 

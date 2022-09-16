@@ -1,7 +1,7 @@
 .container form{
     position: absolute;
     display: flex;
-    height:60%;
+    height: 80vh;
     width:90%;
     gap: 0.5rem;
     background: linear-gradient(180deg, #909090 0%, #F6F2F2 100%);
@@ -13,7 +13,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    margin-top: 2rem;
     border-radius: 0.5rem;
     padding: 1rem;
 }
@@ -34,8 +33,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 10rem;
-    width: 10rem;
+    height: 25vh;
+    width: 25vh;
     border-radius: 50%;
     background-color: #909090;
     background-image: url('~/public/Avatar.png');
@@ -44,8 +43,8 @@
 }
 
 .upload-label{
-    margin-top: 5rem;
-    padding: 0.4rem 1rem;
+    margin-top: 15vh;
+    padding: 0.5vh 3vh;
     border-radius: 0.5rem;
     background-color: #97FB57;
 }

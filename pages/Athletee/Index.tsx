@@ -91,7 +91,7 @@ const Athletee: NextPage = () => {
       <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
       <div className={styles["container-items"]}>
         <div><span><b>Name:</b> {item.firstName} {item.lastName}</span></div>
-        <div><b>Age:</b> {ConvertBirthDateToAge(item.birthDate)} (years)</div>     
+        <div><b>Age:</b> {ConvertBirthDateToAge(item.birthDate)}</div>     
       </div>
     </div>)
 
@@ -103,7 +103,7 @@ const Athletee: NextPage = () => {
             <Header/>
             <div className={styles.home}> Home </div>
             <div className={styles["btn-search-container"]}>
-              <button className={styles.button} onClick={CreateClickHandler}>+ Create Athletee</button>
+              <button className={styles.button} onClick={CreateClickHandler}>+ Create</button>
               <div className={styles.search} > <Search {...searchObj}/></div>
             </div>
             <div className={styles.count}> Total ({dataToShow.length})</div>

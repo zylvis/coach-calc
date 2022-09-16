@@ -22,8 +22,7 @@
     justify-content: center;
     font-size: 2vh;
     width: 100%;
-    color: #F6F2F2;
-    background-color: #909090;
+    color: #ffffff;
 }
 
 .home{
@@ -36,16 +35,16 @@
     background-color: #97FB57;
     border: none;
     border-radius: 0.5rem;
-    height: 4vh;
+    height: 6vh;
     width: 35vw;
-    font-size: 2vh;
+    font-size: 1rem;
     font-weight: 700;
 }
 .search input {
     display: flex;
     width: 35vw;
-    height: 4vh;
-    font-size: 2vh;
+    height: 6vh;
+    font-size: 1rem;
     text-align:start;
     border-radius: 0.5rem;
 }
@@ -60,16 +59,21 @@
 
 .render{
     margin-top: 24vh;
-    padding: 1rem;
+    padding: 0 1vh 0 1vh;
     overflow-y: scroll; 
     height: 61vh;
-    background-color: #90909085;
+    background-color: #ffffff;
 }
 
 .container-items{
     display: flex;
     flex-direction: column;
     row-gap: 0.5rem;
+    width: 100%;
+    font-size: 2vh;
+    color: #909090;
+    padding: 1vh;
+    border-radius: 0.5rem;
 }
 .athletee{
     display: flex;
@@ -77,13 +81,16 @@
     align-items: center;
     gap: 1rem;
     border-bottom: 1px solid #F6F2F2;
-    height: 8rem;
+    height: 10vh;
+    
 }
 .image{
-    height: 5rem;
-    width: 5rem;
+    display: flex;
+    height: 7vh;
+    width: 7vh;
+    border: 1px solid #97FB57;
     border-radius: 50%;
-    background-color: #909090;
+    padding: 4vh;
     background-size: cover;
     background-position: center;
 }
