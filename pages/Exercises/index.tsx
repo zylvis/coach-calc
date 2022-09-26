@@ -7,7 +7,7 @@ const Exercises = () => {
         <div className={styles.container}>
                 <div className={styles.wrapper}>
                     <Header/>
-                    <h1 className={styles.exercises}>Exercises</h1>
+                    <div className={styles.exercises}>Exercises</div>
                 </div>
             <Footer/>
         </div>

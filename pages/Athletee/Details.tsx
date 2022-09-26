@@ -7,7 +7,7 @@ const Details = () => {
         <div className={styles.container}>
                 <div className={styles.wrapper}>
                     <Header/>
-                    <h1 className={styles.details}>Details</h1>
+                    <div className={styles.details}>Details</div>
                 </div>
             <Footer/>
         </div>
