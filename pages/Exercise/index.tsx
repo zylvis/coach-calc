@@ -88,7 +88,7 @@ const Exercise = () => {
                     <button className={styles.button} onClick={()=>setShowForm(true)}>+ Create</button>
                     <div className={styles.search} > <input type="text" onChange={searchHandler} placeholder="Search..."/></div>
                 </div>
-                <div className={styles.count}> Total (xx)</div>
+                <div className={styles.count}> Total ({dataToShow.length})</div>
             </div>
             <div className={styles.render}>
             {data.length == 0 && addfirstExercise}

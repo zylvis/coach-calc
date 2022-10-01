@@ -10,13 +10,8 @@ interface IExercise {
     id: number,
     name?: string
 }
-interface IFormProps{
-    showFormHandler: (show: boolean) => void;
-    getPost: (obj: {id: number, name: string}) => void
-}
 
-
-const EditExercise = (props: IFormProps) => {
+const EditExercise = () => {
 
     const [success, setSuccess] = useState("");
 
