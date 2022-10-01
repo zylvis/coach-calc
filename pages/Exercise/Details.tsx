@@ -7,7 +7,7 @@ const Details = () => {
         <div className={styles.container}>
                 <div className={styles.wrapper}>
                     <Header/>
-                    <div className={styles.details}> Athletee Details</div>
+                    <div className={styles.details}> Exercise Details</div>
                 </div>
             <Footer/>
         </div>

@@ -1,17 +1,21 @@
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Modal from "../../components/Modal";
 import Footer from "../../page-components/Athletee/Footer"
 import Header from "../../page-components/Athletee/Header"
-import styles from "../../styles/pages/Exercises/Exercises.module.css"
+import ExerciseForm from "../../page-components/Exercise/ExerciseForm";
+import styles from "../../styles/pages/Exercise/Exercise.module.css"
+
 interface IExercise {
     id: number,
     name: string
 }
-const Exercises = () => {
+const Exercise = () => {
 
     const [data, setData] = useState<IExercise[]>([]);
     const [dataToShow, setDataToShow] = useState<IExercise[]>([]);
+    const [showForm, setShowForm] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
@@ -36,29 +40,39 @@ const Exercises = () => {
       }, []);
 
 
-    const createClickHandler = () => {
-        
+    const showFormHandler = (show: boolean) => {
+      setShowForm(show)
     }
 
     const searchHandler = (event: any) => {      
         setDataToShow(data.filter(item => item.name.toLowerCase().includes(event.target.value.toLowerCase())));
     }
 
-    const addfirstExercise = (<div style={{marginTop: "4rem"}}>Create first Athletee ...</div>)
+    const getPost = (obj: IExercise) => {
+      dataToShow.push(obj);
+      setDataToShow(dataToShow)
+    }
+
+    const objFormProps = {showFormHandler: showFormHandler, getPost: getPost}
+
+    const addfirstExercise = (<div style={{marginTop: "4rem"}}>Create first Exercise ...</div>)
     const athletees = dataToShow.map((item: IExercise) => 
     <div className={styles.exercise} key={item.id}>
-        <div className={styles["container-items"]}>
-            <div><span> {item.name}</span></div>   
+      <div className={styles["container-items"]}>
+        <div><span> {item.name}</span></div>   
       </div>
     </div>)
 
     return (
+      <>
+        
         <div className={styles.container}>
+            
             <div className={styles.wrapper}>
                 <Header/>
                 <div className={styles.exercises}>Exercises</div>
                 <div className={styles["btn-search-container"]}>
-                    <button className={styles.button} onClick={createClickHandler}>+ Create</button>
+                    <button className={styles.button} onClick={()=>setShowForm(true)}>+ Create</button>
                     <div className={styles.search} > <input type="text" onChange={searchHandler} placeholder="Search..."/></div>
                 </div>
                 <div className={styles.count}> Total (xx)</div>
@@ -73,7 +87,10 @@ const Exercises = () => {
           </div>
             <Footer/>
         </div>
+        {showForm && <Modal/>}
+        {showForm && <ExerciseForm {...objFormProps}/>}
+      </>
     )
 }
 
-export default Exercises;
+export default Exercise;

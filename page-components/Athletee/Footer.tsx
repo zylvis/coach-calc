@@ -19,7 +19,7 @@ const Footer = () => {
                 </div>
             </Link>
             
-            <Link href="/Exercises">
+            <Link href="/Exercise">
                 <div className={styles.iexercises}>
                     <div className={styles.icoinline}>
                         <ISwiming fill={'#121212'}/>

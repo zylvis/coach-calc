@@ -86,7 +86,7 @@ const Athletee: NextPage = () => {
     </div>)
 
 
-    const athleteePage = 
+    const athletee = 
       (<>
         <div className={styles.container}>
           <div className={styles.wrapper}>
@@ -115,7 +115,7 @@ const Athletee: NextPage = () => {
       <>    
         {showForm && <Modal/>}
         {showForm && athleteeForm}
-        {!showForm && athleteePage}
+        {!showForm && athletee}
       </>
     )
 }
