@@ -6,7 +6,6 @@ import Modal from "../../components/Modal"
 import Header from "../../page-components/Athletee/Header";
 import Footer from "../../page-components/Athletee/Footer"
 import styles from "../../styles/pages/Athletee/Athletee.module.css"
-import Search from "../../components/Search"
 import Link from "next/link";
 
 interface IAthleteePost {
@@ -60,8 +59,8 @@ const Athletee: NextPage = () => {
       setDataToShow([post, ...dataToShow])
     }
 
-    const GetSearchText = (text: string) => {      
-      setDataToShow(data.filter(item => item.searchColumn.toLowerCase().includes(text.toLowerCase())));
+    const searchHandler = (event: any) => {      
+      setDataToShow(data.filter(item => item.searchColumn.toLowerCase().includes(event.target.value.toLowerCase())));
     }
 
     const ConvertBirthDateToAge = (date: string) : number => {
@@ -72,7 +71,6 @@ const Athletee: NextPage = () => {
     }
 
     const objForm = {ShowForm: GetCancelForm, GetPost: GetPost};
-    const searchObj = {getText: GetSearchText}
 
     const addfirstAthletee = <div style={{marginTop: "4rem"}}>Create first Athletee ...</div>
  
@@ -96,7 +94,7 @@ const Athletee: NextPage = () => {
             <div className={styles.home}> Home </div>
             <div className={styles["btn-search-container"]}>
               <button className={styles.button} onClick={CreateClickHandler}>+ Create</button>
-              <div className={styles.search} > <Search {...searchObj}/></div>
+              <div className={styles.search} > <input type="text" onChange={searchHandler} placeholder="Search..."/></div>
             </div>
             <div className={styles.count}> Total ({dataToShow.length})</div>
           </div>
