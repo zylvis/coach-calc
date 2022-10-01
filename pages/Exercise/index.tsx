@@ -1,5 +1,6 @@
 import axios from "axios";
 import Link from "next/link";
+import Router from "next/router";
 import { useEffect, useState } from "react";
 import Modal from "../../components/Modal";
 import Footer from "../../page-components/Athletee/Footer"
@@ -53,14 +54,26 @@ const Exercise = () => {
       setDataToShow(dataToShow)
     }
 
+    const sendProps = (id: number, name: string) => {
+      Router.push(
+        {
+          pathname: "/Exercise/EditExercise",
+          query: {
+            id,
+            name
+          }
+        }
+      )
+    }
+
     const objFormProps = {showFormHandler: showFormHandler, getPost: getPost}
 
     const addfirstExercise = (<div style={{marginTop: "4rem"}}>Create first Exercise ...</div>)
-    const athletees = dataToShow.map((item: IExercise) => 
-    <div className={styles.exercise} key={item.id}>
-      <div className={styles["container-items"]}>
-        <div><span> {item.name}</span></div>   
-      </div>
+    const exercises = dataToShow.map((item: IExercise) => 
+    <div className={styles.exercise} key={item.id} onClick={()=>{sendProps(item.id, item.name)}}>
+        <div className={styles["container-items"]}>
+          <div><span> {item.name}</span></div>   
+        </div>
     </div>)
 
     return (
@@ -79,11 +92,11 @@ const Exercise = () => {
             </div>
             <div className={styles.render}>
             {data.length == 0 && addfirstExercise}
-            <Link  href="/Athletee/Details">
+            
               <div >
-                {athletees}
+                {exercises}
               </div>
-            </Link>
+
           </div>
             <Footer/>
         </div>
