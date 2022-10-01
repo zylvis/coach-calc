@@ -51,10 +51,6 @@ const Athletee: NextPage = () => {
         setShowForm(true)
     }
 
-    const ModalHandler = () => {
-        setShowForm(false)
-    }
-
     const GetCancelForm = (show: boolean) => {
         setShowForm(show);
     }
@@ -64,8 +60,7 @@ const Athletee: NextPage = () => {
       setDataToShow([post, ...dataToShow])
     }
 
-    const GetSearchText = (text: string) => {
-      
+    const GetSearchText = (text: string) => {      
       setDataToShow(data.filter(item => item.searchColumn.toLowerCase().includes(text.toLowerCase())));
     }
 
@@ -77,14 +72,11 @@ const Athletee: NextPage = () => {
     }
 
     const objForm = {ShowForm: GetCancelForm, GetPost: GetPost};
-    const objModal = {showForm: showForm}
     const searchObj = {getText: GetSearchText}
 
     const addfirstAthletee = <div style={{marginTop: "4rem"}}>Create first Athletee ...</div>
  
     const athleteeForm = <div><AthleteeForm {...objForm}/></div>
-
-    const modal = <div onClick={ModalHandler}><Modal {...objModal}/></div>
 
     const athletees = dataToShow.map((item: any, index: number) =>
     <div className={styles.athletee} key={item.id}>
@@ -123,7 +115,7 @@ const Athletee: NextPage = () => {
 
     return(
       <>    
-        {modal}
+        {showForm && <Modal/>}
         {showForm && athleteeForm}
         {!showForm && athleteePage}
       </>

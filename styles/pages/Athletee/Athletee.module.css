@@ -27,6 +27,7 @@
 
 .home{
     font-size: 4vh;
+    margin-top: 1vh;
     color: #F6F2F2;
 }
 
@@ -44,7 +45,7 @@
     width: 35vw;
     height: 6vh;
     font-size: 1rem;
-    text-align:start;
+    text-align: start;
     border-radius: 0.5rem;
 }
 
@@ -53,7 +54,7 @@
     flex-direction: row;
     align-items: center;
     justify-content:space-between;
-    margin: 2vh;
+    margin: 1vh;
 }
 
 .render{

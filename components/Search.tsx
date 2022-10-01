@@ -3,6 +3,9 @@ import { useState } from "react";
 interface IAthleteeProps{
     getText: (text: string) => void;
 }
+interface IExercisesProps{
+    getText: (text: string) => void
+}
 
 const Search: React.FC<IAthleteeProps> = (props) => {
 
