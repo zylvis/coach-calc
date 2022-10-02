@@ -3281,6 +3281,11 @@
   dependencies:
     "punycode" "^2.1.0"
 
+"use-long-press@^2.0.2":
+  "integrity" "sha512-zQ4sujilCykA7fSZ+m2gDuGw5aW3Gm3M4pulRH4e8c4mGXw8MDQIMthCsHiolxpt/hCe/BbIvd/iDn9XNDzkYg=="
+  "resolved" "https://registry.npmjs.org/use-long-press/-/use-long-press-2.0.2.tgz"
+  "version" "2.0.2"
+
 "use-sync-external-store@1.2.0":
   "integrity" "sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA=="
   "resolved" "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz"

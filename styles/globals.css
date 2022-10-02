@@ -17,6 +17,7 @@ a {
 }
 input[type="text"], input[type="date"]{
   border: 1px solid #929292;
+  
   height: 1.5rem;
   border-radius: 0.25rem;
   background-color: #F6F2F2;
@@ -25,7 +26,7 @@ input[type="text"], input[type="date"]{
 }
 
 input[type="text"]:focus {
-  border: 3px solid #929292;
+  border: 2.5px solid #929292;
 }
 
 * {
