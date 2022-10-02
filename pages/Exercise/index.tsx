@@ -1,8 +1,8 @@
 import axios from "axios";
-import Link from "next/link";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 import Modal from "../../components/Modal";
+import RemarkMenu from "../../page-components/Exercise/RemarkMenu"
 import Footer from "../../page-components/Athletee/Footer"
 import Header from "../../page-components/Athletee/Header"
 import ExerciseForm from "../../page-components/Exercise/ExerciseForm";
@@ -12,11 +12,14 @@ interface IExercise {
     id: number,
     name: string
 }
+
 const Exercise = () => {
 
     const [data, setData] = useState<IExercise[]>([]);
     const [dataToShow, setDataToShow] = useState<IExercise[]>([]);
+    const [showRemarkMenu, setShowRemarkMenu] = useState(false);
     const [showForm, setShowForm] = useState(false);
+    const [editObject, setEditObject] = useState<IExercise>({id: 0, name:""})
 
     useEffect(() => {
         const getData = async () => {
@@ -26,7 +29,7 @@ const Exercise = () => {
             );
             setDataToShow(response.data.result);
             setData(response.data.result);
-            console.log(response.data);
+            console.log(response.data.result);
             return
           } catch (err: any) {
             console.log(err.message)
@@ -54,23 +57,46 @@ const Exercise = () => {
       setDataToShow(dataToShow)
     }
 
-    const sendProps = (id: number, name: string) => {
-      Router.push(
-        {
-          pathname: "/Exercise/EditExercise",
-          query: {
-            id,
-            name
+    const editHandler = (show: boolean, action: string) => {
+
+      setShowRemarkMenu(show);
+      console.log(editObject)
+      if(action == "edit"){
+        Router.push(
+          {
+            pathname: "/Exercise/EditExercise",
+            query: {
+              id: editObject.id,
+              name: editObject.name
+            }
           }
-        }
-      )
+        )
+      }
+      
+      if (action=="delete") {
+        axios.delete(`https://localhost:7104/api/Exercise/${editObject.id}`)  
+        .then(res => {  
+          console.log(res.data); 
+          const posts = dataToShow.filter(item => item.id !== editObject.id);  
+          setDataToShow(posts);  
+        }).catch( error =>
+          console.log(error)
+        )
+      }
+    }
+
+    const getEditObj = (id: number, name: string) => {
+      setShowRemarkMenu(true)
+      setEditObject({id: id, name: name})
+      console.log(id)
     }
 
     const objFormProps = {showFormHandler: showFormHandler, getPost: getPost}
+    const objRemarkMenuProps = {editHandler: editHandler}
 
     const addfirstExercise = (<div style={{marginTop: "4rem"}}>Create first Exercise ...</div>)
     const exercises = dataToShow.map((item: IExercise) => 
-    <div className={styles.exercise} key={item.id} onClick={()=>{sendProps(item.id, item.name)}}>
+    <div className={styles.exercise} key={item.id} onClick={()=>{getEditObj(item.id, item.name)}}>
         <div className={styles["container-items"]}>
           <div><span> {item.name}</span></div>   
         </div>
@@ -100,7 +126,7 @@ const Exercise = () => {
           </div>
             <Footer/>
         </div>
-        {showForm && <Modal/>}
+        {showRemarkMenu && <RemarkMenu {...objRemarkMenuProps}/>}
         {showForm && <ExerciseForm {...objFormProps}/>}
       </>
     )

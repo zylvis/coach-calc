@@ -2,6 +2,7 @@
 import axios from "axios";
 import {useFormik} from "formik"
 import { useState } from "react";
+import Modal from "../../components/Modal";
 import styles from "../../styles/page-components/Exercise/ExerciseForm.module.css"
 
 interface IExercise {
@@ -64,24 +65,27 @@ const ExerciseForm = (props: IFormProps) => {
         },
     });
     return (
-        <div className={styles.container}>
-            <form className={styles.formcontainer} onSubmit={formik.handleSubmit}>
+        <>  
+            <Modal/>
+            <div className={styles.container}>
+                <form className={styles.formcontainer} onSubmit={formik.handleSubmit}>
 
-                <label className={styles.label} htmlFor="name">Exercise</label>
-                <input
-                    className={styles.input}
-                    id="name"
-                    name="name"
-                    type="text"
-                    onChange={formik.handleChange}
-                    value={formik.values.name}
-                />
-                {formik.errors.name ? <div className={styles.error}>{formik.errors.name}</div> : <div className={styles.error}></div>}
+                    <label className={styles.label} htmlFor="name">Exercise</label>
+                    <input
+                        className={styles.input}
+                        id="name"
+                        name="name"
+                        type="text"
+                        onChange={formik.handleChange}
+                        value={formik.values.name}
+                    />
+                    {formik.errors.name ? <div className={styles.error}>{formik.errors.name}</div> : <div className={styles.error}></div>}
 
-                <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>props.showFormHandler(false)}>Cancel</button></span>
-                <div className={styles.success}>{success}</div>
-            </form>
-        </div>
+                    <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>props.showFormHandler(false)}>Cancel</button></span>
+                    <div className={styles.success}>{success}</div>
+                </form>
+            </div>
+        </>
     );
 }
 export default ExerciseForm;
