@@ -29,6 +29,11 @@ input[type="text"]:focus {
   border: 2.5px solid #929292;
 }
 
+input[type="radio"] {
+  margin-top: 0px;
+  vertical-align: middle;
+}
+
 * {
   box-sizing: border-box;
 }

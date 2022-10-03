@@ -1,12 +1,13 @@
 
 import axios from "axios";
-import {useFormik} from "formik"
+import {Field, useFormik, Form, Formik, FormikProps} from "formik"
 import { useState } from "react";
 import Modal from "../../components/Modal";
 import styles from "../../styles/page-components/Exercise/ExerciseForm.module.css"
 
 interface IExercise {
-    name: string
+    name: string,
+    metricType: string
 }
 interface IFormProps{
     showFormHandler: (show: boolean) => void;
@@ -25,11 +26,16 @@ const ExerciseForm = (props: IFormProps) => {
         client
            .post('', objExercise)
            .then((response) => {
-              console.log(response.data.result)
-              props.getPost(response.data.result)
-           }).catch((error) => {
-            console.log(error);
-         });
+                console.log(response.data.result)
+                props.getPost(response.data.result)
+                setSuccess("Success");
+                setTimeout(() => {
+                setSuccess("");
+                props.showFormHandler(false);
+                }, 2000);
+            }).catch((error) => {
+                console.log(error);
+            });
       };
 
     const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
@@ -42,6 +48,9 @@ const ExerciseForm = (props: IFormProps) => {
           if (values.name == ""){
               errors.name = "Required"
           }
+          if (!values.metricType){
+            errors.metricType = "Choose one option"
+        }
   
           return errors;
         });
@@ -49,18 +58,14 @@ const ExerciseForm = (props: IFormProps) => {
   
     const formik = useFormik({
         initialValues: {
-            name: ""
+            name: "",
+            metricType: ""
 
         },
         validate,
         onSubmit: (values) => {
             alert(JSON.stringify(values, null, 2));
             AddPost(values);
-            setSuccess("Success");
-            setTimeout(() => {
-                setSuccess("");
-                props.showFormHandler(false);
-            }, 2000);
             formik.resetForm();
         },
     });
@@ -70,7 +75,7 @@ const ExerciseForm = (props: IFormProps) => {
             <div className={styles.container}>
                 <form className={styles.formcontainer} onSubmit={formik.handleSubmit}>
 
-                    <label className={styles.label} htmlFor="name">Exercise</label>
+                    <label className={styles.label} htmlFor="name">Exercise Name</label>
                     <input
                         className={styles.input}
                         id="name"
@@ -80,6 +85,19 @@ const ExerciseForm = (props: IFormProps) => {
                         value={formik.values.name}
                     />
                     {formik.errors.name ? <div className={styles.error}>{formik.errors.name}</div> : <div className={styles.error}></div>}
+
+                   
+                    <div className={styles.radiocontainer}>
+                        <div className={styles.choose}>Choose metric type</div>
+                        <span className={styles.radioinputcontainer}>
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Number" onChange={formik.handleChange} />
+                            <label className={styles.radiolabel}>Number</label>
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Time" onChange={formik.handleChange}/>
+                            <label className={styles.radiolabel}>Time</label> 
+                        </span>
+                        <div className={styles.picked}>"{formik.values.metricType}"</div>
+                    </div> 
+                    {formik.errors.metricType ? <div className={styles.error}>{formik.errors.metricType}</div> : <div className={styles.error}></div>}
 
                     <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>props.showFormHandler(false)}>Cancel</button></span>
                     <div className={styles.success}>{success}</div>
