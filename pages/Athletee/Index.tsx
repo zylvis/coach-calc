@@ -2,11 +2,11 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import axios from "axios"
 import AthleteeForm from "../../page-components/Athletee/AthleteeForm";
-import Modal from "../../components/Modal"
 import Header from "../../page-components/Athletee/Header";
 import Footer from "../../page-components/Athletee/Footer"
 import styles from "../../styles/pages/Athletee/Athletee.module.css"
-import Link from "next/link";
+import Menu from "../../page-components/Athletee/Menu";
+import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
 
 interface IAthletee {
   id: number,
@@ -19,8 +19,10 @@ interface IAthletee {
 const Athletee: NextPage = () => {
     
     const [showForm, setShowForm] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
     const [data, setData] = useState<IAthletee[]>([]);
     const [dataToShow, setDataToShow] = useState<IAthletee[]>([]);
+    const [athleteeObj, setAthleteeObj] = useState({} as IAthletee)
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -57,37 +59,51 @@ const Athletee: NextPage = () => {
       console.log(post)
       setData([post, ...data])
       setDataToShow([post, ...dataToShow])
-
     }
 
     const searchHandler = (event: any) => {      
-      setDataToShow(data.filter(item => item.firstName.toLowerCase().includes(event.target.value.toLowerCase())));
+      setDataToShow(data.filter(item => item.firstName+item.lastName.toLowerCase().includes(event.target.value.toLowerCase())));
     }
 
-    const ConvertBirthDateToAge = (date: string) : number => {
-      const tmpDate: Date = new Date(date)
-      const deltaDate: number = Date.now() - tmpDate.getTime();
-      const age: number = new Date(deltaDate).getFullYear() - 1970;
-      return age;
+    const onAthleteeClick = (item: IAthletee) => {
+      setShowMenu(true)
+      setAthleteeObj(item)
     }
 
-    const objForm = {ShowForm: GetCancelForm, GetPost: GetPost};
+    const menuHandler = (show: boolean, action: string) =>{
+      setShowMenu(show)
+      if(action == "delete"){
+        if(confirm("Delete Athletee and all data?")){
+          axios.delete(`https://localhost:7104/api/Athletee/${athleteeObj.id}`)  
+          .then(res => {  
+            console.log(res.data); 
+            const posts = dataToShow.filter(item => item.id !== athleteeObj.id);  
+            setDataToShow(posts);  
+          }).catch( error =>
+            console.log(error)
+          )
+        }
+      }
+    }
+
+
+
+    const objFormProps = {ShowForm: GetCancelForm, GetPost: GetPost};
+    const objMenuProps = {menuHandler: menuHandler}
 
     const addfirstAthletee = <div style={{marginTop: "4rem"}}>Create first Athletee ...</div>
  
-    const athleteeForm = <div><AthleteeForm {...objForm}/></div>
+    const athleteeForm = <div><AthleteeForm {...objFormProps}/></div>
 
     const athletees = dataToShow.map((item: any, index: number) =>
       <div className={styles.athleteecontainer} key={item.id}>
-        <Link href="/Athletee/Details">
-        <div className={styles.athletee}>
+        <div className={styles.athletee} onClick={()=>{onAthleteeClick(item)}}>
           <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
           <div className={styles["container-items"]}>
             <div><span><b>Name:</b> {item.firstName} {item.lastName}</span></div>
             <div><b>Age:</b> {ConvertBirthDateToAge(item.birthDate)}</div>     
           </div>
         </div>
-        </Link>
         <button className={styles.addresults}>Add Results</button>
       </div>)
 
@@ -116,10 +132,11 @@ const Athletee: NextPage = () => {
       </>)
 
     return(
-      <>    
-        {showForm && <Modal/>}
+      <>
+       
+        {athletee}
         {showForm && athleteeForm}
-        {!showForm && athletee}
+        {showMenu && <Menu {...objMenuProps}/>}
       </>
     )
 }

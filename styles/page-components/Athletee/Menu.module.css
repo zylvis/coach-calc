@@ -1,0 +1,24 @@
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 95vh;
+    width: 95vw;
+    padding: 0.5rem;
+    background: linear-gradient(0deg, #909090 0%, #F6F2F2 75%);
+}
+.menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.menuitem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    background-color: #909090;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}

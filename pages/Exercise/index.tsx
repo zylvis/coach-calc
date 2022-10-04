@@ -75,14 +75,16 @@ const Exercise = () => {
       }
       
       if (action=="delete") {
-        axios.delete(`https://localhost:7104/api/Exercise/${editObject.id}`)  
-        .then(res => {  
-          console.log(res.data); 
-          const posts = dataToShow.filter(item => item.id !== editObject.id);  
-          setDataToShow(posts);  
-        }).catch( error =>
-          console.log(error)
-        )
+        if(confirm("Delete Exercsise?")){
+          axios.delete(`https://localhost:7104/api/Exercise/${editObject.id}`)  
+          .then(res => {  
+            console.log(res.data); 
+            const posts = dataToShow.filter(item => item.id !== editObject.id);  
+            setDataToShow(posts);  
+          }).catch( error =>
+            console.log(error)
+          )
+        }
       }
     }
 
@@ -110,13 +112,13 @@ const Exercise = () => {
       <>  
         <div className={styles.container}>    
             <div className={styles.wrapper}>
-                <Header/>
-                <div className={styles.exercises}>Exercises</div>
-                <div className={styles["btn-search-container"]}>
-                    <button className={styles.button} onClick={()=>setShowForm(true)}>+ Create</button>
-                    <div className={styles.search} > <input type="text" onChange={searchHandler} placeholder="Search..."/></div>
-                </div>
-                <div className={styles.count}> Total ({dataToShow.length})</div>
+              <Header/>
+              <div className={styles.exercises}>Exercises</div>
+              <div className={styles["btn-search-container"]}>
+                  <button className={styles.button} onClick={()=>setShowForm(true)}>+ Create</button>
+                  <div className={styles.search} > <input type="text" onChange={searchHandler} placeholder="Search..."/></div>
+              </div>
+              <div className={styles.count}> Total ({dataToShow.length})</div>
             </div>
             <div className={styles.render}>
             {data.length == 0 && addfirstExercise}

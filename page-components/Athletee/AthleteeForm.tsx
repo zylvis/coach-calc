@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "../../styles/page-components/Athletee/AthleteeForm.module.css"
 import axios from "axios"
 import ConvertToBase64 from "../../Helpers/ConvertAndResizeToBase64"
+import Modal from "../../components/Modal";
 
 interface AthleteeProps {
 
@@ -68,7 +69,6 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
     }
 
     const dateStrToDate = (date:string):Date => {
-
       let dat = new Date(date)
       return dat;
     }
@@ -87,6 +87,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
 
     return (
       <>
+        <Modal/>
         <div className={styles.container}>
 
           <form onSubmit={FormHandler}>
