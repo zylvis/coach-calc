@@ -68,7 +68,8 @@ const Exercise = () => {
             pathname: "/Exercise/EditExercise",
             query: {
               id: editObject.id,
-              name: editObject.name
+              name: editObject.name,
+              metricType: editObject.metricType
             }
           }
         )

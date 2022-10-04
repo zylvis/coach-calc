@@ -15,10 +15,11 @@ const EditExercise = () => {
 
     const [success, setSuccess] = useState("");
 
-    const {query: {id, name}} = router;
+    const {query: {id, name, metricType}} = router;
     const objIncoming = {
         id: parseInt(id as string),
-        name: name?.toString()
+        name: name?.toString(),
+        metricType: metricType
     }
 
     console.log(objIncoming)
@@ -58,7 +59,7 @@ const EditExercise = () => {
         initialValues: {
             id: parseInt(id as string),
             name: name?.toString(),
-            metricType: ""
+            metricType: metricType?.toString()
 
         },
         validate,
@@ -86,9 +87,9 @@ const EditExercise = () => {
                     <div className={styles.radiocontainer}>
                         <div className={styles.choose}>Choose metric type</div>
                         <span className={styles.radioinputcontainer}>
-                            <input className={styles.inputradio} type="radio" name="metricType" value="Number" onChange={formik.handleChange} />
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Number" onChange={formik.handleChange} defaultChecked={formik.values.metricType == "Number"}/>
                             <label className={styles.radiolabel}>Number</label>
-                            <input className={styles.inputradio} type="radio" name="metricType" value="Time" onChange={formik.handleChange}/>
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Time" onChange={formik.handleChange} defaultChecked={formik.values.metricType == "Time"}/>
                             <label className={styles.radiolabel}>Time</label> 
                         </span>
                         <div className={styles.picked}>"{formik.values.metricType}"</div>
