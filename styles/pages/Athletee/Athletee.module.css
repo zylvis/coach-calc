@@ -75,10 +75,17 @@
     padding: 1vh;
     border-radius: 0.5rem;
 }
+.athleteecontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
 .athletee{
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
     gap: 1rem;
     border-bottom: 1px solid #F6F2F2;
     height: 10vh;
@@ -93,4 +100,18 @@
     padding: 4vh;
     background-size: cover;
     background-position: center;
+}
+.addresults{
+    align-content: flex-end;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5vh;
+    margin-left: auto;
+    order: 2;
+    color:#121212;
+    margin-right: 5px;
+    background: linear-gradient(0deg, #909090 0%, #F6F2F2 25%);
+    border-radius: 0.5rem;
+    border-bottom: 1px solid #97FB57;
+    font-weight: 500;
 }

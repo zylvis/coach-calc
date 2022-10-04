@@ -8,20 +8,19 @@ import Footer from "../../page-components/Athletee/Footer"
 import styles from "../../styles/pages/Athletee/Athletee.module.css"
 import Link from "next/link";
 
-interface IAthleteePost {
-  id: string,
+interface IAthletee {
+  id: number,
   firstName: string,
   lastName: string,
-  birthDate: string,
+  birthDate: Date,
   image: string,
-  searchColumn: string,
 }
 
 const Athletee: NextPage = () => {
     
     const [showForm, setShowForm] = useState(false);
-    const [data, setData] = useState<IAthleteePost[]>([]);
-    const [dataToShow, setDataToShow] = useState<IAthleteePost[]>([]);
+    const [data, setData] = useState<IAthletee[]>([]);
+    const [dataToShow, setDataToShow] = useState<IAthletee[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -30,11 +29,11 @@ const Athletee: NextPage = () => {
             const response = await axios.get(
               "https://localhost:7104/api/Athletee"
             );
-            setDataToShow(response.data);
-            setData(response.data);
+            setDataToShow(response.data.result);
+            setData(response.data.result);
             console.log(response.data);
           } catch (err: any) {
-            console.log(err.message)
+            console.log(err)
             alert(err.message)
             setData([]);
           } finally {
@@ -54,13 +53,15 @@ const Athletee: NextPage = () => {
         setShowForm(show);
     }
 
-    const GetPost = (post: IAthleteePost) => {
+    const GetPost = (post: IAthletee) => {
+      console.log(post)
       setData([post, ...data])
       setDataToShow([post, ...dataToShow])
+
     }
 
     const searchHandler = (event: any) => {      
-      setDataToShow(data.filter(item => item.searchColumn.toLowerCase().includes(event.target.value.toLowerCase())));
+      setDataToShow(data.filter(item => item.firstName.toLowerCase().includes(event.target.value.toLowerCase())));
     }
 
     const ConvertBirthDateToAge = (date: string) : number => {
@@ -77,13 +78,18 @@ const Athletee: NextPage = () => {
     const athleteeForm = <div><AthleteeForm {...objForm}/></div>
 
     const athletees = dataToShow.map((item: any, index: number) =>
-    <div className={styles.athletee} key={item.id}>
-      <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
-      <div className={styles["container-items"]}>
-        <div><span><b>Name:</b> {item.firstName} {item.lastName}</span></div>
-        <div><b>Age:</b> {ConvertBirthDateToAge(item.birthDate)}</div>     
-      </div>
-    </div>)
+      <div className={styles.athleteecontainer} key={item.id}>
+        <Link href="/Athletee/Details">
+        <div className={styles.athletee}>
+          <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
+          <div className={styles["container-items"]}>
+            <div><span><b>Name:</b> {item.firstName} {item.lastName}</span></div>
+            <div><b>Age:</b> {ConvertBirthDateToAge(item.birthDate)}</div>     
+          </div>
+        </div>
+        </Link>
+        <button className={styles.addresults}>Add Results</button>
+      </div>)
 
 
     const athletee = 
@@ -101,11 +107,9 @@ const Athletee: NextPage = () => {
           
           <div className={styles.render}>
             {data.length == 0 && addfirstAthletee}
-            <Link  href="/Athletee/Details">
               <div >
                 {athletees}
               </div>
-            </Link>
           </div>
           <Footer/>
         </div>        

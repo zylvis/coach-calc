@@ -54,10 +54,8 @@
 }
 .picked {
     margin-top: 1vh;
-    font-size: 2vh;
+    font-size: 1.5vh;
 }
-
-
 
 .radiolabel{
     width: 6rem;
@@ -73,6 +71,7 @@
     font-size: 2vh;
     color: rgb(219, 98, 98);
 }
+
 .success{
     color: #97FB57;
     font-size: 2vh;

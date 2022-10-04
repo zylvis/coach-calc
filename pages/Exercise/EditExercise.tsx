@@ -57,7 +57,8 @@ const EditExercise = () => {
     const formik = useFormik({
         initialValues: {
             id: parseInt(id as string),
-            name: name?.toString()
+            name: name?.toString(),
+            metricType: ""
 
         },
         validate,
@@ -81,6 +82,18 @@ const EditExercise = () => {
                         value={formik.values.name}
                     />
                     {formik.errors.name ? <div className={styles.error}>{formik.errors.name}</div> : <div className={styles.error}></div>}
+
+                    <div className={styles.radiocontainer}>
+                        <div className={styles.choose}>Choose metric type</div>
+                        <span className={styles.radioinputcontainer}>
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Number" onChange={formik.handleChange} />
+                            <label className={styles.radiolabel}>Number</label>
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Time" onChange={formik.handleChange}/>
+                            <label className={styles.radiolabel}>Time</label> 
+                        </span>
+                        <div className={styles.picked}>"{formik.values.metricType}"</div>
+                    </div> 
+                    {formik.errors.metricType ? <div className={styles.error}>{formik.errors.metricType}</div> : <div className={styles.error}></div>}
 
                     <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>router.push("/Exercise")}>Cancel</button></span>
                     <div className={styles.success}>{success}</div>

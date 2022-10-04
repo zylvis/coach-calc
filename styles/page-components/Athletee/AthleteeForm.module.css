@@ -1,10 +1,10 @@
 .container form{
     position: absolute;
     display: flex;
-    height: 80vh;
+    height: 82vh;
     width:90%;
     gap: 0.5rem;
-    background: linear-gradient(180deg, #909090 0%, #F6F2F2 100%);
+    background: linear-gradient(0deg, #909090 0%, #F6F2F2 100%);
     color: #121212;
     flex-direction: column;
     align-items: center;
@@ -47,4 +47,9 @@
     padding: 0.5vh 3vh;
     border-radius: 0.5rem;
     background-color: #97FB57;
+}
+.success{
+    height: 2vh;
+    font-size: 2vh;
+    color: #97FB57;
 }

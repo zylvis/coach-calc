@@ -10,7 +10,8 @@ import styles from "../../styles/pages/Exercise/Exercise.module.css"
 
 interface IExercise {
     id: number,
-    name: string
+    name: string,
+    metricType: string
 }
 
 const Exercise = () => {
@@ -19,7 +20,7 @@ const Exercise = () => {
     const [dataToShow, setDataToShow] = useState<IExercise[]>([]);
     const [showRemarkMenu, setShowRemarkMenu] = useState(false);
     const [showForm, setShowForm] = useState(false);
-    const [editObject, setEditObject] = useState<IExercise>({id: 0, name:""})
+    const [editObject, setEditObject] = useState<IExercise>({id: 0, name:"", metricType: ""})
 
     useEffect(() => {
         const getData = async () => {
@@ -85,9 +86,9 @@ const Exercise = () => {
       }
     }
 
-    const getEditObj = (id: number, name: string) => {
+    const getEditObj = (id: number, name: string, metricType: string) => {
       setShowRemarkMenu(true)
-      setEditObject({id: id, name: name})
+      setEditObject({id: id, name: name, metricType: metricType})
       console.log(id)
     }
 
@@ -96,17 +97,18 @@ const Exercise = () => {
 
     const addfirstExercise = (<div style={{marginTop: "4rem"}}>Create first Exercise ...</div>)
     const exercises = dataToShow.map((item: IExercise) => 
-    <div className={styles.exercise} key={item.id} onClick={()=>{getEditObj(item.id, item.name)}}>
+    <div className={styles.exercise} key={item.id} onClick={()=>{getEditObj(item.id, item.name, item.metricType)}}>
         <div className={styles["container-items"]}>
-          <div><span> {item.name}</span></div>   
+          <div className={styles.item}>
+            <div>{item.name}</div>
+            <div className={styles.metrictype}>type: {item.metricType}</div>
+          </div>
         </div>
     </div>)
 
     return (
-      <>
-        
-        <div className={styles.container}>
-            
+      <>  
+        <div className={styles.container}>    
             <div className={styles.wrapper}>
                 <Header/>
                 <div className={styles.exercises}>Exercises</div>

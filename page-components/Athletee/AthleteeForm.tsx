@@ -11,12 +11,11 @@ interface AthleteeProps {
 }
 
 interface AthleteePost {
-  id: string,
+  id: number,
   firstName: string,
   lastName: string,
-  birthDate: string,
+  birthDate: Date,
   image: string,
-  searchColumn: string
 }
 
 const AthleteeForm: React.FC<AthleteeProps> = (props) => {
@@ -25,12 +24,13 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
     const [lastName, SetLastName] = useState("");
     const [birthDate, SetBirthDate] = useState("");
     const [imageString, SetImage] = useState("");
+    const [success, setSuccess] = useState("");
      
     const client = axios.create({
       baseURL: "https://localhost:7104/api/Athletee" 
     });
 
-    const AddPost = (firstName: string, lastName: string, birthDate: string, image: string) => {
+    const AddPost = (firstName: string, lastName: string, birthDate: Date, image: string) => {
       client
          .post('', {
             FirstName: firstName,
@@ -40,7 +40,12 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
          })
          .then((response) => {
             console.log(response.data)
-            props.GetPost(response.data)
+            props.GetPost(response.data.result)
+            setSuccess("Success");
+            setTimeout(() => {
+            setSuccess("");
+            props.ShowForm(false)
+            }, 2000);
          }).catch((error) => {
           console.log(error);
        });
@@ -62,17 +67,22 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
       }
     }
 
+    const dateStrToDate = (date:string):Date => {
+
+      let dat = new Date(date)
+      return dat;
+    }
+
     const FormHandler = (event: any) =>{
         
       event.preventDefault();
       
-      AddPost(firstName, lastName, birthDate, imageString);
+      AddPost(firstName, lastName, dateStrToDate(birthDate), imageString);
 
       SetFirstName("");
       SetLastName("");
       SetBirthDate("");
       SetImage("");
-      props.ShowForm(false)
     }
 
     return (
@@ -116,6 +126,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
               <button className={styles.button} type="button" onClick={CancelButtonHandler}> Cancel</button>
               <button className={styles.button} type="submit">Save</button>
             </div>
+            <div className={styles.success}>{success}</div>
           </form>
 
         </div>

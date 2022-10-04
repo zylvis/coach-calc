@@ -11,7 +11,7 @@ interface IExercise {
 }
 interface IFormProps{
     showFormHandler: (show: boolean) => void;
-    getPost: (obj: {id: number, name: string}) => void
+    getPost: (obj: {id: number, name: string, metricType: string}) => void
 }
 
 const ExerciseForm = (props: IFormProps) => {
@@ -49,7 +49,7 @@ const ExerciseForm = (props: IFormProps) => {
               errors.name = "Required"
           }
           if (!values.metricType){
-            errors.metricType = "Choose one option"
+            errors.metricType = "Choose Number or Time"
         }
   
           return errors;
