@@ -3,6 +3,7 @@ import styles from "../../styles/page-components/Athletee/AthleteeForm.module.cs
 import axios from "axios"
 import ConvertToBase64 from "../../Helpers/ConvertAndResizeToBase64"
 import Modal from "../../components/Modal";
+import DateStrToDate from "../../Helpers/DateStrToDate"
 
 interface AthleteeProps {
 
@@ -68,16 +69,11 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
       }
     }
 
-    const dateStrToDate = (date:string):Date => {
-      let dat = new Date(date)
-      return dat;
-    }
-
     const FormHandler = (event: any) =>{
-        
+      
       event.preventDefault();
       
-      AddPost(firstName, lastName, dateStrToDate(birthDate), imageString);
+      AddPost(firstName, lastName, DateStrToDate(birthDate), imageString);
 
       SetFirstName("");
       SetLastName("");

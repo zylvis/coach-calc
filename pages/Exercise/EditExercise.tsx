@@ -29,7 +29,7 @@ const EditExercise = () => {
         axios.put(`https://localhost:7104/api/Exercise/${obj.id}`, obj)
         .then(response => {
             console.log(response.data)
-                        setSuccess("Success");
+            setSuccess("Success");
             setTimeout(() => {
                 setSuccess("");
                 router.push("/Exercise")

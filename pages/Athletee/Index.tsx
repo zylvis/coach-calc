@@ -7,6 +7,7 @@ import Footer from "../../page-components/Athletee/Footer"
 import styles from "../../styles/pages/Athletee/Athletee.module.css"
 import Menu from "../../page-components/Athletee/Menu";
 import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
+import AthleteeEditForm from "../../page-components/Athletee/AthleteeEditForm";
 
 interface IAthletee {
   id: number,
@@ -20,6 +21,7 @@ const Athletee: NextPage = () => {
     
     const [showForm, setShowForm] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
+    const [showEditForm, setShowEditForm] = useState(false);
     const [data, setData] = useState<IAthletee[]>([]);
     const [dataToShow, setDataToShow] = useState<IAthletee[]>([]);
     const [athleteeObj, setAthleteeObj] = useState({} as IAthletee)
@@ -44,7 +46,7 @@ const Athletee: NextPage = () => {
         };
         getData();
 
-      }, []);
+      }, [showEditForm]);
  
 
     const CreateClickHandler = () =>{
@@ -68,6 +70,7 @@ const Athletee: NextPage = () => {
     const onAthleteeClick = (item: IAthletee) => {
       setShowMenu(true)
       setAthleteeObj(item)
+      localStorage.setItem('athleteeObj', JSON.stringify(item));
     }
 
     const menuHandler = (show: boolean, action: string) =>{
@@ -84,12 +87,20 @@ const Athletee: NextPage = () => {
           )
         }
       }
+      if(action=="edit"){
+        setShowEditForm(true)
+      }
     }
 
-
+    const editFormHandler = (show: boolean) =>{
+      setShowEditForm(show);
+      setShowMenu(true);
+    }
 
     const objFormProps = {ShowForm: GetCancelForm, GetPost: GetPost};
-    const objMenuProps = {menuHandler: menuHandler}
+    const objMenuProps = {menuHandler: menuHandler};
+    const objEditMenuPrps = {editFormHandler: editFormHandler}
+
 
     const addfirstAthletee = <div style={{marginTop: "4rem"}}>Create first Athletee ...</div>
  
@@ -137,6 +148,7 @@ const Athletee: NextPage = () => {
         {athletee}
         {showForm && athleteeForm}
         {showMenu && <Menu {...objMenuProps}/>}
+        {showEditForm && <AthleteeEditForm {... objEditMenuPrps}/>}
       </>
     )
 }

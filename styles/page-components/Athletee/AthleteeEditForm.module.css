@@ -1,0 +1,58 @@
+.container{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom:0;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(0deg, #909090 0%, #F6F2F2 75%);
+
+}
+
+.formcontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.button{
+    margin: 1rem;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    border: 0px;
+    background-color: #97FB57;
+    color: #121212;
+    flex-wrap: wrap;
+    margin-left: auto;
+}
+
+.upload-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25vh;
+    width: 25vh;
+    border-radius: 50%;
+    background-color: #909090;
+    background-image: url('~/public/Avatar.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.upload-label{
+    margin-top: 15vh;
+    padding: 0.5vh 3vh;
+    border-radius: 0.5rem;
+    background-color: #97FB57;
+}
+.success{
+    height: 2vh;
+    font-size: 2vh;
+    color: #97FB57;
+}

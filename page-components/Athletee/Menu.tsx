@@ -12,7 +12,7 @@ const Menu =(props:IMenuProps) =>{
             <div className={styles.container}>
                 <div className={styles.menu}>
                     <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "back")}>&lt;</div>
-                    <div className={styles.menuitem}>Edit</div>
+                    <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "edit")}>Edit</div>
                     <div className={styles.menuitem}>Results</div>
                     <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "delete")}>Delete</div>
                 </div>

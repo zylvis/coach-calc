@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import {Field, useFormik, Form, Formik, FormikProps} from "formik"
+import {useFormik} from "formik";
 import { useState } from "react";
 import Modal from "../../components/Modal";
 import styles from "../../styles/page-components/Exercise/ExerciseForm.module.css"
