@@ -1,0 +1,55 @@
+.container{
+    position: absolute;
+    display: flex;
+   justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 95vh;
+    width: 95vw;
+    padding: 0.5rem;
+    background: linear-gradient(0deg, #909090 0%, #F6F2F2 75%);
+}
+
+.button{
+    margin: 1rem;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    border: 0px;
+    background-color: #97FB57;
+    color: #121212;
+    flex-wrap: wrap;
+    margin-left: auto;
+}
+.formcontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.error{
+    height: 2vh;
+    font-size: 2vh;
+    color: rgb(219, 98, 98);
+}
+.select{
+    width: 50vw;
+    height: 4vh;
+    border-radius: 5px;
+    text-align: center;
+}
+.label{
+    
+    margin-top: 2vh;
+}
+.metricinput{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    text-align: center;
+}

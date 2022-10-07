@@ -8,6 +8,7 @@ import styles from "../../styles/pages/Athletee/Athletee.module.css"
 import Menu from "../../page-components/Athletee/Menu";
 import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
 import AthleteeEditForm from "../../page-components/Athletee/AthleteeEditForm";
+import AddResults from "../../page-components/Athletee/AddResults";
 
 interface IAthletee {
   id: number,
@@ -22,6 +23,7 @@ const Athletee: NextPage = () => {
     const [showForm, setShowForm] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
+    const [showAddResults, setShowAddResults] = useState(false)
     const [data, setData] = useState<IAthletee[]>([]);
     const [dataToShow, setDataToShow] = useState<IAthletee[]>([]);
     const [athleteeObj, setAthleteeObj] = useState({} as IAthletee)
@@ -64,7 +66,9 @@ const Athletee: NextPage = () => {
     }
 
     const searchHandler = (event: any) => {      
-      setDataToShow(data.filter(item => item.firstName+item.lastName.toLowerCase().includes(event.target.value.toLowerCase())));
+      setDataToShow(data.filter(item => item.firstName.toLowerCase().includes(event.target.value.toLowerCase())
+      || item.lastName.toLowerCase().includes(event.target.value.toLowerCase())
+      ));
     }
 
     const onAthleteeClick = (item: IAthletee) => {
@@ -96,10 +100,14 @@ const Athletee: NextPage = () => {
       setShowEditForm(show);
       setShowMenu(true);
     }
+    const addResultsHandler = (show: boolean) =>{
+      setShowAddResults(show)
+    }
 
     const objFormProps = {ShowForm: GetCancelForm, GetPost: GetPost};
     const objMenuProps = {menuHandler: menuHandler};
     const objEditMenuPrps = {editFormHandler: editFormHandler}
+    const objAddResultsProps = {addResultsHandler: addResultsHandler}
 
 
     const addfirstAthletee = <div style={{marginTop: "4rem"}}>Create first Athletee ...</div>
@@ -111,11 +119,10 @@ const Athletee: NextPage = () => {
         <div className={styles.athletee} onClick={()=>{onAthleteeClick(item)}}>
           <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
           <div className={styles["container-items"]}>
-            <div><span><b>Name:</b> {item.firstName} {item.lastName}</span></div>
-            <div><b>Age:</b> {ConvertBirthDateToAge(item.birthDate)}</div>     
+           <div>{item.firstName} {item.lastName}</div>  
           </div>
         </div>
-        <button className={styles.addresults}>Add Results</button>
+        <button className={styles.addresults} onClick={()=>{setShowAddResults(true); localStorage.setItem('athleteeObj', JSON.stringify(item))}}>Add Results</button>
       </div>)
 
 
@@ -144,11 +151,11 @@ const Athletee: NextPage = () => {
 
     return(
       <>
-       
         {athletee}
         {showForm && athleteeForm}
         {showMenu && <Menu {...objMenuProps}/>}
         {showEditForm && <AthleteeEditForm {... objEditMenuPrps}/>}
+        {showAddResults && <AddResults {...objAddResultsProps}/>}
       </>
     )
 }

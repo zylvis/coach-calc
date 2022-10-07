@@ -72,7 +72,7 @@ const AthleteeEditForm = (props: IEditProps) => {
         if (values.firstName == "") {
             errors.firstName = "Required";
         }
-        if (!values.firstName) {
+        if (!values.lastName) {
             errors.lastName = "Required";
         }
         return errors; 
