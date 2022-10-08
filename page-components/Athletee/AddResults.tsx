@@ -3,6 +3,7 @@ import {useFormik} from "formik"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import Exercise from "../../pages/Exercise"
+import Modal from "../../components/Modal"
 
 interface IAddResultsProps{
     addResultsHandler: (show:boolean) => void
@@ -30,6 +31,8 @@ const AddResults =(props: IAddResultsProps) => {
 
     const [exercises, setExercises] = useState<IExercise[]>([])
     const [metricType, setMetricType] = useState("")
+    const [success, setSuccess] = useState("")
+
 
     const athleteeObj = JSON.parse(localStorage.getItem('athleteeObj') as string);
 
@@ -54,6 +57,26 @@ const AddResults =(props: IAddResultsProps) => {
 
     }, []);
 
+    const client = axios.create({
+        baseURL: "https://localhost:7104/api/Result" 
+      });
+
+    const addPost = (obj: IResult) => {
+        client
+           .post('', obj)
+           .then((response) => {
+              console.log(response.data)
+              setSuccess("Success");
+              setTimeout(() => {
+              setSuccess("");
+              props.addResultsHandler(false)
+              }, 2000);
+           }).catch((error) => {
+            alert(error.response.data.Message[0])
+            console.log(error);
+         });
+      };
+
     const handleMetricType = (id: string) => {
 
         const type: any = exercises.find(item => item.id === parseInt(id))
@@ -69,7 +92,7 @@ const AddResults =(props: IAddResultsProps) => {
         if (values.exerciseId == 0) {
             errors.exerciseId = "Please choose exercise";
         }
-        if (values.value == "00:00:00" || values.value == "0"){
+        if (values.value == "00:00:00" || values.value == "0" ||  values.value == ""){
             errors.value = "Please enter value"
         }
         if (values.date == "")
@@ -88,7 +111,9 @@ const AddResults =(props: IAddResultsProps) => {
         },
         validate,
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+            values.exerciseId = parseInt(values.exerciseId.toString())
+            alert(JSON.stringify(values));
+            addPost(values)
             setMetricType("")
             formik.resetForm();
         },
@@ -110,7 +135,7 @@ const AddResults =(props: IAddResultsProps) => {
     const inputNumber = <>
                         <label className={styles.label} htmlFor="value">Number</label>
                         <input
-                            className={styles.input}
+                            className={styles.inputnumber}
                             id="value"
                             name="value"
                             type="number"
@@ -120,53 +145,53 @@ const AddResults =(props: IAddResultsProps) => {
                         {formik.errors.value ? <div className={styles.error}>{formik.errors.value}</div> : <div className={styles.error}></div>}  
     </>
 
-    
-    console.log(metricType + "  " + athleteeObj.id) 
-    return(
-        <div className={styles.container}>
-            {athleteeObj.id}
-            <form className={styles.formcontainer} onSubmit={formik.handleSubmit}>
-                <div className={styles.image} style={athleteeObj.image.length !== 0 ? {backgroundImage: `url(${athleteeObj.image})`} : {backgroundImage: `url(./Avatar.png)`}}>  
-                </div>
+    return (
+        <>  
+            <Modal/>
+            <div className={styles.container}>
+                <form className={styles.formcontainer} onSubmit={formik.handleSubmit}>
+                    <div className={styles.image} style={athleteeObj.image.length !== 0 ? {backgroundImage: `url(${athleteeObj.image})`} : {backgroundImage: `url(./Avatar.png)`}}>  
+                    </div>
 
-                <select className={styles.select}
-                        name="exerciseId"
-                        id="exerciseId"
-                        onChange={(event)=>{formik.handleChange(event);handleMetricType(event.target.value)}}
-                        value={formik.values.exerciseId}
-                        >
-                    <option value="0" disabled>Choose exercise</option>
-                    {exercises.map((item) =>{
-                        return (
-                            <option value={item.id} key={item.id}>{item.name}</option>
-                        )
-                    })}
-                </select>
-                <div className={styles.metricinput}>
-                    {metricType=="Time" && inputTime}
-                    {metricType=="Number" && inputNumber}
-                </div>
+                    <select className={styles.select}
+                            name="exerciseId"
+                            id="exerciseId"
+                            onChange={(event)=>{formik.handleChange(event); handleMetricType(event.target.value)}}
+                            value={formik.values.exerciseId}
+                            >
+                        <option value="0" disabled>Choose exercise</option>
+                        {exercises.map((item) =>{
+                            return (
+                                <option value={item.id} key={item.id}>{item.name}</option>
+                            )
+                        })}
+                    </select>
+                    <div className={styles.metricinput}>
+                        {metricType=="Time" && inputTime}
+                        {metricType=="Number" && inputNumber}
+                    </div>
 
-                <label className={styles.label} htmlFor="date">Date</label>
-                <input
-                    className={styles.input}
-                    id="date"
-                    name="date"
-                    type="date"
-                    onChange={formik.handleChange}
-                    value={formik.values.date}
-                />
-                {formik.errors.date ? <div className={styles.error}>{formik.errors.date}</div> : <div className={styles.error}></div>}  
+                    <label className={styles.label} htmlFor="date">Date</label>
+                    <input
+                        className={styles.input}
+                        id="date"
+                        name="date"
+                        type="date"
+                        onChange={formik.handleChange}
+                        value={formik.values.date}
+                    />
+                    {formik.errors.date ? <div className={styles.error}>{formik.errors.date}</div> : <div className={styles.error}></div>}  
 
 
-                <div>
-                    <button className={styles.button} type="button" onClick={()=>props.addResultsHandler(false)}> Cancel</button>
-                    <button className={styles.button} type="submit">Save</button>
-                </div>
-                <div className={styles.success}>Success</div>
+                    <div>
+                        <button className={styles.button} type="button" onClick={()=>props.addResultsHandler(false)}> Cancel</button>
+                        <button className={styles.button} type="submit">Save</button>
+                    </div>
+                    <div className={styles.success}>{success}</div>
 
-            </form>
-        </div>
+                </form>
+            </div>
+        </>
     )
 }
 export default AddResults;

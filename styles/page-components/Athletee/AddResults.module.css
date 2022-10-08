@@ -5,7 +5,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 95vh;
+    height: 50vh;
     width: 95vw;
     padding: 0.5rem;
     background: linear-gradient(0deg, #909090 0%, #F6F2F2 75%);
@@ -52,4 +52,13 @@
     align-items: center;
     height: 10vh;
     text-align: center;
+}
+.inputnumber{
+    width: auto;
+    text-align: center;
+}
+.success{
+    height: 2vh;
+    font-size: 2vh;
+    color: #97FB57;
 }
