@@ -9,6 +9,7 @@ import Menu from "../../page-components/Athletee/Menu";
 import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
 import AthleteeEditForm from "../../page-components/Athletee/AthleteeEditForm";
 import AddResults from "../../page-components/Athletee/AddResults";
+import Results from "../../page-components/Athletee/Results";
 
 interface IAthletee {
   id: number,
@@ -24,6 +25,7 @@ const Athletee: NextPage = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
     const [showAddResults, setShowAddResults] = useState(false)
+    const [showResults, setShowResults] = useState(false)
     const [data, setData] = useState<IAthletee[]>([]);
     const [dataToShow, setDataToShow] = useState<IAthletee[]>([]);
     const [athleteeObj, setAthleteeObj] = useState({} as IAthletee)
@@ -94,6 +96,9 @@ const Athletee: NextPage = () => {
       if(action=="edit"){
         setShowEditForm(true)
       }
+      if(action=="results"){
+        setShowResults(true);
+      }
     }
 
     const editFormHandler = (show: boolean) =>{
@@ -104,11 +109,16 @@ const Athletee: NextPage = () => {
       setShowAddResults(show)
     }
 
+    const resultsHandler = (show: boolean) => {
+      setShowResults(show)
+      setShowMenu(true)
+    }
+
     const objFormProps = {ShowForm: GetCancelForm, GetPost: GetPost};
     const objMenuProps = {menuHandler: menuHandler};
     const objEditMenuPrps = {editFormHandler: editFormHandler}
     const objAddResultsProps = {addResultsHandler: addResultsHandler}
-
+    const objResultsProps = {resultsHandler: resultsHandler}
 
     const addfirstAthletee = <div style={{marginTop: "4rem"}}>Create first Athletee ...</div>
  
@@ -156,6 +166,7 @@ const Athletee: NextPage = () => {
         {showMenu && <Menu {...objMenuProps}/>}
         {showEditForm && <AthleteeEditForm {... objEditMenuPrps}/>}
         {showAddResults && <AddResults {...objAddResultsProps}/>}
+        {showResults && <Results {...objResultsProps }/>}
       </>
     )
 }
