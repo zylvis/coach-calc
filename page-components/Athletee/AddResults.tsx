@@ -72,8 +72,9 @@ const AddResults =(props: IAddResultsProps) => {
               props.addResultsHandler(false)
               }, 2000);
            }).catch((error) => {
-            alert(error.response.data.Message[0])
             console.log(error);
+            alert(error.response.data.Message[0])
+            
          });
       };
 
@@ -82,6 +83,15 @@ const AddResults =(props: IAddResultsProps) => {
         const type: any = exercises.find(item => item.id === parseInt(id))
         setMetricType(type.metricType)
         formik.values.value =  type.metricType=="Time"? "00:00:00" : "0"
+    }
+    const handleTimeInput = (time: string): string => {
+
+        const parts = time.split(/:/);
+        const timePeriodMillis = (parseInt(parts[0], 10) * 60 * 60 * 1000) +
+                            (parseInt(parts[1], 10) * 60 * 1000) + 
+                            Math.round(parseFloat(parts[2]) * 1000)                
+                            console.log(timePeriodMillis.toString())
+        return timePeriodMillis.toString()
     }
 
     const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
@@ -104,29 +114,33 @@ const AddResults =(props: IAddResultsProps) => {
     const formik = useFormik({
         initialValues: {
             exerciseId: 0,
-            athleteeId: athleteeObj.id,
+            athleteeId: athleteeObj.id as number,
             value: "00:00:00",
             date: ""
 
         },
         validate,
         onSubmit: (values) => {
-            values.exerciseId = parseInt(values.exerciseId.toString())
+            values.exerciseId = parseInt(values.exerciseId.toString());
+            if(metricType == "Time"){
+                values.value = handleTimeInput(values.value)
+            }
+            values.value = values.value.toString();
             alert(JSON.stringify(values));
-            addPost(values)
-            setMetricType("")
+            addPost(values);
+            setMetricType("");
             formik.resetForm();
         },
     });
 
     const inputTime = <>
-                        <label className={styles.label} htmlFor="value">Time(hh:mm:ss)</label>
+                        <label className={styles.label} htmlFor="value">Time(hh:mm:ss:ms)</label>
                         <input
                             className={styles.input}
                             id="value"
                             name="value"
                             type="time"
-                            step="1"
+                            step="0.01"
                             onChange={formik.handleChange}
                             value={formik.values.value}
                         />

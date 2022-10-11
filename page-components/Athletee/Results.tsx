@@ -4,6 +4,9 @@ import Modal from "../../components/Modal";
 import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
 import FormatDate from "../../Helpers/FormatDate";
 import styles from "../../styles/page-components/Athletee/Results.module.css"
+import ITrash from "../../icons/ITrash.svg"
+import MilSecStringToTimeString from "../../Helpers/MilSecStringToTmeString";
+import { MiddlewareNotFoundError } from "next/dist/shared/lib/utils";
 
 interface IAthletee{
     id: number,
@@ -14,17 +17,32 @@ interface IAthletee{
 }
 interface IResults {
     id: number,
-    athleteeId: number,
-    exerciseId: number,
-    date: string,
-    name: string
+    athleteeId?: number,
+    exerciseId?: number,
+    date?: string,
+    name?: string,
+    value: string,
+    metricType?: string
 }
 interface IResultsProps{
     resultsHandler: (show: boolean) => void
 }
+interface IDictinctExercise{
+    exerciseId?: number,
+    name?: string,
+    metricType?: string
+}
+
+
 const Results = (props: IResultsProps) => {
 
-    const[dataToShow, setDataToShow] = useState<IResults[]>()
+    const[dataToShow, setDataToShow] = useState<IResults[]>([])
+    const[data, setData] = useState<IResults[]>([])
+    const[distinctExercises, setDistinctExercises] = useState<IDictinctExercise[]>([]);
+    const[exerciseId, setExerciseId] = useState(0);
+    const[averageValue, setAverageValue] = useState("");
+    const[maxValue, setMaxValue] = useState("");
+    const[minValue, setMinValue] = useState("")
 
     const athleteeObj : IAthletee = JSON.parse(localStorage.getItem('athleteeObj') as string);
     athleteeObj.birthDate = FormatDate(athleteeObj.birthDate);
@@ -35,8 +53,22 @@ const Results = (props: IResultsProps) => {
             const response = await axios.get(
               "https://localhost:7104/api/Result"
             );
-            setDataToShow(response.data.result.filter((item : IResults) => item.athleteeId == athleteeObj.id));
+
+            const responseResult = response.data.result as IResults[]
+            setDataToShow(responseResult.filter((item : IResults) => item.athleteeId == athleteeObj.id));
+            setData(responseResult.filter((item : IResults) => item.athleteeId == athleteeObj.id))
+
+            const distinct: IDictinctExercise[] = Array.from(new Set(responseResult.map((s:IResults) => s.exerciseId))).map(exerciseId =>{
+                return{
+                    exerciseId: exerciseId,
+                    name: responseResult.find(s => s.exerciseId == exerciseId)?.name,
+                    metricType: responseResult.find(s => s.exerciseId == exerciseId)?.metricType
+                }
+            });
+            setDistinctExercises(distinct);
+
             console.log(response.data);
+
           } catch (err: any) {
             console.log(err)
             alert(err.message)
@@ -47,8 +79,73 @@ const Results = (props: IResultsProps) => {
         getData();
 
       }, []);
+
+    const handleDelete =(id:number) => {
+        if(confirm("Delete Result?")){
+            axios.delete(`https://localhost:7104/api/Result/${id}`)  
+            .then(res => {  
+            console.log(res.data); 
+            const posts = dataToShow.filter(item => item.id !== id);  
+            setDataToShow(posts);  
+            }).catch( error =>
+            console.log(error)
+            )
+        }
+        
+    }
+
+    const handleSelectExercise = (event: any) => {
+
+        let metricType = distinctExercises.find(x => x.exerciseId == event.target.value)?.metricType
+        setExerciseId(event.target.value);
+        setDataToShow(data?.filter(x => x.exerciseId == event.target.value));
+        const tempData = data?.filter(x => x.exerciseId == event.target.value);
+        if (event.target.value == "all"){
+            setDataToShow(data)
+            metricType = "";
+        }
+        //Average value
+        let temp = 0
+        tempData.forEach(
+            x => temp += parseInt(x.value) 
+        )
+        metricType == "Time" ? setAverageValue(MilSecStringToTimeString(Math.round(temp / tempData.length).toString())) :
+                                setAverageValue(Math.round(temp / tempData.length).toString())
+        
+        //Max value
+        let max = 0;
+        tempData.forEach(
+            x => {
+                if (parseInt(x.value) > max){
+                    max = parseInt(x.value)
+                }
+            }
+        )
+        metricType == "Time" ? setMaxValue(MilSecStringToTimeString(max.toString())) : setMaxValue(max.toString())
+        
+        //Min value
+        let min = Number.MAX_VALUE;
+        tempData.forEach(
+            x => {
+                if (parseInt(x.value) < min){
+                    min = parseInt(x.value)
+                }
+            }
+        )
+        metricType == "Time" ? setMinValue(MilSecStringToTimeString(min.toString())) : setMinValue(min.toString())
+
+        if(metricType == ""){
+            setAverageValue("")
+            setMinValue("")
+            setMaxValue("")
+        }
+
+    
+    console.log(event.target.value);
+    }
  
     console.log(dataToShow)
+    console.log(distinctExercises)
     return (
         <div>
             <Modal/>
@@ -59,13 +156,57 @@ const Results = (props: IResultsProps) => {
                 <div className={styles.detailscontainer}>
                     <div className={styles.item}>
                         <div className={styles.image}
-                                style={ athleteeObj.image.length !== 0 ? {backgroundImage: `url(${athleteeObj.image})`} : {backgroundImage: `url(./Avatar.png)`}}>  
+                            style={ athleteeObj.image.length !== 0 ? {backgroundImage: `url(${athleteeObj.image})`} : {backgroundImage: `url(./Avatar.png)`}}>  
                         </div>
-                        <div>({ConvertBirthDateToAge(athleteeObj.birthDate)})</div>
-                        <div>{athleteeObj.firstName} {athleteeObj.lastName}</div>
                     </div>
-                    
+                </div>
+                <div className={styles.selectcontainer}>
+                    <div>Select Exercise</div>
+                    <select value={exerciseId} onChange={handleSelectExercise}>
+                        <option value="all">All Exercises</option>
+                                {distinctExercises?.map((item: IDictinctExercise) =>{
+                                    return (
+                                
+                                        <option value={item.exerciseId} key={item.exerciseId}>{item.name}</option>
+                                    )
+                                })}
+                    </select>
+                    <div className={styles.statscontainer}>
+                        <div className={styles.statsitemscontainer}>
+                            <div className={styles.statsitem}><b>Average:</b></div> 
+                            <div className={styles.statsitem}>{averageValue}</div>
+                        </div>
+                        <div className={styles.statsitemscontainer}>
+                            <div className={styles.statsitem}><b>Max:</b></div> 
+                            <div className={styles.statsitem}>{maxValue}</div>
+                        </div>
+                        <div className={styles.statsitemscontainer}>
+                            <div className={styles.statsitem}><b>Min:</b></div> 
+                            <div className={styles.statsitem}>{minValue}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div className={styles.itemscontainer}>
+                    <div className={styles.items}><b>Exercise</b></div>
+                    <div className={styles.items}><b>Value</b></div>
+                    <div className={styles.items}><b>Date</b></div>
+                    <div></div>
+                </div>
 
+                <div className={styles.rendercontainer}>
+                
+                    {dataToShow?.map((item) => {return (
+                        
+                            <div className={styles.itemscontainer} key={item.id}>
+                                <div className={styles.items}>{item.name}</div>
+                                <div className={styles.items}>{item.metricType == "Number" ? item.value : MilSecStringToTimeString(item.value)}</div> 
+                                <div className={styles.items}>{item.date}</div>
+                                <div className={styles.trash} onClick={()=>handleDelete(item.id)}><ITrash fill={'rgb(219, 98, 98)'}/></div>
+                            </div>
+                        )
+                        
+                    })}
                 </div>
             </div>
         </div>
