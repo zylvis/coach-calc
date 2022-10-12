@@ -199,7 +199,7 @@ const Results = (props: IResultsProps) => {
                      <ChartLine {...objChartProps}/>
                 </div>
                
-                <div className={styles.itemscontainer}>
+                <div className={styles.itemslabelcontainer}>
                     <div className={styles.items}><b>Exercise</b></div>
                     <div className={styles.items}><b>Value</b></div>
                     <div className={styles.items}><b>Date</b></div>

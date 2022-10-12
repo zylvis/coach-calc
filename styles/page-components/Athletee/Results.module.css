@@ -78,6 +78,13 @@
     overflow-y: auto;
     font-size: 10px;
 }
+.itemslabelcontainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 2vh;
+}
 .itemscontainer{
     display: flex;
     flex-direction: row;
