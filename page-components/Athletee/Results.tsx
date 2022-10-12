@@ -44,6 +44,7 @@ const Results = (props: IResultsProps) => {
     const[averageValue, setAverageValue] = useState("");
     const[maxValue, setMaxValue] = useState("");
     const[minValue, setMinValue] = useState("")
+    const[metricType, setMetricType] = useState("")
 
     const athleteeObj : IAthletee = JSON.parse(localStorage.getItem('athleteeObj') as string);
     athleteeObj.birthDate = FormatDate(athleteeObj.birthDate);
@@ -56,19 +57,21 @@ const Results = (props: IResultsProps) => {
             );
 
             const responseResult = response.data.result as IResults[]
-            setDataToShow(responseResult.filter((item : IResults) => item.athleteeId == athleteeObj.id));
-            setData(responseResult.filter((item : IResults) => item.athleteeId == athleteeObj.id))
+            const resonseResultByAthletee = responseResult.filter((item : IResults) => item.athleteeId == athleteeObj.id);
+            setDataToShow(resonseResultByAthletee);
+            setData(resonseResultByAthletee)
 
-            const distinct: IDictinctExercise[] = Array.from(new Set(responseResult.map((s:IResults) => s.exerciseId))).map(exerciseId =>{
+            const distinct: IDictinctExercise[] = Array.from(new Set(resonseResultByAthletee.map((s:IResults) => s.exerciseId))).map(exerciseId =>{
                 return{
                     exerciseId: exerciseId,
-                    name: responseResult.find(s => s.exerciseId == exerciseId)?.name,
-                    metricType: responseResult.find(s => s.exerciseId == exerciseId)?.metricType
+                    name: resonseResultByAthletee.find(s => s.exerciseId == exerciseId)?.name,
+                    metricType: resonseResultByAthletee.find(s => s.exerciseId == exerciseId)?.metricType
                 }
             });
             setDistinctExercises(distinct);
 
             console.log(response.data);
+
 
           } catch (err: any) {
             console.log(err)
@@ -98,12 +101,14 @@ const Results = (props: IResultsProps) => {
     const handleSelectExercise = (event: any) => {
 
         let metricType = distinctExercises.find(x => x.exerciseId == event.target.value)?.metricType
+        setMetricType(metricType as string)
         setExerciseId(event.target.value);
         setDataToShow(data?.filter(x => x.exerciseId == event.target.value));
         const tempData = data?.filter(x => x.exerciseId == event.target.value);
         if (event.target.value == "all"){
             setDataToShow(data)
             metricType = "";
+            setMetricType(metricType)
         }
         //Average value
         let temp = 0
@@ -147,7 +152,7 @@ const Results = (props: IResultsProps) => {
  
     console.log(dataToShow)
     console.log(distinctExercises)
-    const objChartProps = {dataToShow: dataToShow}
+    const objChartProps = {dataToShow: dataToShow, metricType: metricType}
 
     return (
         <div>
@@ -190,7 +195,10 @@ const Results = (props: IResultsProps) => {
                         </div>
                     </div>
                 </div>
-                <ChartLine {...objChartProps}/>
+                <div className={styles.chart}>
+                     <ChartLine {...objChartProps}/>
+                </div>
+               
                 <div className={styles.itemscontainer}>
                     <div className={styles.items}><b>Exercise</b></div>
                     <div className={styles.items}><b>Value</b></div>

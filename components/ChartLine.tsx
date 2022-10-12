@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import MilSecStringToTimeString from "../Helpers/MilSecStringToTmeString";
 import moment from "moment";
+
 interface IChartProps{
-  dataToShow: IResults[]
+  dataToShow: IResults[],
+  metricType: string
 }
 interface IResults {
   id: number,
@@ -17,10 +19,17 @@ interface IResults {
 
 const ChartLine = (props: IChartProps) => {
 
-  const values = props.dataToShow.map(x => parseInt(x.value))
+  const [label, setLabel] = useState("Select exercise to see results")
+
+  let values: number[] = [];
+  let labels: string[] = [];
+  props.metricType != "" ?  values = props.dataToShow.map(x => parseInt(x.value)) : values = []
+  props.metricType != ""? labels = props.dataToShow.map(x => x.date as string) : labels = []
+
   console.log(values)
   console.log(new Date())
-  const labels = props.dataToShow.map(x => x.date)
+  console.log(props.metricType)
+  
   const canvasEl: any = useRef(null);
 
   const colors = {
@@ -50,7 +59,7 @@ const ChartLine = (props: IChartProps) => {
       datasets: [
         {
           backgroundColor: gradient,
-          label: "My First Dataset",
+          label: label,
           data: values,
           fill: true,
           borderWidth: 2,
@@ -67,26 +76,48 @@ const ChartLine = (props: IChartProps) => {
       options: {
         plugins: {
           tooltip: {
-              callbacks: {
-                  label: function(context: { dataset: { label: string; }; parsed: { y: number | bigint | null; }; }) {
-                      let label = context.dataset.label || '';
+            callbacks: {
+              label: function(context: { dataset: { label: string; }; parsed: { y: number | bigint | null; }; }) {
+                let label = context.dataset.label || '';
 
-                      if (label) {
-                          label += ': ';
-                      }
-                      if (context.parsed.y !== null) {
-                          label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-                      }
-                      return label+MilSecStringToTimeString(context.parsed.y?.toString());
-                  }
+                if (label) {
+                    label += ': ';
+                }
+                if (context.parsed.y !== null) {
+                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                }
+
+                if (props.metricType == "Time"){
+                  return props.metricType + ": " + MilSecStringToTimeString(context.parsed.y?.toString() as string);
+                } else if (props.metricType == "Number"){
+                  return props.metricType + ": " + context.parsed.y
+                }
               }
+            }
           }
         },
         scales:{
+          x:{
+            grid: {
+              display: false,
+            }
+          },
           y:{
+            grid: {
+              display: false,
+            },
             ticks: {
               callback: function(value: any, index: any, ticks: any){
+                if (props.metricType == "Time"){
+                  setLabel("Time")
                 return MilSecStringToTimeString(value.toString())
+              } else if (props.metricType == "Number") {
+                setLabel("Number")
+                return value
+              } else {
+                setLabel("Select exercise to see results")
+              }
+
               }
             }
           }
@@ -95,6 +126,9 @@ const ChartLine = (props: IChartProps) => {
       }
     };
     const myLineChart = new Chart(ctx, config as any);
+    myLineChart.options.responsive = false;
+    myLineChart.options.maintainAspectRatio = false;
+    Chart.defaults.font.size = 10;
 
     return function cleanup() {
       myLineChart.destroy();
@@ -102,9 +136,8 @@ const ChartLine = (props: IChartProps) => {
   });
 
   return (
-    <div>
-      <canvas id="myChart" ref={canvasEl} height="200" />
-    </div>
+      <canvas id="myChart" ref={canvasEl}/>
+
   );
 }
 export default ChartLine;

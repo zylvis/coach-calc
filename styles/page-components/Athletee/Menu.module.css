@@ -27,9 +27,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-top: 2vh;
-    gap: 4vh;
+    margin-top: 0vh;
+    gap: 2vh;
+    height: 100%;
+    overflow-y: scroll;
+    font-size: 2vh;;
 }
 .detailsitemcontainer{
     display: flex;
@@ -38,6 +40,7 @@
     padding: 1vh;
     border-radius: 5px;;
     background-color: #909090;
+   
 }
 .item{
     display: flex;
@@ -46,16 +49,17 @@
     width: 8rem;
     gap: 1vh;
     background-color: #F6F2F2;
-    padding: 1vh;;
+    padding: 0vh;;
     border-radius: 0.5rem;;
 }
 .image{
     display: flex;
-    height: 10vh;
-    width: 10vh;
+    height: 7vh;
+    width: 7vh;
     border: 1px solid #97FB57;
     border-radius: 50%;
-    padding: 4vh;
+    margin-top: 2vh;
+    padding: 1vh;
     background-size: cover;
     background-position: center;
 }
