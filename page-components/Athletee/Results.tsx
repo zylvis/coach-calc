@@ -7,6 +7,7 @@ import styles from "../../styles/page-components/Athletee/Results.module.css"
 import ITrash from "../../icons/ITrash.svg"
 import MilSecStringToTimeString from "../../Helpers/MilSecStringToTmeString";
 import { MiddlewareNotFoundError } from "next/dist/shared/lib/utils";
+import ChartLine from "../../components/ChartLine";
 
 interface IAthletee{
     id: number,
@@ -146,6 +147,8 @@ const Results = (props: IResultsProps) => {
  
     console.log(dataToShow)
     console.log(distinctExercises)
+    const objChartProps = {dataToShow: dataToShow}
+
     return (
         <div>
             <Modal/>
@@ -160,17 +163,18 @@ const Results = (props: IResultsProps) => {
                         </div>
                     </div>
                 </div>
-                <div className={styles.selectcontainer}>
-                    <div>Select Exercise</div>
-                    <select value={exerciseId} onChange={handleSelectExercise}>
-                        <option value="all">All Exercises</option>
-                                {distinctExercises?.map((item: IDictinctExercise) =>{
-                                    return (
-                                
-                                        <option value={item.exerciseId} key={item.exerciseId}>{item.name}</option>
-                                    )
-                                })}
-                    </select>
+                <div className={styles.selectstatscontainer}>
+                    <div className={styles.selectcontainer}>
+                        <div><b>Select Exercise:</b></div>
+                        <select  className={styles.option} value={exerciseId} onChange={handleSelectExercise}>
+                            <option value="all">All Exercises</option>
+                                    {distinctExercises?.map((item: IDictinctExercise) =>{
+                                        return (                                
+                                            <option value={item.exerciseId} key={item.exerciseId}>{item.name}</option>
+                                        )
+                                    })}
+                        </select>
+                    </div>
                     <div className={styles.statscontainer}>
                         <div className={styles.statsitemscontainer}>
                             <div className={styles.statsitem}><b>Average:</b></div> 
@@ -186,13 +190,14 @@ const Results = (props: IResultsProps) => {
                         </div>
                     </div>
                 </div>
-                
+                <ChartLine {...objChartProps}/>
                 <div className={styles.itemscontainer}>
                     <div className={styles.items}><b>Exercise</b></div>
                     <div className={styles.items}><b>Value</b></div>
                     <div className={styles.items}><b>Date</b></div>
                     <div></div>
                 </div>
+                
 
                 <div className={styles.rendercontainer}>
                 

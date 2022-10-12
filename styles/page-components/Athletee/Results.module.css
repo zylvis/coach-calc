@@ -65,7 +65,7 @@
 .rendercontainer{
     position: relative;
     display: flex;
-    height: 60vh;;
+    height: 25vh;;
     width: 95vw;
     flex-direction: column;
     margin-top: 2vh;;
@@ -88,20 +88,37 @@
 color: #c06363;
     width: 0.7rem;
 }
-.selectcontainer{
+.selectstatscontainer{
     display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 0.75rem;
     padding: 0.5rem;;
-   
-
+}
+.selectcontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+}
+.option{
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 2px;
+    border: none;
+    background-color:#97FB57;
+    color: #121212;
 }
 .statscontainer{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-size: 10px;
-    width: 50vw; padding: 0.5rem;;
+    width: 50vw;
+    padding: 0.5rem;;
 
 }
 .statsitemscontainer{

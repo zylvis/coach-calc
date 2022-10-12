@@ -27,7 +27,6 @@ const Menu =(props:IMenuProps) =>{
                     <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "back")}>&lt;</div>
                     <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "edit")}>Edit</div>
                     <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "results")}>Results</div>
-                    <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "delete")}>Delete</div>
                 </div>
                 <div className={styles.detailscontainer}>
 
@@ -77,6 +76,7 @@ const Menu =(props:IMenuProps) =>{
                             <div>tokyao</div>
                         </div>
                     </div>
+                    <div style={{"color": "rgb(219, 98, 98)"}} onClick={()=>props.menuHandler(false, "delete")}>Delete</div>
 
                 </div>
             </div>
