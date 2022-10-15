@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import MilSecStringToTimeString from "../Helpers/MilSecStringToTmeString";
-import moment from "moment";
 
 interface IChartProps{
   dataToShow: IResults[],
@@ -24,7 +23,7 @@ const ChartLine = (props: IChartProps) => {
   let values: number[] = [];
   let labels: string[] = [];
   props.metricType != "" ?  values = props.dataToShow.map(x => parseInt(x.value)) : values = []
-  props.metricType != ""? labels = props.dataToShow.map(x => x.date as string) : labels = []
+  props.metricType != ""? labels = props.dataToShow.map(x => x.date as string).sort() : labels = []
 
   console.log(values)
   console.log(new Date())

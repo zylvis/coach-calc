@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(0deg, #909090 0%, #F6F2F2 100%);
+    color: #121212;
+    font-size: 2.5vh;
+}
+
+.formcontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.button{
+    margin: 1rem;
+    width: 4rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    border: 0px;
+    background-color: #97FB57;
+    color: #121212;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.75rem;
+}
+
+.input{
+    width: 40vw;
+}
+
+.logintxt{
+    margin-bottom: 10vh;
+}
+
+.registertxt{
+    margin-top: 5vh;
+    color:#F6F2F2;
+}

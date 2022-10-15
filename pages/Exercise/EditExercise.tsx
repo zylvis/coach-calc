@@ -72,7 +72,6 @@ const EditExercise = () => {
         <>  <Modal/>
             <div className={styles.container}>
                 <form className={styles.formcontainer} onSubmit={formik.handleSubmit}>
-
                     <label className={styles.label} htmlFor="name">Exercise</label>
                     <input
                         className={styles.input}
