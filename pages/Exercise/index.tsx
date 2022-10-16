@@ -7,6 +7,7 @@ import Footer from "../../page-components/Athletee/Footer"
 import Header from "../../page-components/Athletee/Header"
 import ExerciseForm from "../../page-components/Exercise/ExerciseForm";
 import styles from "../../styles/pages/Exercise/Exercise.module.css"
+import userAuth from "../../Helpers/userAuth";
 
 interface IExercise {
     id: number,
@@ -23,26 +24,29 @@ const Exercise = () => {
     const [editObject, setEditObject] = useState<IExercise>({id: 0, name:"", metricType: ""})
 
     useEffect(() => {
-        const getData = async () => {
-          try {
-            const response = await axios.get(
-              "https://localhost:7104/api/Exercise"
-            );
-            setDataToShow(response.data.result);
-            setData(response.data.result);
-            console.log(response.data.result);
-            return
-          } catch (err: any) {
-            console.log(err.message)
-            alert(err.message)
-            setData([]);
-          } finally {
-            //setLoading(false);
-          }
-        };
-        getData();
 
-      }, []);
+      userAuth()
+
+      const getData = async () => {
+        try {
+          const response = await axios.get(
+            "https://localhost:7104/api/Exercise"
+          );
+          setDataToShow(response.data.result);
+          setData(response.data.result);
+          console.log(response.data.result);
+          return
+        } catch (err: any) {
+          console.log(err.message)
+          alert(err.message)
+          setData([]);
+        } finally {
+          //setLoading(false);
+        }
+      };
+      getData();
+
+    }, []);
 
 
     const showFormHandler = (show: boolean) => {

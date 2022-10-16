@@ -1,8 +1,22 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import Router from 'next/router'
+import { useEffect } from 'react'
+import userAuth from '../Helpers/userAuth'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+
+useEffect(()=>{
+
+if (userAuth() == true){
+  console.log(JSON.stringify(userAuth()))
+  console.log("dsf")
+  Router.push("/Athletee")
+}
+
+},[])
+
   return (
     <div className={styles.container}>
       <div className={styles["login-container"]}>

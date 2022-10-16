@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useFormik } from "formik";
 import router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import userAuth from "../../Helpers/userAuth";
 import Register from "../../page-components/Login/Register";
 import { useLoginContext } from "../../store/useLogincontext";
 import styles from "../../styles/pages/Login/Login.module.css"
@@ -16,6 +17,7 @@ const Login = () => {
     const[showRegister, setShowRegister] = useState(false);
     const{isLoggedIn, setIsLoggedIn} = useLoginContext()
 
+
     const client = axios.create({
         baseURL: "https://localhost:7104/api/UsersAuth/login"
       });
@@ -27,6 +29,8 @@ const Login = () => {
               console.log(response.data)
               if(response.data.result.token){
                 setIsLoggedIn(true)
+                localStorage.setItem("coachCalcUserToken", response.data.result.token)
+                router.replace("/Athletee")
               }
            }).catch((error) => {
             console.log(error);

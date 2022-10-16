@@ -10,6 +10,10 @@ import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
 import AthleteeEditForm from "../../page-components/Athletee/AthleteeEditForm";
 import AddResults from "../../page-components/Athletee/AddResults";
 import Results from "../../page-components/Athletee/Results";
+import { useLoginContext } from "../../store/useLogincontext";
+import router from "next/router";
+import parseJWT from "../../Helpers/parseJWT";
+import userAuth from "../../Helpers/userAuth";
 
 interface IAthletee {
   id: number,
@@ -31,26 +35,32 @@ const Athletee: NextPage = () => {
     const [athleteeObj, setAthleteeObj] = useState({} as IAthletee)
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const getData = async () => {
-          try {
-            const response = await axios.get(
-              "https://localhost:7104/api/Athletee"
-            );
-            setDataToShow(response.data.result);
-            setData(response.data.result);
-            console.log(response.data);
-          } catch (err: any) {
-            console.log(err)
-            alert(err.message)
-            setData([]);
-          } finally {
-            setLoading(false);
-          }
-        };
-        getData();
+    const{isLoggedIn} = useLoginContext()
 
-      }, [showEditForm]);
+
+    useEffect(() => {
+
+      userAuth()
+
+      const getData = async () => {
+        try {
+          const response = await axios.get(
+            "https://localhost:7104/api/Athletee"
+          );
+          setDataToShow(response.data.result);
+          setData(response.data.result);
+          console.log(response.data);
+        } catch (err: any) {
+          console.log(err)
+          alert(err.message)
+          setData([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+      getData();
+
+    }, [showEditForm]);
  
 
     const CreateClickHandler = () =>{
