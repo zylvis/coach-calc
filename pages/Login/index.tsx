@@ -104,7 +104,7 @@ const Login = () => {
                 {formik.errors.password ? <div className={styles.error}>{formik.errors.password}</div> : <div className={styles.error}></div>}
 
                 <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>router.push("/")}>Cancel</button></span>
-                <div className={styles.success}>Success {JSON.stringify(isLoggedIn)}</div>
+                <div className={styles.success}></div>
 
                 <div className={styles.registertxt} onClick={() => setShowRegister(true)}>Register new account</div>
 
