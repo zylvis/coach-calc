@@ -8,18 +8,19 @@ import { useLoginContext } from "../../store/useLogincontext";
 import styles from "../../styles/pages/Login/Login.module.css"
 
 
+
 interface ILogin{
     email: string,
     password: string
 }
 const Login = () => {
+    
 
     const[showRegister, setShowRegister] = useState(false);
     const{isLoggedIn, setIsLoggedIn} = useLoginContext()
 
-
     const client = axios.create({
-        baseURL: "https://localhost:7104/api/UsersAuth/login"
+        baseURL: `${process.env.API_URL}/api/UsersAuth/login`
       });
   
       const AddPost = (obj: ILogin) => {
@@ -34,6 +35,7 @@ const Login = () => {
               }
            }).catch((error) => {
             console.log(error);
+            error.response.data?.errorMesseges[0] !== undefined ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
          });
       };
 
@@ -69,6 +71,12 @@ const Login = () => {
             formik.resetForm()
         },
     });
+
+    const registerHandler = (showRegister:boolean) => {
+        setShowRegister(showRegister)
+    }
+    const objRegisterProps = {registerHandler: registerHandler}
+
     return (
         <div className={styles.container}>
             <div className={styles.logintxt}>Login</div>
@@ -98,10 +106,10 @@ const Login = () => {
                 <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>router.push("/")}>Cancel</button></span>
                 <div className={styles.success}>Success {JSON.stringify(isLoggedIn)}</div>
 
-                <div className={styles.registertxt} onClick={() => setShowRegister(true)}>Register</div>
+                <div className={styles.registertxt} onClick={() => setShowRegister(true)}>Register new account</div>
 
             </form>
-            {showRegister && <Register/>}
+            {showRegister && <Register {...objRegisterProps}/>}
         </div>
     )
 }

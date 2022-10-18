@@ -10,7 +10,7 @@ interface IExercise {
     metricType: string
 }
 interface IFormProps{
-    showFormHandler: (show: boolean) => void;
+    showFormHandler: (show: boolean) => void,
     getPost: (obj: {id: number, name: string, metricType: string}) => void
 }
 
@@ -19,7 +19,7 @@ const ExerciseForm = (props: IFormProps) => {
     const [success, setSuccess] = useState("");
    
     const client = axios.create({
-        baseURL: "https://localhost:7104/api/Exercise" 
+        baseURL: `${process.env.API_URL}/api/Exercise`
       });
   
       const AddPost = (objExercise: IExercise) => {
@@ -35,6 +35,7 @@ const ExerciseForm = (props: IFormProps) => {
                 }, 2000);
             }).catch((error) => {
                 console.log(error);
+                error.response.data?.errorMesseges[0] ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
             });
       };
 

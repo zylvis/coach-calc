@@ -40,7 +40,7 @@ const AddResults =(props: IAddResultsProps) => {
         const getData = async () => {
           try {
             const response = await axios.get(
-              "https://localhost:7104/api/Exercise"
+              `${process.env.API_URL}/api/Exercise`
             );
             setExercises(response.data.result);
 
@@ -58,7 +58,7 @@ const AddResults =(props: IAddResultsProps) => {
     }, []);
 
     const client = axios.create({
-        baseURL: "https://localhost:7104/api/Result" 
+        baseURL: `${process.env.API_URL}/api/Result`
       });
 
     const addPost = (obj: IResult) => {

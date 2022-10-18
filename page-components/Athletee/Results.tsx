@@ -53,19 +53,19 @@ const Results = (props: IResultsProps) => {
         const getData = async () => {
           try {
             const response = await axios.get(
-              "https://localhost:7104/api/Result"
+              `${process.env.API_URL}/api/Result`
             );
-
+            
             const responseResult = response.data.result as IResults[]
-            const resonseResultByAthletee = responseResult.filter((item : IResults) => item.athleteeId == athleteeObj.id);
-            setDataToShow(resonseResultByAthletee);
-            setData(resonseResultByAthletee)
+            const responseResultByAthletee = responseResult.filter((item : IResults) => item.athleteeId == athleteeObj.id);
+            setDataToShow(responseResultByAthletee);
+            setData(responseResultByAthletee)
 
-            const distinct: IDictinctExercise[] = Array.from(new Set(resonseResultByAthletee.map((s:IResults) => s.exerciseId))).map(exerciseId =>{
+            const distinct: IDictinctExercise[] = Array.from(new Set(responseResultByAthletee.map((s:IResults) => s.exerciseId))).map(exerciseId =>{
                 return{
                     exerciseId: exerciseId,
-                    name: resonseResultByAthletee.find(s => s.exerciseId == exerciseId)?.name,
-                    metricType: resonseResultByAthletee.find(s => s.exerciseId == exerciseId)?.metricType
+                    name: responseResultByAthletee.find(s => s.exerciseId == exerciseId)?.name,
+                    metricType: responseResultByAthletee.find(s => s.exerciseId == exerciseId)?.metricType
                 }
             });
             setDistinctExercises(distinct);
@@ -88,11 +88,22 @@ const Results = (props: IResultsProps) => {
         if(confirm("Delete Result?")){
             axios.delete(`https://localhost:7104/api/Result/${id}`)  
             .then(res => {  
-            console.log(res.data); 
-            const posts = dataToShow.filter(item => item.id !== id);  
-            setDataToShow(posts);  
+                console.log(res.data); 
+                const posts = dataToShow.filter(item => item.id !== id);  
+                setDataToShow(posts);
+                setData(data.filter(item => item.id !== id))
+                const tmpDta = data.filter(item => item.id !== id)
+                const distinct: IDictinctExercise[] = Array.from(new Set(tmpDta.map((s:IResults) => s.exerciseId))).map(exerciseId =>{
+                    return{
+                        exerciseId: exerciseId,
+                        name: tmpDta.find(s => s.exerciseId == exerciseId)?.name,
+                        metricType: tmpDta.find(s => s.exerciseId == exerciseId)?.metricType
+                    }
+                });
+                setDistinctExercises(distinct || []);
+
             }).catch( error =>
-            console.log(error)
+                console.log(error)
             )
         }
         

@@ -25,12 +25,14 @@ const Exercise = () => {
 
     useEffect(() => {
 
-      userAuth()
+      if (!userAuth()) {
+        Router.push("/")
+      }
 
       const getData = async () => {
         try {
           const response = await axios.get(
-            "https://localhost:7104/api/Exercise"
+            `${process.env.API_URL}/api/Exercise`
           );
           setDataToShow(response.data.result);
           setData(response.data.result);
@@ -81,7 +83,7 @@ const Exercise = () => {
       
       if (action=="delete") {
         if(confirm("Delete Exercsise?")){
-          axios.delete(`https://localhost:7104/api/Exercise/${editObject.id}`)  
+          axios.delete(`${process.env.API_URL}/api/Exercise/${editObject.id}`)  
           .then(res => {  
             console.log(res.data); 
             const posts = dataToShow.filter(item => item.id !== editObject.id);  
@@ -103,7 +105,7 @@ const Exercise = () => {
     const objRemarkMenuProps = {editHandler: editHandler}
 
     const addfirstExercise = (<div style={{marginTop: "4rem"}}>Create first Exercise ...</div>)
-    const exercises = dataToShow.map((item: IExercise) => 
+    const exercises = dataToShow?.map((item: IExercise) => 
     <div className={styles.exercise} key={item.id} onClick={()=>{getEditObj(item.id, item.name, item.metricType)}}>
         <div className={styles["container-items"]}>
           <div className={styles.item}>
@@ -123,10 +125,10 @@ const Exercise = () => {
                   <button className={styles.button} onClick={()=>setShowForm(true)}>+ Create</button>
                   <div className={styles.search} > <input type="text" onChange={searchHandler} placeholder="Search..."/></div>
               </div>
-              <div className={styles.count}> Total ({dataToShow.length})</div>
+              <div className={styles.count}> Total ({dataToShow?.length})</div>
             </div>
             <div className={styles.render}>
-            {data.length == 0 && addfirstExercise}
+            {data?.length == 0 && addfirstExercise}
             
               <div >
                 {exercises}

@@ -36,7 +36,7 @@ const AthleteeEditForm = (props: IEditProps) => {
 
 
     const addPut = (obj: IAthletee) => {
-        axios.put(`https://localhost:7104/api/Athletee/${athleteeObj.id}`, obj)
+        axios.put(`${process.env.API_URL}/api/Athletee/${athleteeObj.id}`, obj)
         .then(response => {
             console.log(response.data)
             localStorage.setItem('athleteeObj', JSON.stringify(formik.values))
@@ -48,6 +48,7 @@ const AthleteeEditForm = (props: IEditProps) => {
         })
         .catch(error => {
             console.error('There was an error!', error);
+            error.response.data?.errorMesseges[0] ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
         });
     }
 

@@ -29,7 +29,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
     const [success, setSuccess] = useState("");
      
     const client = axios.create({
-      baseURL: "https://localhost:7104/api/Athletee" 
+      baseURL: `${process.env.API_URL}/api/Athletee`
     });
 
     const AddPost = (firstName: string, lastName: string, birthDate: Date, image: string) => {
@@ -50,6 +50,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
             }, 2000);
          }).catch((error) => {
           console.log(error);
+          error.response.data?.errorMesseges[0] ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
        });
     };
 

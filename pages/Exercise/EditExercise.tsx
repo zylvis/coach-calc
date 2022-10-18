@@ -26,7 +26,7 @@ const EditExercise = () => {
     
     
     const addPut = (obj: IExercise) => {
-        axios.put(`https://localhost:7104/api/Exercise/${obj.id}`, obj)
+        axios.put(`${process.env.API_URL}/api/Exercise/${obj.id}`, obj)
         .then(response => {
             console.log(response.data)
             setSuccess("Success");
@@ -37,6 +37,7 @@ const EditExercise = () => {
         })
         .catch(error => {
             console.error('There was an error!', error);
+            error.response.data?.errorMesseges[0] ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
         });
     }
 

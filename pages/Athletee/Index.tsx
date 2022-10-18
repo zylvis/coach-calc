@@ -11,7 +11,7 @@ import AthleteeEditForm from "../../page-components/Athletee/AthleteeEditForm";
 import AddResults from "../../page-components/Athletee/AddResults";
 import Results from "../../page-components/Athletee/Results";
 import { useLoginContext } from "../../store/useLogincontext";
-import router from "next/router";
+import  Router  from "next/router";
 import parseJWT from "../../Helpers/parseJWT";
 import userAuth from "../../Helpers/userAuth";
 
@@ -40,12 +40,14 @@ const Athletee: NextPage = () => {
 
     useEffect(() => {
 
-      userAuth()
+      if (!userAuth()) {
+        Router.push("/")
+      }
 
       const getData = async () => {
         try {
           const response = await axios.get(
-            "https://localhost:7104/api/Athletee"
+            `${process.env.API_URL}/api/Athletee`
           );
           setDataToShow(response.data.result);
           setData(response.data.result);
@@ -93,7 +95,7 @@ const Athletee: NextPage = () => {
       setShowMenu(show)
       if(action == "delete"){
         if(confirm("Delete Athletee and all data?")){
-          axios.delete(`https://localhost:7104/api/Athletee/${athleteeObj.id}`)  
+          axios.delete(`${process.env.API_URL}/api/Athletee/${athleteeObj.id}`)  
           .then(res => {  
             console.log(res.data); 
             const posts = dataToShow.filter(item => item.id !== athleteeObj.id);  

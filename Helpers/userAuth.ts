@@ -1,9 +1,7 @@
 import axios from "axios";
-import router from "next/router";
 import parseJWT from "./parseJWT";
 
 const userAuth = (): boolean => {
-
 
     const token = localStorage.getItem('coachCalcUserToken')?.toString();
     if(token){
@@ -21,7 +19,6 @@ const userAuth = (): boolean => {
 
     } else if (!token){
         delete axios.defaults.headers.common["Authorization"];
-        router.push("/")
         return false
     }
     return false

@@ -13,7 +13,7 @@ if (userAuth() == true){
   console.log(JSON.stringify(userAuth()))
   console.log("dsf")
   Router.push("/Athletee")
-}
+} 
 
 },[])
 

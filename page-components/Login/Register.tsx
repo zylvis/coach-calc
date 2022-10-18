@@ -1,5 +1,7 @@
+import axios from "axios";
 import { useFormik } from "formik";
 import router from "next/router";
+import { useState } from "react";
 import styles from "../../styles/page-components/Login/Register.module.css"
 
 
@@ -7,9 +9,38 @@ interface IRegister{
     email: string,
     password: string
 }
-const Register = () => {
+
+interface IRegisterProps{
+    registerHandler: (showRegister: boolean) => void
+}
+
+const Register = (props: IRegisterProps) => {
+
+    const[success, setSuccess] = useState("")
+
+     
+    const client = axios.create({
+        baseURL: `${process.env.API_URL}/api/UsersAuth/register`
+      });
+  
+      const addPost = (obj: IRegister) => {
+        client
+           .post('', obj)
+           .then((response) => {
+              console.log(response.data)
+              setSuccess("Success");
+              setTimeout(() => {
+              setSuccess("");
+              props.registerHandler(false)
+              }, 2000);
+           }).catch((error) => {
+            console.log(error);
+            error.response.data?.errorMesseges[0] ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
+         });
+      };
 
     const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
+
     const validate = (values : IRegister) => {
 
         return sleep(500).then(() => {
@@ -38,7 +69,8 @@ const Register = () => {
         },
         validate,
         onSubmit: (values) => {
-            //alert(JSON.stringify(values, null, 2));
+            alert(JSON.stringify(values, null, 2));
+            addPost(values)
             formik.resetForm()
         },
     });
@@ -69,7 +101,7 @@ const Register = () => {
                 {formik.errors.password ? <div className={styles.error}>{formik.errors.password}</div> : <div className={styles.error}></div>}
 
                 <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>router.push("/")}>Cancel</button></span>
-                <div className={styles.success}>Success</div>
+                <div className={styles.success}>{success}</div>
             </form>
         </div>
     )

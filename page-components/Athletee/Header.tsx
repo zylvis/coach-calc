@@ -15,7 +15,7 @@ const Header = () => {
         <div className={styles.container}>
             <div className={styles.profile}></div>
             <div className={styles.logoutcontainer} onClick={logoutHandler}>
-              <Logout className={styles.logout}/>
+                <Logout className={styles.logout} fill="#F6F2F2"/>
                 <div></div>
             </div>  
         </div>
