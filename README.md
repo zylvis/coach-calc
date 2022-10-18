@@ -3,7 +3,7 @@ It is an coach assist app, that can manage athletes results and track results, b
 API hosted, so you can use and test the app
 
 clone,
-run npm install,
+npm install,
 npm run dev
 
 
