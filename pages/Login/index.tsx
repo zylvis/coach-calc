@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import router from "next/router";
+import {useRouter} from "next/router";
 import { useEffect, useState } from "react";
 import userAuth from "../../Helpers/userAuth";
 import Register from "../../page-components/Login/Register";
@@ -15,6 +15,7 @@ interface ILogin{
 }
 const Login = () => {
     
+    const router = useRouter()
 
     const[showRegister, setShowRegister] = useState(false);
     const{isLoggedIn, setIsLoggedIn} = useLoginContext()
@@ -106,7 +107,7 @@ const Login = () => {
                 <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>router.push("/")}>Cancel</button></span>
                 <div className={styles.success}></div>
 
-                <div className={styles.registertxt} onClick={() => setShowRegister(true)}>Register new account</div>
+                <div className={styles.registertxt} onClick={() => setShowRegister(true)}>Register new account ...</div>
 
             </form>
             {showRegister && <Register {...objRegisterProps}/>}

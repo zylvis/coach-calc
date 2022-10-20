@@ -1,10 +1,9 @@
 import axios from "axios";
 import {useFormik} from "formik"
-import router, { Router } from "next/router";
+import {useRouter} from "next/router";
 import { useState } from "react";
 import Modal from "../../components/Modal";
 import styles from "../../styles/page-components/Exercise/ExerciseForm.module.css"
-import {useRouter} from "next/router"
 
 interface IExercise {
     id: number,
@@ -15,7 +14,9 @@ const EditExercise = () => {
 
     const [success, setSuccess] = useState("");
 
-    const {query: {id, name, metricType}} = router;
+    const Router = useRouter();
+
+    const {query: {id, name, metricType}} = Router;
     const objIncoming = {
         id: parseInt(id as string),
         name: name?.toString(),
@@ -32,7 +33,7 @@ const EditExercise = () => {
             setSuccess("Success");
             setTimeout(() => {
                 setSuccess("");
-                router.push("/Exercise")
+                Router.push("/Exercise")
             }, 500);
         })
         .catch(error => {
@@ -87,16 +88,16 @@ const EditExercise = () => {
                     <div className={styles.radiocontainer}>
                         <div className={styles.choose}>Choose metric type</div>
                         <span className={styles.radioinputcontainer}>
-                            <input className={styles.inputradio} type="radio" name="metricType" value="Number" onChange={formik.handleChange} defaultChecked={formik.values.metricType == "Number"}/>
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Number" onChange={formik.handleChange} checked={formik.values.metricType == "Number"}/>
                             <label className={styles.radiolabel}>Number</label>
-                            <input className={styles.inputradio} type="radio" name="metricType" value="Time" onChange={formik.handleChange} defaultChecked={formik.values.metricType == "Time"}/>
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Time" onChange={formik.handleChange} checked={formik.values.metricType == "Time"}/>
                             <label className={styles.radiolabel}>Time</label> 
                         </span>
-                        <div className={styles.picked}>"{formik.values.metricType}"</div>
+                        <div className={styles.picked}>{formik.values.metricType}</div>
                     </div> 
                     {formik.errors.metricType ? <div className={styles.error}>{formik.errors.metricType}</div> : <div className={styles.error}></div>}
 
-                    <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>router.push("/Exercise")}>Cancel</button></span>
+                    <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>Router.push("/Exercise")}>Cancel</button></span>
                     <div className={styles.success}>{success}</div>
                 </form>
                 

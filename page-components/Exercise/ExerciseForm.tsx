@@ -26,6 +26,7 @@ const ExerciseForm = (props: IFormProps) => {
         client
            .post('', objExercise)
            .then((response) => {
+                console.log("dffff")
                 console.log(response.data.result)
                 props.getPost(response.data.result)
                 setSuccess("Success");
