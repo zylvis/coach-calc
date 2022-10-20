@@ -86,7 +86,7 @@ const Results = (props: IResultsProps) => {
 
     const handleDelete =(id:number) => {
         if(confirm("Delete Result?")){
-            axios.delete(`https://localhost:7104/api/Result/${id}`)  
+            axios.delete(`${process.env.API_URL}/api/Result/${id}`)  
             .then(res => {  
                 console.log(res.data); 
                 const posts = dataToShow.filter(item => item.id !== id);  
