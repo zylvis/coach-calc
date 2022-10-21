@@ -7,4 +7,6 @@ clone,
 npm install,
 npm run dev
 
+or prieview at: https://coach-calc.netlify.app
+
 
