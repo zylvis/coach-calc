@@ -4,7 +4,7 @@
   height: 100vh;
   background: linear-gradient(0deg, #909090 0%, #F6F2F2 100%);
 
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas:
     'header'
     'loginBlock';
