@@ -98,7 +98,7 @@ const Login = () => {
                     className={styles.input}
                     id="password"
                     name="password"
-                    type="text"
+                    type="password"
                     onChange={formik.handleChange}
                     value={formik.values.password}
                 />
