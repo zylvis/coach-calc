@@ -19,7 +19,7 @@ interface IAthletee {
   id: number,
   firstName: string,
   lastName: string,
-  birthDate: Date,
+  birthDate: string,
   height: number,
   weight: number,
   phone: string,

@@ -16,7 +16,7 @@ interface AthleteePost {
   id: number,
   firstName: string,
   lastName: string,
-  birthDate: Date,
+  birthDate: string,
   height: number,
   weight: number,
   phone: string,
@@ -31,18 +31,38 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
     const [lastName, SetLastName] = useState("");
     const [birthDate, SetBirthDate] = useState("");
     const [imageString, SetImage] = useState("");
+    const [height, setHeight] = useState(0);
+    const [weight, setWeight] = useState(0);
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [address, setAddress] = useState("");
     const [success, setSuccess] = useState("");
      
     const client = axios.create({
       baseURL: `${process.env.API_URL}/api/Athletee`
     });
 
-    const AddPost = (firstName: string, lastName: string, birthDate: Date, image: string) => {
+    const AddPost = (
+      firstName: string,
+      lastName: string,
+      birthDate: string,
+      height: number,
+      weight: number,
+      phone: string,
+      email: string,
+      address: string,
+      image: string) => {
+
       client
          .post('', {
             FirstName: firstName,
             LastName: lastName,
             BirthDate: birthDate,
+            height: height,
+            weight: weight,
+            phone: phone,
+            email: email,
+            address: address,
             Image: image
          })
          .then((response) => {
@@ -55,8 +75,9 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
             }, 2000);
          }).catch((error) => {
           console.log(error);
-          error.response.data?.errorMesseges[0] ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
+          //error.response.data?.errorMesseges[0] ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
        });
+
     };
 
     const CancelButtonHandler = () => {
@@ -78,8 +99,8 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
     const FormHandler = (event: any) =>{
       
       event.preventDefault();
-      
-      AddPost(firstName, lastName, DateStrToDate(birthDate), imageString);
+      console.log(firstName + lastName + DateStrToDate(birthDate) + height + weight + phone + email + address + imageString)
+      AddPost(firstName, lastName, birthDate, height, weight, phone, email, address, imageString);
 
       SetFirstName("");
       SetLastName("");
@@ -100,7 +121,7 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
               </label>
             </div>
            
-            <label>First Name*</label>
+            <label className={styles.label}>First Name*</label>
             <input
               className={styles.input}
               type="text"
@@ -108,7 +129,8 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
               onChange={(event) => SetFirstName(event.target.value)}
               required
             ></input>
-            <label>Last Name*</label>
+
+            <label className={styles.label}>Last Name*</label>
             <input
               className={styles.input}
               type="text"
@@ -116,7 +138,8 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
               onChange={(event) => SetLastName(event.target.value)}
               required
             ></input>
-            <label>Birth Date*</label>
+
+            <label className={styles.label}>Birth Date*</label>
             <input
               className={styles.input}
               type="Date"
@@ -124,8 +147,48 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
               onChange={(event) => SetBirthDate(event.target.value)}
               required
             ></input>
+
+            <label className={styles.label}>Height</label>
+            <input
+              className={styles.input}
+              type="number"
+              value={height}
+              onChange={(event) => setHeight(event.target.valueAsNumber)}
+            ></input>
+
+            <label className={styles.label}>Weight</label>
+            <input
+              className={styles.input}
+              type="number"
+              value={weight}
+              onChange={(event) => setWeight(event.target.valueAsNumber)}
+            ></input>
+
+            <label className={styles.label}>Phone</label>
+            <input
+              className={styles.input}
+              type="text"
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
+            ></input>
+
+            <label className={styles.label}>Email</label>
+            <input
+              className={styles.input}
+              type="text"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            ></input>
+
+            <label className={styles.label}>Address</label>
+            <input
+              className={styles.input}
+              type="text"
+              value={address}
+              onChange={(event) => setAddress(event.target.value)}
+            ></input>
             
-            <div>
+            <div className={styles.buttonscontainer}>
               <button className={styles.button} type="button" onClick={CancelButtonHandler}> Cancel</button>
               <button className={styles.button} type="submit">Save</button>
             </div>
