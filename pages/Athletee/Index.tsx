@@ -20,6 +20,11 @@ interface IAthletee {
   firstName: string,
   lastName: string,
   birthDate: Date,
+  height: number,
+  weight: number,
+  phone: string,
+  email: string,
+  address: string,
   image: string,
 }
 

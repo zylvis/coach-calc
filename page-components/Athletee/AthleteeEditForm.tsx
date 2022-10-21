@@ -10,8 +10,13 @@ interface IAthletee{
     id: number,
     firstName: string,
     lastName: string,
+    birthDate: string,
+    height: number,
+    weight: number,
+    phone: string,
+    email: string,
+    address: string,
     image: string,
-    birthDate: string
 }
 
 interface IErrors{
@@ -29,6 +34,8 @@ const AthleteeEditForm = (props: IEditProps) => {
     
     const athleteeObj : IAthletee = JSON.parse(localStorage.getItem('athleteeObj') as string);
     athleteeObj.birthDate = FormatDate(athleteeObj.birthDate);
+
+    console.log(athleteeObj)
 
     const [image, setImage] = useState(athleteeObj.image)
     const [success, setSuccess] = useState("");
@@ -85,7 +92,12 @@ const AthleteeEditForm = (props: IEditProps) => {
             firstName: athleteeObj.firstName,
             lastName: athleteeObj.lastName,
             birthDate: athleteeObj.birthDate,
-            image: athleteeObj.image
+            image: athleteeObj.image,
+            height: athleteeObj.height,
+            weight: athleteeObj.weight,
+            phone: athleteeObj.phone,
+            email: athleteeObj.email,
+            address: athleteeObj.address
         },
         validate,
         onSubmit: (values) => {
@@ -136,6 +148,63 @@ const AthleteeEditForm = (props: IEditProps) => {
                     onChange={formik.handleChange}
                     value={formik.values.birthDate}
                 />
+            
+            <label className={styles.label} htmlFor="height">Height</label>
+            <input
+                    className={styles.input}
+                    id="height"
+                    name="height"
+                    type="number"
+                    step="0.001"
+                    onChange={formik.handleChange}
+                    value={formik.values.height}
+                />
+            {formik.errors.height ? <div className={styles.error}>{formik.errors.height}</div> : <div className={styles.error}></div>}
+
+            <label className={styles.label} htmlFor="weight">Weight</label>
+            <input
+                    className={styles.input}
+                    id="weight"
+                    name="weight"
+                    type="number"
+                    step="0.001"
+                    onChange={formik.handleChange}
+                    value={formik.values.weight}
+                />
+            {formik.errors.weight ? <div className={styles.error}>{formik.errors.weight}</div> : <div className={styles.error}></div>}
+
+            <label className={styles.label} htmlFor="phone">Phone</label>
+            <input
+                    className={styles.input}
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.phone}
+                />
+            {formik.errors.phone ? <div className={styles.error}>{formik.errors.phone}</div> : <div className={styles.error}></div>}
+
+            <label className={styles.label} htmlFor="email">Email</label>
+            <input
+                    className={styles.input}
+                    id="email"
+                    name="email"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                />
+            {formik.errors.email ? <div className={styles.error}>{formik.errors.email}</div> : <div className={styles.error}></div>}
+
+            <label className={styles.label} htmlFor="address">Address</label>
+            <input
+                    className={styles.input}
+                    id="address"
+                    name="address"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.address}
+                />
+            {formik.errors.address ? <div className={styles.error}>{formik.errors.address}</div> : <div className={styles.error}></div>}
 
             <div>
               <button className={styles.button} type="button" onClick={()=>props.editFormHandler(false)}> Cancel</button>

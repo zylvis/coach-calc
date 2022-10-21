@@ -12,6 +12,11 @@ interface IAthletee{
     firstName: string,
     lastName: string,
     image: string,
+    height: number,
+    weight: number,
+    phone: string,
+    email: string,
+    address: string,
     birthDate: string
 }
 
@@ -53,27 +58,27 @@ const Menu =(props:IMenuProps) =>{
                         </div>
                         <div className={styles.item}>
                             <label><b>Weight</b></label>
-                            <div>70kg</div>
+                            <div>{athleteeObj.weight}</div>
                         </div>
                     </div>
                     <div className={styles.detailsitemcontainer}>
                         <div className={styles.item}>
                             <label><b>Height</b></label>
-                            <div>1.7m</div>
+                            <div>{athleteeObj.height}</div>
                         </div>
                         <div className={styles.item}>
                             <label><b>Phone Nr.</b></label>
-                            <div>625421562</div>
+                            <div>{athleteeObj.phone}</div>
                         </div>
                     </div>
                     <div className={styles.detailsitemcontainer}>
                         <div className={styles.item}>
                             <label><b>Email</b></label>
-                            <div>email@email</div>
+                            <div>{athleteeObj.email}</div>
                         </div>
                         <div className={styles.item}>
                             <label><b>address</b></label>
-                            <div>tokyao</div>
+                            <div>{athleteeObj.address}</div>
                         </div>
                     </div>
                     <div style={{"color": "rgb(219, 98, 98)"}} onClick={()=>props.menuHandler(false, "delete")}>Delete</div>
