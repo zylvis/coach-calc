@@ -25,16 +25,13 @@ if (userAuth() == true){
           <div className={styles["terms-text"]}>
             By clicking LOG IN, you agree with our Terms.
           </div>
-          <div className={styles["login-mode"]}>
-            {/* <Comp-icons-google className="login-icon" />*/}
+          {/* <div className={styles["login-mode"]}>
               <div className={styles["l-mode"]}>LOG IN WITH GOOGLE</div>
           </div>
           <div className={styles["login-mode"]}>
-            {/* <Comp-icons-facebook className="login-icon" />*/}
               <div className={styles["l-mode"]}>LOG IN WITH FACEBOOK</div>
-          </div>
+          </div> */}
           <div className={styles["login-mode"]}>
-            {/*<Comp-icons-email className="login-icon" />*/}
             <Link href="/Login">
               <div className={styles["l-mode"]}>LOG IN WITH EMAIL</div>
             </Link>
