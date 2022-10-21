@@ -82,7 +82,7 @@ const AddResults =(props: IAddResultsProps) => {
 
         const type: any = exercises.find(item => item.id === parseInt(id))
         setMetricType(type.metricType)
-        formik.values.value =  type.metricType=="Time"? "00:00:00" : "0"
+        formik.values.value =  type.metricType=="Time"? "00:00:00.000" : "0"
     }
     const handleTimeInput = (time: string): string => {
 
@@ -102,7 +102,7 @@ const AddResults =(props: IAddResultsProps) => {
         if (values.exerciseId == 0) {
             errors.exerciseId = "Please choose exercise";
         }
-        if (values.value == "00:00:00" || values.value == "0" ||  values.value == ""){
+        if (values.value == "00:00:00.000" || values.value == "0" ||  values.value == ""){
             errors.value = "Please enter value"
         }
         if (values.date == "")
@@ -115,7 +115,7 @@ const AddResults =(props: IAddResultsProps) => {
         initialValues: {
             exerciseId: 0,
             athleteeId: athleteeObj.id as number,
-            value: "00:00:00",
+            value: "00:00:00.000",
             date: ""
 
         },
@@ -136,7 +136,7 @@ const AddResults =(props: IAddResultsProps) => {
     const inputTime = <>
                         <label className={styles.label} htmlFor="value">Time(hh:mm:ss:ms)</label>
                         <input
-                            className={styles.input}
+                            className={styles.inputtime}
                             id="value"
                             name="value"
                             type="time"

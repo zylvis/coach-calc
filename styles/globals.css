@@ -25,6 +25,8 @@ input[type="text"], input[type="date"]{
   outline: none;
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator { }
+
 input[type="text"]:focus {
   border: 2.5px solid #929292;
 }

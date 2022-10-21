@@ -107,7 +107,7 @@ const Login = () => {
                 <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>router.push("/")}>Cancel</button></span>
                 <div className={styles.success}></div>
 
-                <div className={styles.registertxt} onClick={() => setShowRegister(true)}>Register new account ...</div>
+                <div className={styles.registertxt} onClick={() => setShowRegister(true)}>Click to Register new account ...</div>
 
             </form>
             {showRegister && <Register {...objRegisterProps}/>}

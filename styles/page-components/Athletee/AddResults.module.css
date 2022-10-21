@@ -53,10 +53,15 @@
     height: 10vh;
     text-align: center;
 }
+.inputtime::-webkit-datetime-edit-ampm-field {
+    display: none;
+}
+
 .inputnumber{
     width: auto;
     text-align: center;
 }
+
 .success{
     height: 2vh;
     font-size: 2vh;
