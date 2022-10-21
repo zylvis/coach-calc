@@ -52,6 +52,7 @@
   grid-area: licon;
 }
 .l-mode {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   grid-area: lmode;

@@ -23,6 +23,7 @@
 }
 
 .button{
+    cursor: pointer;
     margin: 1rem;
     width: 4rem;
     height: 2rem;

@@ -19,6 +19,7 @@
 }
 
 .button{
+    cursor: pointer;
     margin: 1rem;
     width: 4rem;
     height: 2rem;
@@ -41,6 +42,7 @@
 }
 
 .registertxt{
+    cursor: pointer;
     margin-top: 5vh;
     color:#F6F2F2;
     font-size: 1.75vh;

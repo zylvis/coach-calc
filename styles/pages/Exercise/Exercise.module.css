@@ -33,6 +33,7 @@
 }
 
 .button{
+    cursor: pointer;
     background-color: #97FB57;
     border: none;
     border-radius: 0.5rem;
