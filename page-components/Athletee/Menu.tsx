@@ -77,11 +77,11 @@ const Menu =(props:IMenuProps) =>{
                             <div>{athleteeObj.email}</div>
                         </div>
                         <div className={styles.item}>
-                            <label><b>address</b></label>
+                            <label><b>Address</b></label>
                             <div>{athleteeObj.address}</div>
                         </div>
                     </div>
-                    <div style={{"color": "rgb(219, 98, 98)"}} onClick={()=>props.menuHandler(false, "delete")}>Delete</div>
+                    <div className={styles.delete} onClick={()=>props.menuHandler(false, "delete")}>Delete</div>
 
                 </div>
             </div>
