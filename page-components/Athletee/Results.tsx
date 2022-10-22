@@ -20,7 +20,7 @@ interface IResults {
     id: number,
     athleteeId?: number,
     exerciseId?: number,
-    date?: string,
+    date: string,
     name?: string,
     value: string,
     metricType?: string

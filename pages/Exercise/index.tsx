@@ -22,6 +22,8 @@ const Exercise = () => {
     const [showRemarkMenu, setShowRemarkMenu] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [editObject, setEditObject] = useState<IExercise>({id: 0, name:"", metricType: ""})
+    const [emptyData, setEmptyData] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -36,6 +38,7 @@ const Exercise = () => {
           );
           setDataToShow(response.data.result);
           setData(response.data.result);
+          setEmptyData(response.data.result.length == 0)
           console.log(response.data.result);
           return
         } catch (err: any) {
@@ -43,7 +46,7 @@ const Exercise = () => {
           alert(err.message)
           setData([]);
         } finally {
-          //setLoading(false);
+          setLoading(false);
         }
       };
       getData();
@@ -105,6 +108,8 @@ const Exercise = () => {
     const objRemarkMenuProps = {editHandler: editHandler}
 
     const addfirstExercise = (<div style={{marginTop: "4rem"}}>Create first Exercise ...</div>)
+    const loadingAthletees = <div style={{marginTop: "4rem"}}>Loading ...</div>
+
     const exercises = dataToShow?.map((item: IExercise) => 
     <div className={styles.exercise} key={item.id} onClick={()=>{getEditObj(item.id, item.name, item.metricType)}}>
         <div className={styles["container-items"]}>
@@ -128,7 +133,8 @@ const Exercise = () => {
               <div className={styles.count}> Total ({dataToShow?.length})</div>
             </div>
             <div className={styles.render}>
-            {data?.length == 0 && addfirstExercise}
+              {emptyData && addfirstExercise}
+              {loading && loadingAthletees}
             
               <div >
                 {exercises}

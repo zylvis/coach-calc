@@ -16,10 +16,11 @@
     justify-content: space-around;
 }
 .menuitem{
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
+    width: 3rem;
     background-color: #909090;
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -97,6 +98,7 @@
     font-size: 10px;;
 }
 .trash{
+    cursor: pointer;
     color: #c06363;
     width: 0.7rem;
 }

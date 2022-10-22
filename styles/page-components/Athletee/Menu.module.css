@@ -14,13 +14,23 @@
     align-items: center;
     justify-content: space-around;
 }
-.menuitem{
+.menuitem {
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 4rem;
     background-color: #909090;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+.menuitemresults {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    background-color: #97FB57;
     padding: 0.5rem;
     border-radius: 0.5rem;
 }

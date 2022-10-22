@@ -31,7 +31,7 @@ const Menu =(props:IMenuProps) =>{
                 <div className={styles.menu}>
                     <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "back")}>&lt;</div>
                     <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "edit")}>Edit</div>
-                    <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "results")}>Results</div>
+                    <div className={styles.menuitemresults} onClick={()=>props.menuHandler(false, "results")}>Results</div>
                 </div>
                 <div className={styles.detailscontainer}>
 

@@ -38,6 +38,7 @@ const Athletee: NextPage = () => {
     const [data, setData] = useState<IAthletee[]>([]);
     const [dataToShow, setDataToShow] = useState<IAthletee[]>([]);
     const [athleteeObj, setAthleteeObj] = useState({} as IAthletee)
+    const [emptyData, setEmptyData] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const{isLoggedIn} = useLoginContext()
@@ -56,6 +57,7 @@ const Athletee: NextPage = () => {
           );
           setDataToShow(response.data.result);
           setData(response.data.result);
+          setEmptyData(response.data.result.length == 0)
           console.log(response.data);
         } catch (err: any) {
           console.log(err)
@@ -138,6 +140,7 @@ const Athletee: NextPage = () => {
     const objResultsProps = {resultsHandler: resultsHandler}
 
     const addfirstAthletee = <div style={{marginTop: "4rem"}}>Create first Athletee ...</div>
+    const loadingAthletees = <div style={{marginTop: "4rem"}}>Loading ...</div>
  
     const athleteeForm = <div><AthleteeForm {...objFormProps}/></div>
 
@@ -167,7 +170,8 @@ const Athletee: NextPage = () => {
           </div>
           
           <div className={styles.render}>
-            {data.length == 0 && addfirstAthletee}
+            {emptyData && addfirstAthletee}
+            {loading && loadingAthletees}
               <div >
                 {athletees}
               </div>
