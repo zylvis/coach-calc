@@ -6,6 +6,7 @@ import styles from "../../styles/page-components/Login/Register.module.css"
 
 
 interface IRegister{
+    name: string,
     email: string,
     password: string
 }
@@ -47,6 +48,10 @@ const Register = (props: IRegisterProps) => {
 
             const errors = {} as IRegister;
 
+            if (values.name == ""){
+                errors.name = "Required"
+            }
+
             if (values.email == ""){
                 errors.email = "Required"
             }
@@ -63,6 +68,7 @@ const Register = (props: IRegisterProps) => {
   
     const formik = useFormik({
         initialValues: {
+            name: "",
             email: "",
             password: ""
 
@@ -78,6 +84,18 @@ const Register = (props: IRegisterProps) => {
         <div className={styles.container}>
             <div className={styles.registertxt}>Register</div>
             <form className={styles.formcontainer} onSubmit={formik.handleSubmit}>
+
+                <label className={styles.label} htmlFor="name">Name</label>
+                <input
+                    className={styles.input}
+                    id="name"
+                    name="name"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.name}
+                />
+                {formik.errors.name ? <div className={styles.error}>{formik.errors.name}</div> : <div className={styles.error}></div>}
+
                 <label className={styles.label} htmlFor="email">Email</label>
                 <input
                     className={styles.input}
