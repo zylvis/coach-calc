@@ -5,7 +5,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 50vh;
+    height: 80vh;
     width: 95vw;
     padding: 0.5rem;
     background: linear-gradient(0deg, #909090 0%, #F6F2F2 75%);

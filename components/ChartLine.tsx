@@ -10,7 +10,7 @@ interface IResults {
   id: number,
   athleteeId?: number,
   exerciseId?: number,
-  date?: string,
+  date: string,
   name?: string,
   value: string,
   metricType?: string
@@ -20,10 +20,10 @@ const ChartLine = (props: IChartProps) => {
 
   const [label, setLabel] = useState("Select exercise to see results")
 
-  let values: number[] = [];
+  let values: string[] = [];
   let labels: string[] = [];
-  props.metricType != "" ?  values = props.dataToShow.map(x => parseInt(x.value)) : values = []
-  props.metricType != ""? labels = props.dataToShow.map(x => x.date as string).sort() : labels = []
+  props.metricType != "" ?  values = props.dataToShow.sort((a, b) => +new Date(a.date) - +new Date(b.date)).map(x => x.value) : values = []
+  props.metricType != ""? labels = props.dataToShow.sort((a, b) => +new Date(a.date) - +new Date(b.date)).map(x => x.date as string) : labels = []
 
   console.log(values)
   console.log(new Date())
@@ -109,7 +109,7 @@ const ChartLine = (props: IChartProps) => {
               callback: function(value: any, index: any, ticks: any){
                 if (props.metricType == "Time"){
                   setLabel("Time")
-                return MilSecStringToTimeString(value.toString())
+                return MilSecStringToTimeString(value)
               } else if (props.metricType == "Number") {
                 setLabel("Number")
                 return value
