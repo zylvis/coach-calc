@@ -1,0 +1,30 @@
+.container{
+    position: absolute;
+    top: 1vh;
+    left: 2vw;
+    right: 2vw;
+    bottom: 1vh;
+    display: flex;
+    gap: 2vh;
+    flex-direction: column;
+    align-items:center;
+    background-color: #F6F2F2;
+    padding: 1vh;
+}
+.backbutton {
+    cursor: pointer;
+    padding: 1vh 6vw;
+    border-radius: 5px;
+    font-size: 3vh;
+    background-color: #909090;
+}
+
+.logoutcontainer{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 2vh;
+}
+.logout{
+    height: 3vh;
+}

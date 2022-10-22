@@ -15,7 +15,7 @@ a {
   color: #121212;
   text-decoration: none;
 }
-input[type="text"], input[type="date"], input[type="number"]{
+input[type="text"], input[type="date"], input[type="number"], input[type="password"] {
   border: 1px solid #929292;
   font-size: 1.5vh;
   text-align: center;

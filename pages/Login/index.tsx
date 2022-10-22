@@ -7,8 +7,6 @@ import Register from "../../page-components/Login/Register";
 import { useLoginContext } from "../../store/useLogincontext";
 import styles from "../../styles/pages/Login/Login.module.css"
 
-
-
 interface ILogin{
     email: string,
     password: string
