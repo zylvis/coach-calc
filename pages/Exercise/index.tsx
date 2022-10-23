@@ -65,6 +65,7 @@ const Exercise = () => {
     const getPost = (obj: IExercise) => {
       dataToShow.push(obj);
       setDataToShow(dataToShow)
+      setEmptyData(dataToShow.length == 0)
     }
 
     const editHandler = (show: boolean, action: string) => {
@@ -90,7 +91,8 @@ const Exercise = () => {
           .then(res => {  
             console.log(res.data); 
             const posts = dataToShow.filter(item => item.id !== editObject.id);  
-            setDataToShow(posts);  
+            setDataToShow(posts);
+            setEmptyData(posts.length == 0)
           }).catch( error =>
             console.log(error)
           )

@@ -84,6 +84,7 @@ const Athletee: NextPage = () => {
       console.log(post)
       setData([post, ...data])
       setDataToShow([post, ...dataToShow])
+      setEmptyData(false)
     }
 
     const searchHandler = (event: any) => {      
@@ -107,6 +108,7 @@ const Athletee: NextPage = () => {
             console.log(res.data); 
             const posts = dataToShow.filter(item => item.id !== athleteeObj.id);  
             setDataToShow(posts);  
+            setEmptyData(posts.length == 0)
           }).catch( error =>
             console.log(error)
           )
