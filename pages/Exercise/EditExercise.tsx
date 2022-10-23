@@ -86,11 +86,11 @@ const EditExercise = () => {
                     {formik.errors.name ? <div className={styles.error}>{formik.errors.name}</div> : <div className={styles.error}></div>}
 
                     <div className={styles.radiocontainer}>
-                        <div className={styles.choose}>Choose metric type</div>
+                        <div className={styles.choose} hidden>Choose metric type</div>
                         <span className={styles.radioinputcontainer}>
-                            <input className={styles.inputradio} type="radio" name="metricType" value="Number" onChange={formik.handleChange} checked={formik.values.metricType == "Number"}/>
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Number" onChange={formik.handleChange} checked={formik.values.metricType == "Number"} disabled/>
                             <label className={styles.radiolabel}>Number</label>
-                            <input className={styles.inputradio} type="radio" name="metricType" value="Time" onChange={formik.handleChange} checked={formik.values.metricType == "Time"}/>
+                            <input className={styles.inputradio} type="radio" name="metricType" value="Time" onChange={formik.handleChange} checked={formik.values.metricType == "Time"} disabled/>
                             <label className={styles.radiolabel}>Time</label> 
                         </span>
                         <div className={styles.picked}>{formik.values.metricType}</div>

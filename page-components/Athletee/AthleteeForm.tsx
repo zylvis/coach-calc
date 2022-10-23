@@ -4,6 +4,7 @@ import axios from "axios"
 import ConvertToBase64 from "../../Helpers/ConvertAndResizeToBase64"
 import Modal from "../../components/Modal";
 import DateStrToDate from "../../Helpers/DateStrToDate"
+import FormatDateTOYYYYMMDD from "../../Helpers/FormatDateToYYYYMMDD";
 
 interface AthleteeProps {
 
@@ -145,6 +146,8 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
               type="Date"
               value={birthDate}
               onChange={(event) => SetBirthDate(event.target.value)}
+              min="1900-01-01"
+              max={FormatDateTOYYYYMMDD(new Date())}
               required
             ></input>
 

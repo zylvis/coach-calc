@@ -5,6 +5,7 @@ import ConvertToBase64 from "../../Helpers/ConvertAndResizeToBase64"
 import FormatDate from "../../Helpers/FormatDate"
 import axios from "axios";
 import DateStrToDate from "../../Helpers/DateStrToDate"
+import FormatDateTOYYYYMMDD from "../../Helpers/FormatDateToYYYYMMDD";
 
 interface IAthletee{
     id: number,
@@ -147,6 +148,8 @@ const AthleteeEditForm = (props: IEditProps) => {
                     type="date"
                     onChange={formik.handleChange}
                     value={formik.values.birthDate}
+                    min="1900-01-01"
+                    max={FormatDateTOYYYYMMDD(new Date())}
                 />
             
             <label className={styles.label} htmlFor="height">Height</label>
