@@ -45,6 +45,8 @@ const Results = (props: IResultsProps) => {
     const[maxValue, setMaxValue] = useState("");
     const[minValue, setMinValue] = useState("")
     const[metricType, setMetricType] = useState("")
+    const [emptyData, setEmptyData] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const athleteeObj : IAthletee = JSON.parse(localStorage.getItem('athleteeObj') as string);
     athleteeObj.birthDate = FormatDate(athleteeObj.birthDate);
@@ -69,15 +71,14 @@ const Results = (props: IResultsProps) => {
                 }
             });
             setDistinctExercises(distinct);
-
-            console.log(response.data);
-
+            setEmptyData(responseResultByAthletee.length == 0)
+            console.log(responseResultByAthletee);
 
           } catch (err: any) {
             console.log(err)
             alert(err.message)
           } finally {
-
+            setLoading(false)
           }
         };
         getData();
@@ -165,6 +166,9 @@ const Results = (props: IResultsProps) => {
     console.log(distinctExercises)
     const objChartProps = {dataToShow: dataToShow, metricType: metricType}
 
+    const addfirstAthletee = <div className={styles.loading}>Add Results ...</div>
+    const loadingAthletees = <div className={styles.loading}>Loading ...</div>
+
     return (
         <div>
             <Modal/>
@@ -219,17 +223,16 @@ const Results = (props: IResultsProps) => {
                 
 
                 <div className={styles.rendercontainer}>
-                
-                    {dataToShow?.map((item) => {return (
-                        
+                    {emptyData && addfirstAthletee}
+                    {loading && loadingAthletees}
+                    {dataToShow?.map((item) => {return (                    
                             <div className={styles.itemscontainer} key={item.id}>
                                 <div className={styles.items}>{item.name}</div>
                                 <div className={styles.items}>{item.metricType == "Number" ? item.value : MilSecStringToTimeString(item.value)}</div> 
                                 <div className={styles.items}>{item.date}</div>
                                 <div className={styles.trash} onClick={()=>handleDelete(item.id)}><ITrash fill={'rgb(219, 98, 98)'}/></div>
                             </div>
-                        )
-                        
+                        )                      
                     })}
                 </div>
             </div>
