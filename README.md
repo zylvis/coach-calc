@@ -9,4 +9,7 @@ npm run dev
 
 or prieview at: https://coach-calc.netlify.app
 
+To register you can use any email or username, because for developmnet purpose it does not sends confirmation.
+
+
 
