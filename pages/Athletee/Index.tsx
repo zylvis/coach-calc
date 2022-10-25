@@ -99,6 +99,12 @@ const Athletee: NextPage = () => {
       localStorage.setItem('athleteeObj', JSON.stringify(item));
     }
 
+    const onResultsClick = (item: IAthletee) =>{
+      setShowResults(true)
+      setAthleteeObj(item)
+      localStorage.setItem('athleteeObj', JSON.stringify(item));
+    }
+
     const menuHandler = (show: boolean, action: string) =>{
       setShowMenu(show)
       if(action == "delete"){
@@ -148,12 +154,12 @@ const Athletee: NextPage = () => {
 
     const athletees = dataToShow.map((item: any, index: number) =>
       <div className={styles.athleteecontainer} key={item.id}>
-        <div className={styles.athletee} onClick={()=>{onAthleteeClick(item)}}>
-          <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
-          <div className={styles["container-items"]}>
+        <div className={styles.athletee}>
+          <div className={styles.image} onClick={()=>{onAthleteeClick(item)}} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
+          <div className={styles["container-items"]} onClick={()=>{onAthleteeClick(item)}}>
             <div>{item.firstName} {item.lastName}</div>  
           </div>
-          <div className={styles.tapforresults}>Click for results</div>
+          <div className={styles.tapforresults} onClick={()=>{onResultsClick(item)}}>Click for results</div>
         </div>
         <button className={styles.addresults} onClick={()=>{setShowAddResults(true); localStorage.setItem('athleteeObj', JSON.stringify(item))}}>Add Results</button>
       </div>)
