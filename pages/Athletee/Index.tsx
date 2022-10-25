@@ -138,7 +138,6 @@ const Athletee: NextPage = () => {
 
     const resultsHandler = (show: boolean) => {
       setShowResults(show)
-      setShowMenu(true)
     }
 
     const objFormProps = {ShowForm: GetCancelForm, GetPost: GetPost};
