@@ -104,6 +104,13 @@
     background-size: cover;
     background-position: center;
 }
+.tapforresults{
+    margin-right: 10%;
+    width: 100%;
+    order: 3;
+    font-size: 0.75rem;
+    color:#90909083;
+}
 .addresults{
     cursor: pointer;
     width: 3rem;

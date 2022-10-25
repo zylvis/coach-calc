@@ -151,8 +151,9 @@ const Athletee: NextPage = () => {
         <div className={styles.athletee} onClick={()=>{onAthleteeClick(item)}}>
           <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
           <div className={styles["container-items"]}>
-           <div>{item.firstName} {item.lastName}</div>  
+            <div>{item.firstName} {item.lastName}</div>  
           </div>
+          <div className={styles.tapforresults}>Click for results</div>
         </div>
         <button className={styles.addresults} onClick={()=>{setShowAddResults(true); localStorage.setItem('athleteeObj', JSON.stringify(item))}}>Add Results</button>
       </div>)
