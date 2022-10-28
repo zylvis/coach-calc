@@ -46,20 +46,18 @@ const AddResultss = () =>{
     const [showDelete, setShowDelete] = useState(true)
     const [showBanUpdate, setShowBanUpdate] = useState(false)
     const [activeResultId, setActiveResultId] = useState(0)
-    const [dateUpdate, setDateUpadate] = useState("")
+    const [updateObj, setUpdateObj] = useState({} as IResult)
     const [updateExerciseId, setUpdateExerciseId] = useState(0)
     const [emptyData, setEmptyData] = useState(false);
     const [loading, setLoading] = useState(true);
     const[reloadTrigger, setReloadTrigger] = useState(0)
 
+ 
 
     const athleteeObj : IAthletee = JSON.parse(localStorage.getItem('athleteeObj') as string);
     athleteeObj.birthDate = FormatDate(athleteeObj.birthDate);
     console.log(exercises)
     console.log("metrictype: " +  metricTypeInsert)
-
-    console.log("bybis1")
-    console.log(mainData)
 
     useEffect(() => {
 
@@ -71,8 +69,8 @@ const AddResultss = () =>{
                 
                 const responseResult = response.data.result as IResult[]
                 const responseResultByAthletee = responseResult.filter((item : IResult) => item.athleteeId == athleteeObj.id);
-                setMainData(responseResultByAthletee)
-                setDataToShow(responseResultByAthletee);
+                setMainData(JSON.parse(JSON.stringify(responseResultByAthletee)))
+                setDataToShow(JSON.parse(JSON.stringify(responseResultByAthletee)));
                 
                 setEmptyData(responseResultByAthletee.length == 0)
 
@@ -98,7 +96,6 @@ const AddResultss = () =>{
             );
             setExercises(response.data.result);
             
-            
             console.log(response.data);
           } catch (err: any) {
             console.log(err)
@@ -112,6 +109,18 @@ const AddResultss = () =>{
 
     }, [reloadTrigger]);
 
+    const addPut = (obj: IResult) => {
+        axios.put(`${process.env.API_URL}/api/Result/${obj.id}`, obj)
+        .then(response => {
+
+
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+            error.response.data?.errorMesseges[0] ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
+        });
+    }
+
     const timeInputHandler = (timeMil: number) =>{
 
     }
@@ -121,15 +130,31 @@ const AddResultss = () =>{
         setMetricTypeInsert(mtype)
     }
 
-    const updateHandlerExercise = (result: IResult) => {
+    const updateHandlerExercise = (event: any, result: IResult) => {
 
-        var foundResultIndex = dataToShow.findIndex(x => x.id == result.id);
-        dataToShow[foundResultIndex].exerciseId = result.exerciseId;
-        var foundExerciseIndex = exercises.findIndex(x => x.id == result.exerciseId)
-        dataToShow[foundResultIndex].name = exercises[foundExerciseIndex].name
-        dataToShow[foundResultIndex].metricType = exercises[foundExerciseIndex].metricType
-        console.log(dataToShow)
-        setDataToShow(dataToShow);
+        // const tempData: IResult[] = JSON.parse(JSON.stringify(dataToShow));
+        // var foundResultIndex = tempData.findIndex(x => x.id == result.id);
+        // tempData[foundResultIndex].exerciseId = parseInt(event.target.value);
+        // var foundExerciseIndex = exercises.findIndex(x => x.id == event.target.value)
+        // tempData[foundResultIndex].name = exercises[foundExerciseIndex].name
+        // tempData[foundResultIndex].metricType = exercises[foundExerciseIndex].metricType
+        // console.log(tempData)
+        // setDataToShow(tempData);
+
+        updateObj.id = result.id
+        updateObj.athleteeId = result.athleteeId;
+
+        updateObj.exerciseId = parseInt(event.target.value);
+
+        var foundExerciseIndex = exercises.findIndex(x => x.id == event.target.value)
+        updateObj.name = exercises[foundExerciseIndex].name
+
+        updateObj.metricType = exercises[foundExerciseIndex].metricType
+        console.log("bybis")
+        console.log(updateObj)
+        setUpdateObj(updateObj);
+
+
       
         setUpdateExerciseId(result.exerciseId)
         setActiveResultId(result.id)
@@ -144,7 +169,9 @@ const AddResultss = () =>{
     
     const updateHandlerDate = (event: any, result: IResult) => {
         event.preventDefault();
-
+        updateObj.id=result.id;
+        updateObj.date=event.target.value;
+        setUpdateObj(updateObj)
         setActiveResultId(result.id)
         setShowOkUpdate(true)
         setShowBanUpdate(true)
@@ -153,22 +180,21 @@ const AddResultss = () =>{
         console.log("update exercise Id: " + result.exerciseId)
         console.log("value: " + result.value)
         console.log("result id: " + result.id)
+        console.log(event.target.value)
+        console.log(updateObj)
+
     }
-
-
-
-
 
     const onClickOkUpdate = () =>{
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
+        setUpdateObj({} as IResult)
     }
 
     const onClickBanUpdate = () => {
-        console.log("bybis2")
-        console.log(mainData)
-        //setDataToShow(mainData)
+
+        setUpdateObj({} as IResult)
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
@@ -231,15 +257,13 @@ const AddResultss = () =>{
                         
                     </thead>
                     <tbody>
-                        {dataToShow.map(itemR => <tr key={itemR.id}>
+                        {dataToShow.map(itemR => <tr key={itemR.id} >
                             <td style={{"width": "8vw"}}>{showOkUpdate && itemR.id == activeResultId && <div className={styles.ok} onClick={onClickOkUpdate}>OK</div>}</td>
                             
                             <td>
                                 <select value={itemR.exerciseId}
-                                        onChange={(event)=>{
-                                            itemR.exerciseId = parseInt(event.target.value);
-                                            updateHandlerExercise(itemR);
-                                    }}>
+                                        onChange={(event)=>updateHandlerExercise(event, itemR)}
+                                        >
                                     {exercises.map((itemE) =>{
                                         return (
                                             <option value={itemE.id} key={itemE.id}>{itemE.name}</option>
@@ -251,7 +275,15 @@ const AddResultss = () =>{
                                {itemR.metricType == "Number" ? <input defaultValue={itemR.value} className={styles.inputnumber} type="number"/> : <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(itemR.value)}}/>}
 
                             </td>
-                            <td ><input value={itemR.date} type="date" onChange={(event)=>{/*itemR.date=event.target.value;*/ updateHandlerDate(event, itemR)}}/></td>
+                            <td >
+                                <input  placeholder={itemR.date}
+                                        value={itemR.id == updateObj.id ? updateObj.date : ""}
+                                        type="text"
+                                        onFocus={(e) => (e.target.type = "date")}
+                                        onBlur={(e) => (e.target.type = "text")}
+                                        onChange={(event)=>{/*itemR.date=event.target.value;*/ updateHandlerDate(event, itemR)}}/>
+                                        
+                            </td>
                             <td style={{"width": "8vw"}}>
                                 {showDelete && <ITrash className={styles.trash} fill="#c06363"/>}
                                 {showBanUpdate && itemR.id == activeResultId && <div className={styles.ban} onClick={onClickBanUpdate}><IBan  fill="#167dc2" /></div>}

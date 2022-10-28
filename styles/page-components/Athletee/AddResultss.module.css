@@ -21,7 +21,7 @@
     text-align: center;
 }
 
-.container input[type="date"]{
+.container input[type="date"], .container input[type="text"]{
     border: none;
     font-size: 1.75vh;
     width: 28vw;
@@ -38,7 +38,6 @@
 
 .container input:focus {
     border: none;
-    color:rgb(156, 18, 18);
 }
 
 .container table {
