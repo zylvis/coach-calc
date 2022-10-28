@@ -1,0 +1,113 @@
+.container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    width: 99vw;
+    height: 100vh;
+
+    background-color: #F6F2F2;
+    border: 1px solid #909090;
+    font-size: 1.75vh;
+
+    overflow-y: scroll;
+}
+
+.table{
+    text-align: center;
+}
+
+.container input[type="date"]{
+    border: none;
+    font-size: 1.75vh;
+    width: 28vw;
+    height: 5vh;
+    background-color: white;
+}
+
+
+.inputnumber {
+    width: 28vw;
+    border: none;
+}
+
+
+.container input:focus {
+    border: none;
+    color:rgb(156, 18, 18);
+}
+
+.container table {
+    border-collapse: collapse;
+}
+
+.container th, .container td{
+    border: 1px solid #909090;
+    background-color: white;
+}
+.container select{
+    text-align: center;
+    border: none;
+    appearance: none;
+    word-wrap: break-word;
+    width: 25vw;
+    max-width: 20vw;
+    height: 5vh;
+    font-size: 1.75vh;
+}
+
+.container select:active select:focus{
+    border: none;
+    border: 0px solid;
+}
+
+.delete{
+   
+}
+.trash{
+    cursor: pointer;
+    height: 3vh;
+    padding: 0.3vh;
+    color: #c06363;
+}
+.back{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12vw;
+    height: 4vh;
+    background-color: #909090;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 2vh 2vh;
+    border-radius: 5px;
+
+}
+
+.newresult{
+    width: 15vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.ok{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 3vh;
+    width: 3vh;
+    border-radius: 50%;
+    background-color: #97FB57;
+    font-size: 1.5vh;
+    color: #121212;
+}
+.ban{
+    cursor: pointer;
+    width: 3vh;
+}

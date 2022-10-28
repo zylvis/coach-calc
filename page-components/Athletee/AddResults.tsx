@@ -146,7 +146,7 @@ const AddResults =(props: IAddResultsProps) => {
            
     }
 
-    const timeInputPropsObj = {timeInputHandler: timeInputHandler}
+    const timeInputPropsObj = {timeInputHandler: timeInputHandler, itemTimeValue: 0}
 
     const timeInput = <>
                         <TimeInput {...timeInputPropsObj}/> 

@@ -2,18 +2,31 @@ import { useEffect, useState } from "react";
 import styles from "../styles/components/TimeInput.module.css"
 
 interface ITimeInputProps{
-    timeInputHandler: (timeMil: number) => void
+    timeInputHandler: (timeMil: number) => void,
+    itemTimeValue: number
 }
 
 const TimeInput = (props: ITimeInputProps) => {
 
-    const [hh, setHH] = useState(NaN);
-    const [mm, setMM] = useState<number>(NaN);
-    const [ss, setSS] = useState<number>(NaN);
-    const [ms, setMS] = useState<number>(NaN);
+
+    const date = new Date(props.itemTimeValue)
+    const hours = date.getUTCHours()
+    const minutes = date.getUTCMinutes()
+    const seconds = date.getUTCSeconds()
+    const milSeconds = date.getUTCMilliseconds() / 10
+
+    const [hh, setHH] = useState(hours);
+    const [mm, setMM] = useState<number>(minutes);
+    const [ss, setSS] = useState<number>(seconds);
+    const [ms, setMS] = useState<number>(milSeconds);
     const [result, setResult] = useState(NaN);
     const[errorMessage, setErrorMessage] = useState("")
-    
+
+    console.log(props.itemTimeValue)
+
+
+
+
     useEffect(()=>{
 
         let hhMil = hh * 60 * 60 * 1000 | 0
@@ -48,12 +61,11 @@ const TimeInput = (props: ITimeInputProps) => {
    
     return (
         <>  
-            <label className={styles.label}>Time</label>
-            <div  className={styles.container}>
-                <input className={styles.input} value={hh == 0 ? NaN.toString() : hh} min="0" max="59" type="number" onChange={(event)=>setHH(event?.target.valueAsNumber)} placeholder="hh"/>:
-                <input className={styles.input} value={mm == 0 ? NaN.toString() : mm} min="0" max="59" type="number" onChange={(event)=>setMM(event?.target.valueAsNumber)}  placeholder="mm"/>:
-                <input className={styles.input} value={ss == 0 ? NaN.toString() : ss} min="0" max="59" type="number" onChange={(event)=>setSS(event?.target.valueAsNumber)}  placeholder="ss"/>.
-                <input className={styles.input} value={ms == 0 ? NaN.toString() : ms} min="0" max="99" type="number" onChange={(event)=>setMS(event?.target.valueAsNumber)}  placeholder="ms"/>
+            <div  className={styles.timeinputcontainer}>
+                <input className={styles.input} value={hh == 0 ? NaN.toString() : hh} min="0" max="59" type="number" onChange={(event)=>setHH(event?.target.valueAsNumber)} placeholder="0"/>:
+                <input className={styles.input} value={mm == 0 ? NaN.toString() : mm} min="0" max="59" type="number" onChange={(event)=>setMM(event?.target.valueAsNumber)}  placeholder="0"/>:
+                <input className={styles.input} value={ss == 0 ? NaN.toString() : ss} min="0" max="59" type="number" onChange={(event)=>setSS(event?.target.valueAsNumber)}  placeholder="0"/>.
+                <input className={styles.input} value={ms == 0 ? NaN.toString() : ms} min="0" max="99" type="number" onChange={(event)=>setMS(event?.target.valueAsNumber)}  placeholder="0"/>
             </div>
         </>
     )

@@ -14,6 +14,7 @@ import { useLoginContext } from "../../store/useLogincontext";
 import  Router  from "next/router";
 import parseJWT from "../../Helpers/parseJWT";
 import userAuth from "../../Helpers/userAuth";
+import AddResultss from "../../page-components/Athletee/AddResultss";
 
 interface IAthletee {
   id: number,
@@ -194,8 +195,9 @@ const Athletee: NextPage = () => {
         {showForm && athleteeForm}
         {showMenu && <Menu {...objMenuProps}/>}
         {showEditForm && <AthleteeEditForm {... objEditMenuPrps}/>}
-        {showAddResults && <AddResults {...objAddResultsProps}/>}
+        {false && <AddResults {...objAddResultsProps}/>}
         {showResults && <Results {...objResultsProps }/>}
+        {showAddResults && <AddResultss/>}
       </>
     )
 }
