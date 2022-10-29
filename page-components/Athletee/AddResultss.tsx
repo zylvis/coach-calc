@@ -175,7 +175,6 @@ const AddResultss = () =>{
         setUpdateExercise(updateExercise)
 
         setUpdateExerciseId(event.target.value)
-        setActiveResultId(result.id)
         setShowOkUpdate(true)
         setShowBanUpdate(true)
         setShowDelete(false)
@@ -188,7 +187,6 @@ const AddResultss = () =>{
     const updateHandlerDate = (event: any, result: IResult) => {
         event.preventDefault();
         setUpdateDate({resultId: result.id, date: event.target.value})
-        setActiveResultId(result.id)
         setShowOkUpdate(true)
         setShowBanUpdate(true)
         setShowDelete(false)
@@ -280,10 +278,10 @@ const AddResultss = () =>{
                         
                     </thead>
                     <tbody>
-                        {dataToShow.map(itemR => <tr key={itemR.id} >
+                        {dataToShow.map(itemR => <tr key={itemR.id}>
                             <td style={{"width": "8vw"}}>{showOkUpdate && itemR.id == activeResultId && <div className={styles.ok} onClick={onClickOkUpdate}>OK</div>}</td>
                             
-                            <td>
+                            <td onClick={()=>setActiveResultId(itemR.id)}>
                                 <select value={itemR.id == updateExercise.resultId ? updateExercise.id : itemR.exerciseId}
                                         onChange={(event)=>updateHandlerExercise(event, itemR)}
                                         >
@@ -294,18 +292,18 @@ const AddResultss = () =>{
                                     })}
                                 </select>
                             </td>
-                            <td>
-                               {itemR.metricType == "Number" ? <input onChange={(event)=>{setActiveResultId(itemR.id); numberInputHandler(event, itemR)}}
+                            <td onClick={()=>setActiveResultId(itemR.id)}>
+                               {itemR.metricType == "Number" ? <input onChange={(event)=>numberInputHandler(event, itemR)}
                                                                     value={itemR.id == updateValue.resultId ? updateValue.value : itemR.value}
                                                                     className={styles.inputnumber}
                                                                     type="number"
                                                                 />
-                                                            :   <div onClick={()=>setActiveResultId(itemR.id)}>
+                                                            :   <div>
                                                                     <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(itemR.id == updateValue.resultId ? updateValue.value : itemR.value)}}/>
                                                                 </div>}
 
                             </td>
-                            <td >
+                            <td onClick={()=>setActiveResultId(itemR.id)}>
                                 <input  placeholder={itemR.date}
                                         value={itemR.id == updateDate.resultId ? updateDate.date : ""}
                                         type="text"
