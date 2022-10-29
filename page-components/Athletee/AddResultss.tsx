@@ -210,7 +210,7 @@ const AddResultss = () =>{
     const onClickBanUpdate = () => {
 
         setActiveResultId(0)
-        
+         
         console.log(mainData)
         setUpdateDate({resultId: 0, date: ""})
         setUpdateExercise({} as IExercise)
@@ -301,7 +301,7 @@ const AddResultss = () =>{
                                                                     type="number"
                                                                 />
                                                             :   <div onClick={()=>setActiveResultId(itemR.id)}>
-                                                                    <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(itemR.value)}}/>
+                                                                    <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(itemR.id == updateValue.resultId ? updateValue.value : itemR.value)}}/>
                                                                 </div>}
 
                             </td>

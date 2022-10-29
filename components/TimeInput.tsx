@@ -7,6 +7,7 @@ interface ITimeInputProps{
 }
 
 const TimeInput = (props: ITimeInputProps) => {
+    
 
 
     const date = new Date(props.itemTimeValue)
@@ -15,20 +16,25 @@ const TimeInput = (props: ITimeInputProps) => {
     const seconds = date.getUTCSeconds()
     const milSeconds = date.getUTCMilliseconds() / 10
 
-    const [hh, setHH] = useState(hours);
+    const [hh, setHH] = useState<number>(hours);
     const [mm, setMM] = useState<number>(minutes);
     const [ss, setSS] = useState<number>(seconds);
     const [ms, setMS] = useState<number>(milSeconds);
-    const [result, setResult] = useState(NaN);
-    const[errorMessage, setErrorMessage] = useState("")
 
+    useEffect(()=>{
+        setHH(hours)
+        setMM(minutes)
+        setSS(seconds)
+        setMS(milSeconds)
+    },[hours, milSeconds])
+
+    console.log("perkrauna?: ")
+    console.log(ms)
+    console.log(milSeconds)
     console.log(props.itemTimeValue)
 
 
-
-
     useEffect(()=>{
-
         let hhMil = hh * 60 * 60 * 1000 | 0
         let mmMil = mm * 60 * 1000 | 0
         let ssMil = ss * 1000 | 0
@@ -39,9 +45,9 @@ const TimeInput = (props: ITimeInputProps) => {
         props.timeInputHandler(timeMil)
         console.log(timeMil)
         
-        console.log(`Message: ${errorMessage}`)
+        console.log(`Message: `)
 
-    },[hh, mm, ss, ms])
+    },[hh, mm, ss, ms, props.itemTimeValue])
 
     if (hh < 0 || hh > 23 || !Number.isInteger(hh)) {
         setHH(0)
