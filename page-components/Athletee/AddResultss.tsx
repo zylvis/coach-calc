@@ -47,8 +47,9 @@ const AddResultss = () =>{
     const [showDelete, setShowDelete] = useState(true)
     const [showBanUpdate, setShowBanUpdate] = useState(false)
     const [activeResultId, setActiveResultId] = useState(0)
-    const [updateDate, setUpdateDate] = useState({id: 0, date: ""})
+    const [updateDate, setUpdateDate] = useState({resultId: 0, date: ""})
     const [updateExercise, setUpdateExercise] = useState({} as IExercise)
+    const [updateValue, setUpdateValue] = useState({resultId: 0, value: ""})
     const [updateExerciseId, setUpdateExerciseId] = useState(0)
     const [emptyData, setEmptyData] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -126,9 +127,25 @@ const AddResultss = () =>{
         });
     }
 
-    const timeInputHandler = (timeMil: number) =>{
+    const timeInputHandler = (timeMil: number) => {
+
+        setUpdateValue({resultId: activeResultId, value: timeMil.toString()})
+        setShowOkUpdate(true)
+        setShowBanUpdate(true)
+        //setShowDelete(false)
+        console.log("hd")
+        console.log(timeMil)
 
     }
+
+    const numberInputHandler = (event:any, result: IResult) =>{
+
+        setUpdateValue({resultId: result.id, value: event.target.value})
+        setShowOkUpdate(true)
+        setShowBanUpdate(true)
+        setShowDelete(false)
+    }
+
     const handleMetricTypeOnInsert = (event: any) => {
         console.log(exercises)
         const mtype = exercises.filter(x => x.id == event.target.value)[0].metricType
@@ -157,8 +174,6 @@ const AddResultss = () =>{
         console.log(updateExercise)
         setUpdateExercise(updateExercise)
 
-
-      
         setUpdateExerciseId(event.target.value)
         setActiveResultId(result.id)
         setShowOkUpdate(true)
@@ -172,7 +187,7 @@ const AddResultss = () =>{
     
     const updateHandlerDate = (event: any, result: IResult) => {
         event.preventDefault();
-        setUpdateDate({id: result.id, date: event.target.value})
+        setUpdateDate({resultId: result.id, date: event.target.value})
         setActiveResultId(result.id)
         setShowOkUpdate(true)
         setShowBanUpdate(true)
@@ -189,16 +204,21 @@ const AddResultss = () =>{
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
-        setUpdateDate({id: 0, date: ""})
+        setUpdateDate({resultId: 0, date: ""})
     }
 
     const onClickBanUpdate = () => {
 
-        setUpdateDate({id: 0, date: ""})
-        setUpdateExercise({})
+        setActiveResultId(0)
+        
+        console.log(mainData)
+        setUpdateDate({resultId: 0, date: ""})
+        setUpdateExercise({} as IExercise)
+        setUpdateValue({resultId: 0, value: ""})
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
+        setDataToShow(mainData);
         setReloadTrigger(reloadTrigger + 1)
 
         
@@ -274,18 +294,25 @@ const AddResultss = () =>{
                                     })}
                                 </select>
                             </td>
-                            <td >
-                               {itemR.metricType == "Number" ? <input defaultValue={itemR.value} className={styles.inputnumber} type="number"/> : <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(itemR.value)}}/>}
+                            <td>
+                               {itemR.metricType == "Number" ? <input onChange={(event)=>{setActiveResultId(itemR.id); numberInputHandler(event, itemR)}}
+                                                                    value={itemR.id == updateValue.resultId ? updateValue.value : itemR.value}
+                                                                    className={styles.inputnumber}
+                                                                    type="number"
+                                                                />
+                                                            :   <div onClick={()=>setActiveResultId(itemR.id)}>
+                                                                    <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(itemR.value)}}/>
+                                                                </div>}
 
                             </td>
                             <td >
                                 <input  placeholder={itemR.date}
-                                        value={itemR.id == updateDate.id ? updateDate.date : updateDate.date}
+                                        value={itemR.id == updateDate.resultId ? updateDate.date : ""}
                                         type="text"
                                         onFocus={(e) => (e.target.type = "date", e.target.defaultValue=itemR.date)}
                                         onBlur={(e) => (e.target.type = "text")}
-                                        onChange={(event)=>{/*itemR.date=event.target.value;*/ updateHandlerDate(event, itemR)}}/>
-                                        
+                                        onChange={(event)=>{/*itemR.date=event.target.value;*/ updateHandlerDate(event, itemR)}}
+                                        />       
                             </td>
                             <td style={{"width": "8vw"}}>
                                 {showDelete && <ITrash className={styles.trash} fill="#c06363"/>}
