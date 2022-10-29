@@ -292,7 +292,7 @@ const AddResultss = () =>{
                                     })}
                                 </select>
                             </td>
-                            <td onClick={()=>setActiveResultId(itemR.id)}>
+                            <td onClick={()=>{setActiveResultId(itemR.id); onClickBanUpdate}}>
                                {itemR.metricType == "Number" ? <input onChange={(event)=>numberInputHandler(event, itemR)}
                                                                     value={itemR.id == updateValue.resultId ? updateValue.value : itemR.value}
                                                                     className={styles.inputnumber}
