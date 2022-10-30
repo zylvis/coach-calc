@@ -165,12 +165,13 @@ const AddResultss = () =>{
         //setDataToShow(tempData);
         
         //setting up update result object
+        let tempResult = JSON.parse(JSON.stringify(resultUpdateObj))
         var foundExerciseIndex = exercises.findIndex(x => x.id == event.target.value)
-        resultUpdateObj.exerciseId = parseInt(event.target.value);
-        resultUpdateObj.name = exercises[foundExerciseIndex].name
-        resultUpdateObj.metricType = exercises[foundExerciseIndex].metricType
-        resultUpdateObj.value = "0"
-        setResultUpdateObj(resultUpdateObj)
+        tempResult.exerciseId = parseInt(event.target.value);
+        tempResult.name = exercises[foundExerciseIndex].name
+        tempResult.metricType = exercises[foundExerciseIndex].metricType
+        tempResult.value = "0"
+        setResultUpdateObj(tempResult)
 
         setShowOkUpdate(true)
         setShowBanUpdate(true)
