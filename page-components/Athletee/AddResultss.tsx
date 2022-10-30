@@ -47,10 +47,7 @@ const AddResultss = () =>{
     const [showDelete, setShowDelete] = useState(true)
     const [showBanUpdate, setShowBanUpdate] = useState(false)
     const [activeResultId, setActiveResultId] = useState(0)
-    const [updateDate, setUpdateDate] = useState({resultId: 0, date: ""})
-    const [updateExercise, setUpdateExercise] = useState({} as IExercise)
-    const [updateValue, setUpdateValue] = useState({resultId: 0, value: ""})
-    const [updateExerciseId, setUpdateExerciseId] = useState(0)
+    const [resultUpdateObj, setResultUpdateObj] = useState<IResult>({}as IResult)
     const [emptyData, setEmptyData] = useState(false);
     const [loading, setLoading] = useState(true);
     const[reloadTrigger, setReloadTrigger] = useState(0)
@@ -62,8 +59,6 @@ const AddResultss = () =>{
     console.log(exercises)
     console.log("metrictype: " +  metricTypeInsert)
 
-    console.log("Update date: ")
-    console.log(updateDate)
 
     useEffect(() => {
 
@@ -113,7 +108,7 @@ const AddResultss = () =>{
         };
         getData();
 
-    }, [reloadTrigger]);
+    }, []);
 
     const addPut = (obj: IResult) => {
         axios.put(`${process.env.API_URL}/api/Result/${obj.id}`, obj)
@@ -129,18 +124,22 @@ const AddResultss = () =>{
 
     const timeInputHandler = (timeMil: number) => {
 
-        setUpdateValue({resultId: activeResultId, value: timeMil.toString()})
-        setShowOkUpdate(true)
-        setShowBanUpdate(true)
+       // resultUpdateObj.value = timeMil.toString()
+      //  setResultUpdateObj(resultUpdateObj)
+        //setShowOkUpdate(true)
+        //setShowBanUpdate(true)
         //setShowDelete(false)
-        console.log("hd")
-        console.log(timeMil)
+
 
     }
 
     const numberInputHandler = (event:any, result: IResult) =>{
 
-        setUpdateValue({resultId: result.id, value: event.target.value})
+        console.log(event.target.value)
+        let tempResult: IResult = JSON.parse(JSON.stringify(resultUpdateObj))
+        tempResult.value = event.target.value
+        setResultUpdateObj(tempResult)
+
         setShowOkUpdate(true)
         setShowBanUpdate(true)
         setShowDelete(false)
@@ -153,7 +152,7 @@ const AddResultss = () =>{
     }
 
     const updateHandlerExercise = (event: any, result: IResult) => {
-
+        event.preventDefault();
         //Recalculate value type input depending on 
         const tempData: IResult[] = JSON.parse(JSON.stringify(dataToShow));
         var foundResultIndex = tempData.findIndex(x => x.id == result.id);
@@ -161,32 +160,33 @@ const AddResultss = () =>{
         var foundExerciseIndex = exercises.findIndex(x => x.id == event.target.value)
         tempData[foundResultIndex].name = exercises[foundExerciseIndex].name
         tempData[foundResultIndex].metricType = exercises[foundExerciseIndex].metricType
+        //tempData[foundResultIndex].value = "0"
         console.log(tempData)
-        setDataToShow(tempData);
+        //setDataToShow(tempData);
         
-        //setting up update exercise object
-        updateExercise.resultId=result.id;
-        updateExercise.id = parseInt(event.target.value);
+        //setting up update result object
         var foundExerciseIndex = exercises.findIndex(x => x.id == event.target.value)
-        updateExercise.name = exercises[foundExerciseIndex].name
-        updateExercise.metricType = exercises[foundExerciseIndex].metricType
-        console.log("bybis")
-        console.log(updateExercise)
-        setUpdateExercise(updateExercise)
+        resultUpdateObj.exerciseId = parseInt(event.target.value);
+        resultUpdateObj.name = exercises[foundExerciseIndex].name
+        resultUpdateObj.metricType = exercises[foundExerciseIndex].metricType
+        resultUpdateObj.value = "0"
+        setResultUpdateObj(resultUpdateObj)
 
-        setUpdateExerciseId(event.target.value)
         setShowOkUpdate(true)
         setShowBanUpdate(true)
         setShowDelete(false)
         console.log("update data: " + result.date)
         console.log("update exercise Id: " + result.exerciseId)
+        console.log("resultUpdateExercisID: " + resultUpdateObj.exerciseId)
         console.log("value: " + result.value)
     }
 
     
     const updateHandlerDate = (event: any, result: IResult) => {
         event.preventDefault();
-        setUpdateDate({resultId: result.id, date: event.target.value})
+        let tempObj: IResult = JSON.parse(JSON.stringify(resultUpdateObj))
+        tempObj.date = event.target.value
+        setResultUpdateObj(tempObj)
         setShowOkUpdate(true)
         setShowBanUpdate(true)
         setShowDelete(false)
@@ -202,22 +202,40 @@ const AddResultss = () =>{
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
-        setUpdateDate({resultId: 0, date: ""})
+        setResultUpdateObj({} as IResult)
+        setActiveResultId(0)
     }
 
-    const onClickBanUpdate = () => {
+    const onNextRowClick = (itemR: IResult) =>{
+
+        console.log("setinaobjekta: ")
+        console.log(itemR)
+        
+        if (itemR.id != activeResultId){
+
+            console.log("salyga")
+            let tempResult = JSON.parse(JSON .stringify(itemR))
+            setResultUpdateObj(tempResult)
+            //setActiveResultId(0)
+            //setReloadTrigger(reloadTrigger + 1)
+            setActiveResultId(itemR.id);
+            
+        }
+        
+    }
+
+    const onClickBanUpdate = (result:IResult) => {
 
         setActiveResultId(0)
          
         console.log(mainData)
-        setUpdateDate({resultId: 0, date: ""})
-        setUpdateExercise({} as IExercise)
-        setUpdateValue({resultId: 0, value: ""})
+        console.log(result)
+        setResultUpdateObj(result)
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
-        setDataToShow(mainData);
-        setReloadTrigger(reloadTrigger + 1)
+        //setDataToShow(mainData);
+        // setReloadTrigger(reloadTrigger + 1)
 
         
     }
@@ -241,7 +259,7 @@ const AddResultss = () =>{
                         </tr>
 
                         <tr>
-                            <th colSpan={5}> Add Result</th>
+                            <th style={{"height": "5vh"}} colSpan={5}> Add Result</th>
                         </tr>
 
                         <tr>
@@ -266,7 +284,7 @@ const AddResultss = () =>{
                             <td><IBan className={styles.ban} fill="#167dc2"/></td>
                         </tr>
                         <tr>
-                            <th colSpan={5}>Results list</th>
+                            <th style={{"height": "5vh"}} colSpan={5}>Results list </th>
                         </tr>
                         <tr>
                             <td></td>
@@ -281,8 +299,8 @@ const AddResultss = () =>{
                         {dataToShow.map(itemR => <tr key={itemR.id}>
                             <td style={{"width": "8vw"}}>{showOkUpdate && itemR.id == activeResultId && <div className={styles.ok} onClick={onClickOkUpdate}>OK</div>}</td>
                             
-                            <td onClick={()=>setActiveResultId(itemR.id)}>
-                                <select value={itemR.id == updateExercise.resultId ? updateExercise.id : itemR.exerciseId}
+                            <td onClick={(event)=>onNextRowClick(itemR)}>
+                                <select value={itemR.id == resultUpdateObj.id ? resultUpdateObj.exerciseId : itemR.exerciseId}
                                         onChange={(event)=>updateHandlerExercise(event, itemR)}
                                         >
                                     {exercises.map((itemE) =>{
@@ -292,29 +310,37 @@ const AddResultss = () =>{
                                     })}
                                 </select>
                             </td>
-                            <td onClick={()=>{setActiveResultId(itemR.id); onClickBanUpdate}}>
-                               {itemR.metricType == "Number" ? <input onChange={(event)=>numberInputHandler(event, itemR)}
-                                                                    value={itemR.id == updateValue.resultId ? updateValue.value : itemR.value}
-                                                                    className={styles.inputnumber}
-                                                                    type="number"
-                                                                />
-                                                            :   <div>
-                                                                    <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(itemR.id == updateValue.resultId ? updateValue.value : itemR.value)}}/>
-                                                                </div>}
-
+                            <td onClick={(event)=>onNextRowClick(itemR)}>
+                                {!resultUpdateObj.metricType ? 
+                                    (itemR.metricType == "Number" ? <input onChange={(event)=>numberInputHandler(event, itemR)}
+                                                                        value={itemR.id == resultUpdateObj.id ? resultUpdateObj.value : itemR.value}
+                                                                        className={styles.inputnumber}
+                                                                        type="number"
+                                                                     />
+                                                                :   <div>
+                                                                        <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(itemR.id == resultUpdateObj.id ? resultUpdateObj.value : itemR.value)}}/>
+                                                                    </div>)
+                                    :   (resultUpdateObj.metricType == "Number" && itemR.id == resultUpdateObj.id ? <input onChange={(event)=>numberInputHandler(event, itemR)}
+                                                                                value={resultUpdateObj.value}
+                                                                                className={styles.inputnumber}
+                                                                                type="number"
+                                                                            />
+                                                                :   <div>
+                                                                        <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(itemR.id == resultUpdateObj.id ? resultUpdateObj.value : itemR.value)}}/>
+                                                                    </div>)}
                             </td>
-                            <td onClick={()=>setActiveResultId(itemR.id)}>
+                            <td onClick={(event)=>onNextRowClick(itemR)}>
                                 <input  placeholder={itemR.date}
-                                        value={itemR.id == updateDate.resultId ? updateDate.date : ""}
+                                        value={itemR.id == resultUpdateObj.id ? resultUpdateObj.date : ""}
                                         type="text"
-                                        onFocus={(e) => (e.target.type = "date", e.target.defaultValue=itemR.date)}
+                                        onFocus={(e) => (e.target.type = "date", itemR.id == resultUpdateObj.id ? e.target.value =resultUpdateObj.date : e.target.value = "")}
                                         onBlur={(e) => (e.target.type = "text")}
-                                        onChange={(event)=>{/*itemR.date=event.target.value;*/ updateHandlerDate(event, itemR)}}
+                                        onChange={(event)=>{updateHandlerDate(event, itemR)}}
                                         />       
                             </td>
                             <td style={{"width": "8vw"}}>
                                 {showDelete && <ITrash className={styles.trash} fill="#c06363"/>}
-                                {showBanUpdate && itemR.id == activeResultId && <div className={styles.ban} onClick={onClickBanUpdate}><IBan  fill="#167dc2" /></div>}
+                                {showBanUpdate && itemR.id == activeResultId && <div className={styles.ban} onClick={()=>onClickBanUpdate(itemR)}><IBan  fill="#167dc2" /></div>}
                             </td>
                         </tr>
                         )}

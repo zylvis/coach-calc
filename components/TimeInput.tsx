@@ -28,12 +28,6 @@ const TimeInput = (props: ITimeInputProps) => {
         setMS(milSeconds)
     },[hours, milSeconds])
 
-    console.log("perkrauna?: ")
-    console.log(ms)
-    console.log(milSeconds)
-    console.log(props.itemTimeValue)
-
-
     useEffect(()=>{
         let hhMil = hh * 60 * 60 * 1000 | 0
         let mmMil = mm * 60 * 1000 | 0
@@ -43,9 +37,6 @@ const TimeInput = (props: ITimeInputProps) => {
         let timeMil = hhMil + mmMil + ssMil + Mil
          
         props.timeInputHandler(timeMil)
-        console.log(timeMil)
-        
-        console.log(`Message: `)
 
     },[hh, mm, ss, ms, props.itemTimeValue])
 
