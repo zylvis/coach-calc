@@ -42,7 +42,7 @@ const AddResultss = () =>{
     const [metricTypeInsert, setMetricTypeInsert] = useState("");
     const [showOkInsert, serShowOkInsert] = useState(false)
     const [insertExerciseId, setInsertExerciseId] = useState(0)
-    const [metricTypeUpdate, setMetricTypeUpdate] = useState("")
+    const [activeMetricType, setActiveMetricType] = useState("")
     const [showOkUpdate, setShowOkUpdate] = useState(false)
     const [showDelete, setShowDelete] = useState(true)
     const [showBanUpdate, setShowBanUpdate] = useState(false)
@@ -120,16 +120,11 @@ const AddResultss = () =>{
     }
 
     const timeInputHandler = (timeMil: number) => {
-
+        
         let tempResult: IResult = JSON.parse(JSON.stringify(resultUpdateObj))
         tempResult.value = timeMil.toString()
         setResultUpdateObj(tempResult)
 
-       // resultUpdateObj.value = timeMil.toString()
-      //  setResultUpdateObj(resultUpdateObj)
-        // setShowOkUpdate(true)
-        // setShowBanUpdate(true)
-        // setShowDelete(false)
     }
     
 
@@ -152,16 +147,6 @@ const AddResultss = () =>{
 
     const updateHandlerExercise = (event: any, result: IResult) => {
         event.preventDefault();
-        //Recalculate value type input depending on 
-        const tempData: IResult[] = JSON.parse(JSON.stringify(dataToShow));
-        var foundResultIndex = tempData.findIndex(x => x.id == result.id);
-        tempData[foundResultIndex].exerciseId = parseInt(event.target.value);
-        var foundExerciseIndex = exercises.findIndex(x => x.id == event.target.value)
-        tempData[foundResultIndex].name = exercises[foundExerciseIndex].name
-        tempData[foundResultIndex].metricType = exercises[foundExerciseIndex].metricType
-        //tempData[foundResultIndex].value = "0"
-     
-        //setDataToShow(tempData);
         
         //setting up update result object
         let tempResult = JSON.parse(JSON.stringify(resultUpdateObj))
@@ -202,13 +187,12 @@ const AddResultss = () =>{
     const onNextRowClick = (lastId: number, itemR: IResult) =>{
         
         if (itemR.id != activeResultId){
-            //setDataToShow(mainData)
+           
             setActiveResultId(itemR.id);
-            let tempResult = JSON.parse(JSON .stringify(itemR))
+            let tempResult: IResult = JSON.parse(JSON.stringify(itemR))
             setResultUpdateObj(tempResult)
             //setActiveResultId(0)
             setReloadTrigger(reloadTrigger + 1)
-            
             setShowOkUpdate(true)
             setShowBanUpdate(true)
             setShowDelete(false)
@@ -226,7 +210,7 @@ const AddResultss = () =>{
         setShowBanUpdate(false)
         setShowDelete(true)
         result.metricType = mainData.find( x => x.id == result.id)?.metricType
-        setReloadTrigger(reloadTrigger + 1)
+        //setReloadTrigger(reloadTrigger + 1)
 
         
     }

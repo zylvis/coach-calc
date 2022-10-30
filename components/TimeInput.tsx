@@ -7,32 +7,35 @@ interface ITimeInputProps{
 }
 
 const TimeInput = (props: ITimeInputProps) => {
-    
 
+    
 
     const date = new Date(props.itemTimeValue)
     const hours = date.getUTCHours()
     const minutes = date.getUTCMinutes()
     const seconds = date.getUTCSeconds()
     const milSeconds = date.getUTCMilliseconds() / 10
+    
 
     const [hh, setHH] = useState<number>(hours);
     const [mm, setMM] = useState<number>(minutes);
     const [ss, setSS] = useState<number>(seconds);
     const [ms, setMS] = useState<number>(milSeconds);
+    const [resultMil, setResultMil] = useState<number>(0)
 
     console.log("milseconds from results: ")
     console.log(milSeconds)
     console.log("milseconds from")
     console.log(ms)
-
+    
     useEffect(()=>{
         setHH(hours)
         setMM(minutes)
         setSS(seconds)
         setMS(milSeconds)
-    },[props.itemTimeValue])
+    },[hours, minutes, seconds, milSeconds])
 
+    
     useEffect(()=>{
         let hhMil = hh * 60 * 60 * 1000 | 0
         let mmMil = mm * 60 * 1000 | 0
@@ -40,8 +43,12 @@ const TimeInput = (props: ITimeInputProps) => {
         let Mil = ms < 10 ? ms * 10 : ms * 10 | 0
     
         let timeMil = hhMil + mmMil + ssMil + Mil
-         
-        props.timeInputHandler(timeMil)
+        
+        if (props.itemTimeValue != timeMil) {
+            props.timeInputHandler(timeMil)
+        }
+        
+        setResultMil(timeMil)
 
     },[hh, mm, ss, ms])
 
@@ -60,7 +67,6 @@ const TimeInput = (props: ITimeInputProps) => {
         setMS(0)
     }
 
-   
     return (
         <>  
             <div  className={styles.timeinputcontainer}>
@@ -71,5 +77,6 @@ const TimeInput = (props: ITimeInputProps) => {
             </div>
         </>
     )
+    
 }
 export default TimeInput;
