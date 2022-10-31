@@ -107,11 +107,11 @@ const AddResultss = () =>{
 
     }, []);
 
-    const addPut = (obj: IResult) => {
+    const addPut = (obj: any) => {
         axios.put(`${process.env.API_URL}/api/Result/${obj.id}`, obj)
         .then(response => {
 
-
+            console.log(response.data);
         })
         .catch(error => {
             console.error('There was an error!', error);
@@ -176,11 +176,14 @@ const AddResultss = () =>{
 
     }
 
-    const onClickOkUpdate = () =>{
+    const onClickOkUpdate = () => {
+
+        const updateObj = {id: resultUpdateObj.id, exerciseId: resultUpdateObj.exerciseId, value: resultUpdateObj.value, date: resultUpdateObj.date}
+        addPut(updateObj)
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
-        setResultUpdateObj({} as IResult)
+        //setResultUpdateObj({} as IResult)
         setActiveResultId(0)
     }
 
@@ -218,8 +221,7 @@ const AddResultss = () =>{
     const timeInputPropsObj = {timeInputHandler: timeInputHandler, itemTimeValue: 0}
 
     return(
-        <>
-            
+        <> 
             <div className={styles.container}>
                 <div className={styles.back}>&lt;</div>
                 <table className={styles.table}>
@@ -238,7 +240,7 @@ const AddResultss = () =>{
                         </tr>
 
                         <tr>
-                            <td><div className={styles.ok}>OK</div></td>
+                            <td className={styles.tdok}><div className={styles.ok}>OK</div></td>
                             <td>
                                 <select value={insertExerciseId}
                                         onChange={(event) => {setInsertExerciseId(parseInt(event.target.value)); handleMetricTypeOnInsert(event)}}
@@ -271,8 +273,8 @@ const AddResultss = () =>{
                         
                     </thead>
                     <tbody>
-                        {dataToShow.map(itemR => <tr key={itemR.id}>
-                            <td style={{"width": "8vw"}}>{showOkUpdate && itemR.id == activeResultId && <div className={styles.ok} onClick={onClickOkUpdate}>OK</div>}</td>
+                        {dataToShow.map(itemR => <tr key={itemR.id} style={activeResultId == itemR.id ? {height: "8vh", border: "2px solid #121212"}: {}}>
+                            <td className={styles.tdok}>{showOkUpdate && itemR.id == activeResultId && <div className={styles.ok} onClick={onClickOkUpdate}>OK</div>}</td>
                             
                             <td onClick={(event)=>onNextRowClick(activeResultId, itemR)}>
                                 <select value={itemR.id == resultUpdateObj.id ? resultUpdateObj.exerciseId : itemR.exerciseId}
@@ -306,7 +308,7 @@ const AddResultss = () =>{
                             </td>
                             <td style={{"width": "8vw"}}>
                                 {showDelete && <ITrash className={styles.trash} fill="#c06363"/>}
-                                {showBanUpdate && itemR.id == activeResultId && <div className={styles.ban} onClick={()=>onClickBanUpdate(itemR)}><IBan  fill="#167dc2" /></div>}
+                                {showBanUpdate && itemR.id == activeResultId && <div onClick={()=>onClickBanUpdate(itemR)}><IBan className={styles.ban}  fill="#167dc2" /></div>}
                             </td>
                         </tr>
                         )}
