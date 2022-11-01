@@ -105,16 +105,26 @@
     background-position: center;
 }
 .tapforresults{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-right: 10%;
-    width: 100%;
+    width: 3rem;
+    height: 2.5rem;
     order: 3;
-    font-size: 0.75rem;
-    color:#909090;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    color:#121212;
+    border-radius: 0.5rem;
+    border: 1px solid #121212;
+    background: linear-gradient(0deg, #909090 0%, #F6F2F2 25%);
 }
 .addresults{
     cursor: pointer;
     width: 3rem;
-    height: 3rem;
+    height: 2.5rem;
     font-size: 0.7rem;
     text-align: center;
     margin-left: auto;
@@ -124,6 +134,7 @@
     background: linear-gradient(0deg, #909090 0%, #F6F2F2 25%);
     border-radius: 0.5rem;
     border-bottom: 1px solid #97FB57;
+    border: 1px solid #121212;
     font-weight: 500;
     padding: .25rem;
 }

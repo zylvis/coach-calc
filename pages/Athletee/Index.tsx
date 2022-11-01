@@ -159,7 +159,7 @@ const Athletee: NextPage = () => {
           <div className={styles["container-items"]} onClick={()=>{onAthleteeClick(item)}}>
             <div>{item.firstName} {item.lastName}</div>  
           </div>
-          <div className={styles.tapforresults} onClick={()=>{onResultsClick(item)}}>Click for results</div>
+          <button className={styles.tapforresults} onClick={()=>{onResultsClick(item)}}>Results</button>
         </div>
         <button className={styles.addresults} onClick={()=>{setShowAddResults(true); localStorage.setItem('athleteeObj', JSON.stringify(item))}}>Add Results</button>
       </div>)
@@ -195,7 +195,7 @@ const Athletee: NextPage = () => {
         {showForm && athleteeForm}
         {showMenu && <Menu {...objMenuProps}/>}
         {showEditForm && <AthleteeEditForm {... objEditMenuPrps}/>}
-        {false && <AddResults {...objAddResultsProps}/>}
+        {/* {showAddResults && <AddResults {...objAddResultsProps}/>} */}
         {showResults && <Results {...objResultsProps }/>}
         {showAddResults && <AddResultss {...objAddResultsProps}/>}
       </>
