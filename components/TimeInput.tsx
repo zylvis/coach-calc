@@ -33,7 +33,7 @@ const TimeInput = (props: ITimeInputProps) => {
         setMM(minutes)
         setSS(seconds)
         setMS(milSeconds)
-    },[props.itemTimeValue])
+    },[hours, minutes, seconds, milSeconds])
 
     
     useEffect(()=>{
