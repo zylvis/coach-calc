@@ -65,8 +65,9 @@ const AddResultss = (props: IAddResultsProps) =>{
     const [resultUpdateObj, setResultUpdateObj] = useState<IResult>({}as IResult)
     const [success, setSuccess] = useState("")
     const [showSuccess, setShowSuccess] = useState(false)
-    const [loading, setLoading] = useState(true);
     const [reloadTrigger, setReloadTrigger] = useState(0)
+
+    const [loading, setLoading] = useState(true);
 
     const [orderExercise, setOrderExercise] = useState(false)
     const [orderValue, setOrderValue] = useState(false)
@@ -336,6 +337,7 @@ const AddResultss = (props: IAddResultsProps) =>{
         let tempObj = mainData.filter(x => x.name.toLowerCase().includes(searchText.toLowerCase()) ||
             x.value.toLowerCase().includes(searchText.toLowerCase()) ||
             x.date.toLowerCase().includes(searchText.toLowerCase()) 
+
         )
         setDataToShow(tempObj)
     }
@@ -344,7 +346,7 @@ const AddResultss = (props: IAddResultsProps) =>{
         console.log(name)
         if (name == "Exercise"){
             setOrderExercise(!orderExercise)
-            setDataToShow(mainData.sort((a, b) => {
+            setDataToShow(dataToShow.sort((a, b) => {
                 const nameA = a.name.toUpperCase(); 
                 const nameB = b.name.toUpperCase(); 
                 if ( orderExercise ? nameA < nameB : nameA > nameB) {
@@ -359,7 +361,7 @@ const AddResultss = (props: IAddResultsProps) =>{
 
         if (name == "Value") {
             setOrderValue(!orderValue)
-            setDataToShow(mainData.sort((a, b) => {
+            setDataToShow(dataToShow.sort((a, b) => {
                 const nameA = a.value.toUpperCase(); 
                 const nameB = b.value.toUpperCase(); 
                 if ( orderValue ? nameA < nameB : nameA > nameB) {
@@ -374,7 +376,7 @@ const AddResultss = (props: IAddResultsProps) =>{
 
         if (name == "Date") {
             setOrderDate(!orderDate)
-            setDataToShow(mainData.sort((a, b) => {
+            setDataToShow(dataToShow.sort((a, b) => {
                 const nameA = a.date.toUpperCase(); 
                 const nameB = b.date.toUpperCase(); 
                 if ( orderDate ? nameA < nameB : nameA > nameB) {
@@ -486,6 +488,9 @@ const AddResultss = (props: IAddResultsProps) =>{
                             </td>
                         </tr>
                         )}
+                        <tr>
+                            {loading && <div>Loading ... </div>}
+                        </tr>
                     </tbody>
                     
                 </table>
