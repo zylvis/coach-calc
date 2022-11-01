@@ -7,8 +7,6 @@ import ITrash from "../../icons/ITrash.svg"
 import IBan from "../../icons/IBan.svg"
 import TimeInput from "../../components/TimeInput";
 import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
-import { formatWithOptions } from "util";
-import Athletee from "../../pages/Athletee";
 
 interface IAddResultsProps{
     addResultsHandler: (show:boolean) => void
