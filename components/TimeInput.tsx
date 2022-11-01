@@ -21,12 +21,6 @@ const TimeInput = (props: ITimeInputProps) => {
     const [mm, setMM] = useState<number>(minutes);
     const [ss, setSS] = useState<number>(seconds);
     const [ms, setMS] = useState<number>(milSeconds);
-    const [resultMil, setResultMil] = useState<number>(0)
-
-    console.log("milseconds from results: ")
-    console.log(milSeconds)
-    console.log("milseconds from")
-    console.log(ms)
     
     useEffect(()=>{
         setHH(hours)
@@ -47,8 +41,6 @@ const TimeInput = (props: ITimeInputProps) => {
         if (props.itemTimeValue != timeMil) {
             props.timeInputHandler(timeMil)
         }
-        
-        setResultMil(timeMil)
 
     },[hh, mm, ss, ms])
 

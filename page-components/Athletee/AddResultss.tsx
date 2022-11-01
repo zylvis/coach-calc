@@ -7,6 +7,7 @@ import ITrash from "../../icons/ITrash.svg"
 import IBan from "../../icons/IBan.svg"
 import TimeInput from "../../components/TimeInput";
 import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
+import UpDown from "../../icons/UpDown.svg"
 
 interface IAddResultsProps{
     addResultsHandler: (show:boolean) => void
@@ -65,7 +66,11 @@ const AddResultss = (props: IAddResultsProps) =>{
     const [success, setSuccess] = useState("")
     const [showSuccess, setShowSuccess] = useState(false)
     const [loading, setLoading] = useState(true);
-    const[reloadTrigger, setReloadTrigger] = useState(0)
+    const [reloadTrigger, setReloadTrigger] = useState(0)
+
+    const [orderExercise, setOrderExercise] = useState(false)
+    const [orderValue, setOrderValue] = useState(false)
+    const [orderDate, setOrderDate] = useState(false)
 
  
 
@@ -325,6 +330,64 @@ const AddResultss = (props: IAddResultsProps) =>{
         }
     }
 
+    const searchHandler = (event: any) => {
+        let searchText = event.target.value
+        console.log(searchText)
+        let tempObj = mainData.filter(x => x.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            x.value.toLowerCase().includes(searchText.toLowerCase()) ||
+            x.date.toLowerCase().includes(searchText.toLowerCase()) 
+        )
+        setDataToShow(tempObj)
+    }
+
+    const onSortClick = (name: string) => {
+        console.log(name)
+        if (name == "Exercise"){
+            setOrderExercise(!orderExercise)
+            setDataToShow(mainData.sort((a, b) => {
+                const nameA = a.name.toUpperCase(); 
+                const nameB = b.name.toUpperCase(); 
+                if ( orderExercise ? nameA < nameB : nameA > nameB) {
+                  return -1;
+                }
+                if (nameA > nameB) {
+                  return 1;
+                }
+                return 0;
+            } ))
+        }
+
+        if (name == "Value") {
+            setOrderValue(!orderValue)
+            setDataToShow(mainData.sort((a, b) => {
+                const nameA = a.value.toUpperCase(); 
+                const nameB = b.value.toUpperCase(); 
+                if ( orderValue ? nameA < nameB : nameA > nameB) {
+                  return -1;
+                }
+                if (nameA > nameB) {
+                  return 1;
+                }
+                return 0;
+            } ))
+        }
+
+        if (name == "Date") {
+            setOrderDate(!orderDate)
+            setDataToShow(mainData.sort((a, b) => {
+                const nameA = a.date.toUpperCase(); 
+                const nameB = b.date.toUpperCase(); 
+                if ( orderDate ? nameA < nameB : nameA > nameB) {
+                  return -1;
+                }
+                if (nameA > nameB) {
+                  return 1;
+                }
+                return 0;
+            } ))
+        }
+    }
+
     const timeInputPropsObj = {timeInputHandler: timeInputHandler, itemTimeValue: 0}
 
     return(
@@ -337,17 +400,16 @@ const AddResultss = (props: IAddResultsProps) =>{
                 </div>
                 <div>{athleteeObj.firstName}</div>
                 <div className={styles.age}>({ConvertBirthDateToAge(athleteeObj.birthDate)})</div>
+                <div className={styles.search}><input type="text" placeholder="Search ..." onChange={(event) => searchHandler(event)}/></div>
                 <table className={styles.table}>
                     <thead>
-                        
                         <tr>
                             <th></th>
-                            <th>Exercise</th>
-                            <th >Value</th>
-                            <th>Date</th>
+                            <th onClick={(event) => onSortClick("Exercise")}>Exercise <UpDown className={styles.updown}/></th>
+                            <th onClick={(event)=>onSortClick("Value")}>Value <UpDown className={styles.updown}/></th>
+                            <th onClick={(event) => onSortClick("Date")}>Date <UpDown className={styles.updown}/></th>
                             <th></th>
                         </tr>
-
                         <tr>
                             <th style={{"height": "5vh"}} colSpan={5}> Add Result</th>
                         </tr>
@@ -373,7 +435,7 @@ const AddResultss = (props: IAddResultsProps) =>{
 
                             </td>
                             <td onClick={(event)=>onInsertRowClick(event)}><input type="date" value={dateInsert} onChange={(event)=>setDateInsert(event?.target.value)}/></td>
-                            <td>{showOkInsert && <div onClick={onClickBanInsert}><IBan className={styles.ban} fill="#167dc2"/></div>}</td>
+                            <td style={{width: "8vw"}}>{showOkInsert && <div onClick={onClickBanInsert}><IBan className={styles.ban} fill="#167dc2"/></div>}</td>
                         </tr>
                         <tr>
                             <th style={{"height": "5vh"}} colSpan={5}>Results list </th>
