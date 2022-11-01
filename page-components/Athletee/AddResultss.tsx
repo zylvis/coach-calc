@@ -199,7 +199,7 @@ const AddResultss = (props: IAddResultsProps) =>{
         tempResult.exerciseId = parseInt(event.target.value);
         tempResult.name = exercises[foundExerciseIndex].name
         tempResult.metricType = exercises[foundExerciseIndex].metricType
-        result.metricType = exercises[foundExerciseIndex].metricType
+        result.metricType = exercises[foundExerciseIndex].metricType // change dataToShow Item property!
         tempResult.value = "0"
         setResultUpdateObj(tempResult)
 
@@ -244,12 +244,12 @@ const AddResultss = (props: IAddResultsProps) =>{
         }
         addPost(insertObj)
         setShowOkInsert(false)
-        setValueInsert("")
+        setValueInsert("0")
         setDateInsert(FormatDate(new Date().toLocaleDateString()))
         setInsertExerciseId(0)
     }
 
-    const onclickBanInsert = () => {
+    const onClickBanInsert = () => {
         setShowOkInsert(false)
         setValueInsert("")
         setDateInsert(FormatDate(new Date().toLocaleDateString()))
@@ -276,6 +276,14 @@ const AddResultss = (props: IAddResultsProps) =>{
         setActiveResultId(0)
     }
 
+    const onInsertRowClick = (event: any) => {
+        setShowOkInsert(true)
+        setShowOkUpdate(false)
+        setShowBanUpdate(false)
+        setShowDelete(true)
+        setResultUpdateObj({} as IResult)
+    }
+
     const onNextRowClick = (lastId: number, itemR: IResult) =>{
         
         if (itemR.id != activeResultId){
@@ -288,7 +296,7 @@ const AddResultss = (props: IAddResultsProps) =>{
             setShowOkUpdate(true)
             setShowBanUpdate(true)
             setShowDelete(false)
-            
+            setShowOkInsert(false)            
         }
         
     }
@@ -301,10 +309,7 @@ const AddResultss = (props: IAddResultsProps) =>{
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
-        result.metricType = mainData.find( x => x.id == result.id)?.metricType
-        //setReloadTrigger(reloadTrigger + 1)
-
-        
+        result.metricType = mainData.find( x => x.id == result.id)?.metricType //change back dataToShow Item property to original! 
     }
 
     const handleDelete =(id:number) => {
@@ -320,7 +325,6 @@ const AddResultss = (props: IAddResultsProps) =>{
                 console.log(error)
             )
         }
-        
     }
 
     const timeInputPropsObj = {timeInputHandler: timeInputHandler, itemTimeValue: 0}
@@ -350,11 +354,11 @@ const AddResultss = (props: IAddResultsProps) =>{
                             <th style={{"height": "5vh"}} colSpan={5}> Add Result</th>
                         </tr>
 
-                        <tr style={{border: "3px solid #909090", backgroundColor: "#909090"}}>
+                        <tr style={{border: "3px solid #909090", height: "8vh"}}>
                             <td  className={styles.tdok}>{showOkInsert && <div className={styles.ok} onClick={onClickOkInsert}>OK</div>}</td>
-                            <td onClick={()=>setShowOkInsert(true)}>
+                            <td onClick={(event)=>onInsertRowClick(event)}>
                                 <select value={insertExerciseId}
-                                        onChange={(event) => {setInsertExerciseId(parseInt(event.target.value)); handleMetricTypeOnInsert(event)}}
+                                        onChange={(event) => {setInsertExerciseId(parseInt(event.target.value)); setValueInsert(""); handleMetricTypeOnInsert(event)}}
                                         >
                                         <option disabled value={0}>Select:</option>
                                         {exercises.map((itemE) =>{
@@ -364,14 +368,14 @@ const AddResultss = (props: IAddResultsProps) =>{
                                         })}
                                 </select>
                             </td>
-                            <td onClick={()=>setShowOkInsert(true)}>
+                            <td onClick={(event)=>onInsertRowClick(event)}>
                                 {metricTypeInsert == "Number" || metricTypeInsert == "" ?
                                     <input className={styles.inputnumber} type="number" value={valueInsert} onChange={(event)=>setValueInsert(event?.target.value)} placeholder="0"/> :
-                                    <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(valueInsert)}}/>}
+                                    <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: !resultUpdateObj ? parseInt(valueInsert) : 0}}/>}
 
                             </td>
-                            <td onClick={()=>setShowOkInsert(true)}><input type="date" value={dateInsert} onChange={(event)=>setDateInsert(event?.target.value)}/></td>
-                            <td>{showOkInsert && <div onClick={onclickBanInsert}><IBan className={styles.ban} fill="#167dc2"/></div>}</td>
+                            <td onClick={(event)=>onInsertRowClick(event)}><input type="date" value={dateInsert} onChange={(event)=>setDateInsert(event?.target.value)}/></td>
+                            <td>{showOkInsert && <div onClick={onClickBanInsert}><IBan className={styles.ban} fill="#167dc2"/></div>}</td>
                         </tr>
                         <tr>
                             <th style={{"height": "5vh"}} colSpan={5}>Results list </th>
