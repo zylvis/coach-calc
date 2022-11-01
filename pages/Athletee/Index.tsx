@@ -197,7 +197,7 @@ const Athletee: NextPage = () => {
         {showEditForm && <AthleteeEditForm {... objEditMenuPrps}/>}
         {false && <AddResults {...objAddResultsProps}/>}
         {showResults && <Results {...objResultsProps }/>}
-        {showAddResults && <AddResultss/>}
+        {showAddResults && <AddResultss {...objAddResultsProps}/>}
       </>
     )
 }

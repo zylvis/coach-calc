@@ -1,12 +1,18 @@
 
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import FormatDate from "../../Helpers/FormatDate";
 import styles from "../../styles/page-components/Athletee/AddResultss.module.css"
 import ITrash from "../../icons/ITrash.svg"
 import IBan from "../../icons/IBan.svg"
 import TimeInput from "../../components/TimeInput";
-import { NextPage } from "next";
+import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
+import { formatWithOptions } from "util";
+import Athletee from "../../pages/Athletee";
+
+interface IAddResultsProps{
+    addResultsHandler: (show:boolean) => void
+}
 
 interface IAthletee{
     id: number,
@@ -26,6 +32,14 @@ interface IResult {
     metricType?: string
 }
 
+interface IResultPost {
+    athleteeId: number,
+    exerciseId: number,
+    date: string,
+    value: string,
+
+}
+
 interface IExercise{
     id: number,
     name: string,
@@ -34,21 +48,24 @@ interface IExercise{
 }
 
 
-const AddResultss = () =>{
+const AddResultss = (props: IAddResultsProps) =>{
 
     const [dataToShow, setDataToShow] = useState<IResult[]>([]);
     const [mainData, setMainData] = useState([] as IResult[]);
     const [exercises, setExercises] = useState<IExercise[]>([]);
     const [metricTypeInsert, setMetricTypeInsert] = useState("");
-    const [showOkInsert, serShowOkInsert] = useState(false)
+    const [valueInsert, setValueInsert] = useState("")
+    const [dateInsert, setDateInsert] = useState(FormatDate(new Date().toLocaleDateString()))
+    const [showBanInsert, setShowBanInsert] = useState(false)
+    const [showOkInsert, setShowOkInsert] = useState(false)
     const [insertExerciseId, setInsertExerciseId] = useState(0)
-    const [activeMetricType, setActiveMetricType] = useState("")
     const [showOkUpdate, setShowOkUpdate] = useState(false)
     const [showDelete, setShowDelete] = useState(true)
     const [showBanUpdate, setShowBanUpdate] = useState(false)
     const [activeResultId, setActiveResultId] = useState(0)
     const [resultUpdateObj, setResultUpdateObj] = useState<IResult>({}as IResult)
-    const [emptyData, setEmptyData] = useState(false);
+    const [success, setSuccess] = useState("")
+    const [showSuccess, setShowSuccess] = useState(false)
     const [loading, setLoading] = useState(true);
     const[reloadTrigger, setReloadTrigger] = useState(0)
 
@@ -71,9 +88,6 @@ const AddResultss = () =>{
                 setMainData(JSON.parse(JSON.stringify(responseResultByAthletee)))
                 setDataToShow(JSON.parse(JSON.stringify(responseResultByAthletee)));
                 
-                setEmptyData(responseResultByAthletee.length == 0)
-
-
 
             } catch (err: any) {
                 console.log(err)
@@ -107,23 +121,54 @@ const AddResultss = () =>{
 
     }, []);
 
+    const client = axios.create({
+        baseURL: `${process.env.API_URL}/api/Result`
+      });
+
+    const addPost = (obj: IResultPost) => {
+        client
+           .post('', obj)
+           .then((response) => {
+              console.log(response.data)
+              setSuccess("Success");
+              setShowSuccess(true)
+              setTimeout(() => {
+              setSuccess("");
+              setShowSuccess(false)
+              }, 2000);
+              setReloadTrigger(reloadTrigger + 1)
+           }).catch((error) => {
+            console.log(error);
+            alert(error.response.data.Message[0])
+            
+         });
+      };
+
     const addPut = (obj: any) => {
         axios.put(`${process.env.API_URL}/api/Result/${obj.id}`, obj)
         .then(response => {
-
+            setSuccess("Success")
+            setShowSuccess(true)
+            setTimeout(()=>{
+                setSuccess("")
+                setShowSuccess(false)
+            },1000)
+            
             console.log(response.data);
         })
         .catch(error => {
             console.error('There was an error!', error);
-            error.response.data?.errorMesseges[0] ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
+            error.response.data?.Message[0] ? alert(error.response.data.Message[0]) : alert(error.message)
         });
     }
+
 
     const timeInputHandler = (timeMil: number) => {
         
         let tempResult: IResult = JSON.parse(JSON.stringify(resultUpdateObj))
         tempResult.value = timeMil.toString()
         setResultUpdateObj(tempResult)
+        setValueInsert(timeMil.toString())
 
     }
     
@@ -176,9 +221,53 @@ const AddResultss = () =>{
 
     }
 
+    const onClickOkInsert =() => {
+
+        if (insertExerciseId == 0)
+        {
+            alert("Please select exercise")
+            return
+        }
+
+        if (valueInsert == "" || parseInt(valueInsert) < 0)
+        {
+            alert("Enter correct value")
+            return
+        }
+
+
+        const insertObj: IResultPost = {
+            athleteeId: athleteeObj.id,
+            exerciseId: insertExerciseId,
+            value: valueInsert,
+            date: dateInsert
+        }
+        addPost(insertObj)
+        setShowOkInsert(false)
+        setValueInsert("")
+        setDateInsert(FormatDate(new Date().toLocaleDateString()))
+        setInsertExerciseId(0)
+    }
+
+    const onclickBanInsert = () => {
+        setShowOkInsert(false)
+        setValueInsert("")
+        setDateInsert(FormatDate(new Date().toLocaleDateString()))
+        setInsertExerciseId(0)
+    }
     const onClickOkUpdate = () => {
 
-        const updateObj = {id: resultUpdateObj.id, exerciseId: resultUpdateObj.exerciseId, value: resultUpdateObj.value, date: resultUpdateObj.date}
+        if (parseInt(resultUpdateObj.value) < 0){
+            alert(`Wrong value format: ${resultUpdateObj.value}`)
+        }
+
+        const updateObj = {
+            id: resultUpdateObj.id,
+            athleteeId: resultUpdateObj.athleteeId,
+            exerciseId: resultUpdateObj.exerciseId,
+            value: resultUpdateObj.value,
+            date: resultUpdateObj.date
+        }
         addPut(updateObj)
         setShowOkUpdate(false)
         setShowBanUpdate(false)
@@ -218,12 +307,34 @@ const AddResultss = () =>{
         
     }
 
+    const handleDelete =(id:number) => {
+        if(confirm("Delete Result?")){
+            axios.delete(`${process.env.API_URL}/api/Result/${id}`)  
+            .then(res => {  
+                console.log(res.data); 
+                const posts = dataToShow.filter(item => item.id !== id);  
+                setDataToShow(posts);
+                setMainData(mainData.filter(item => item.id !== id))
+
+            }).catch( error =>
+                console.log(error)
+            )
+        }
+        
+    }
+
     const timeInputPropsObj = {timeInputHandler: timeInputHandler, itemTimeValue: 0}
 
     return(
         <> 
             <div className={styles.container}>
-                <div className={styles.back}>&lt;</div>
+                
+                <div className={styles.back} onClick={()=>props.addResultsHandler(false)}>&lt;</div>
+                <div className={styles.image}
+                    style={ athleteeObj.image.length !== 0 ? {backgroundImage: `url(${athleteeObj.image})`} : {backgroundImage: `url(./Avatar.png)`}}>
+                </div>
+                <div>{athleteeObj.firstName}</div>
+                <div className={styles.age}>({ConvertBirthDateToAge(athleteeObj.birthDate)})</div>
                 <table className={styles.table}>
                     <thead>
                         
@@ -239,9 +350,9 @@ const AddResultss = () =>{
                             <th style={{"height": "5vh"}} colSpan={5}> Add Result</th>
                         </tr>
 
-                        <tr>
-                            <td className={styles.tdok}><div className={styles.ok}>OK</div></td>
-                            <td>
+                        <tr style={{border: "3px solid #909090", backgroundColor: "#909090"}}>
+                            <td  className={styles.tdok}>{showOkInsert && <div className={styles.ok} onClick={onClickOkInsert}>OK</div>}</td>
+                            <td onClick={()=>setShowOkInsert(true)}>
                                 <select value={insertExerciseId}
                                         onChange={(event) => {setInsertExerciseId(parseInt(event.target.value)); handleMetricTypeOnInsert(event)}}
                                         >
@@ -253,12 +364,14 @@ const AddResultss = () =>{
                                         })}
                                 </select>
                             </td>
-                            <td>
-                                {metricTypeInsert == "Number" || metricTypeInsert == "" ? <input className={styles.inputnumber} type="number" placeholder="0"/> : <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: 0}}/>}
+                            <td onClick={()=>setShowOkInsert(true)}>
+                                {metricTypeInsert == "Number" || metricTypeInsert == "" ?
+                                    <input className={styles.inputnumber} type="number" value={valueInsert} onChange={(event)=>setValueInsert(event?.target.value)} placeholder="0"/> :
+                                    <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: parseInt(valueInsert)}}/>}
 
                             </td>
-                            <td><input type="date"/></td>
-                            <td><IBan className={styles.ban} fill="#167dc2"/></td>
+                            <td onClick={()=>setShowOkInsert(true)}><input type="date" value={dateInsert} onChange={(event)=>setDateInsert(event?.target.value)}/></td>
+                            <td>{showOkInsert && <div onClick={onclickBanInsert}><IBan className={styles.ban} fill="#167dc2"/></div>}</td>
                         </tr>
                         <tr>
                             <th style={{"height": "5vh"}} colSpan={5}>Results list </th>
@@ -298,16 +411,13 @@ const AddResultss = () =>{
                                                                     </div>}
                             </td>
                             <td onClick={(event)=>onNextRowClick(activeResultId, itemR)}>
-                                <input  placeholder={itemR.date}
-                                        value={itemR.id == resultUpdateObj.id ? resultUpdateObj.date : ""}
-                                        type="text"
-                                        onFocus={(e) => (e.target.type = "date", itemR.id == resultUpdateObj.id ? e.target.value =resultUpdateObj.date : e.target.value = "")}
-                                        onBlur={(e) => (e.target.type = "text")}
+                                <input  value={itemR.id == resultUpdateObj.id ? resultUpdateObj.date : itemR.date}
+                                        type="date"
                                         onChange={(event)=>{updateHandlerDate(event, itemR)}}
                                         />       
                             </td>
                             <td style={{"width": "8vw"}}>
-                                {showDelete && <ITrash className={styles.trash} fill="#c06363"/>}
+                                {showDelete && <div onClick={()=>handleDelete(itemR.id)}><ITrash className={styles.trash} fill="#c06363"/></div>}
                                 {showBanUpdate && itemR.id == activeResultId && <div onClick={()=>onClickBanUpdate(itemR)}><IBan className={styles.ban}  fill="#167dc2" /></div>}
                             </td>
                         </tr>
@@ -315,8 +425,9 @@ const AddResultss = () =>{
                     </tbody>
                     
                 </table>
-                <div className={styles.back}>&lt;</div>
+                <div className={styles.back} onClick={()=>props.addResultsHandler(false)}>&lt;</div>
             </div>
+            {showSuccess && <div className={styles.success}>{success}</div>}
         </>
     )
 }

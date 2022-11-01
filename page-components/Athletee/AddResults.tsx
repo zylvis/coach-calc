@@ -128,7 +128,7 @@ const AddResults =(props: IAddResultsProps) => {
 
         },
         validate,
-        onSubmit: (values) => {
+        onSubmit: (values: IResult) => {
             values.exerciseId = parseInt(values.exerciseId.toString());
             values.value = values.value.toString();
             alert(JSON.stringify(values));
