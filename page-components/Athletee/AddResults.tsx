@@ -128,7 +128,7 @@ const AddResults =(props: IAddResultsProps) => {
 
         },
         validate,
-        onSubmit: (values) => {
+        onSubmit: (values: IResult) => {
             values.exerciseId = parseInt(values.exerciseId.toString());
             values.value = values.value.toString();
             alert(JSON.stringify(values));
@@ -146,7 +146,7 @@ const AddResults =(props: IAddResultsProps) => {
            
     }
 
-    const timeInputPropsObj = {timeInputHandler: timeInputHandler}
+    const timeInputPropsObj = {timeInputHandler: timeInputHandler, itemTimeValue: 0}
 
     const timeInput = <>
                         <TimeInput {...timeInputPropsObj}/> 

@@ -2,31 +2,53 @@ import { useEffect, useState } from "react";
 import styles from "../styles/components/TimeInput.module.css"
 
 interface ITimeInputProps{
-    timeInputHandler: (timeMil: number) => void
+    timeInputHandler: (timeMil: number) => void,
+    itemTimeValue: number
 }
 
 const TimeInput = (props: ITimeInputProps) => {
 
-    const [hh, setHH] = useState(NaN);
-    const [mm, setMM] = useState<number>(NaN);
-    const [ss, setSS] = useState<number>(NaN);
-    const [ms, setMS] = useState<number>(NaN);
-    const [result, setResult] = useState(NaN);
-    const[errorMessage, setErrorMessage] = useState("")
+    
+
+    const date = new Date(props.itemTimeValue)
+    const hours = date.getUTCHours()
+    const minutes = date.getUTCMinutes()
+    const seconds = date.getUTCSeconds()
+    const milSeconds = date.getUTCMilliseconds() / 10
+    
+
+    const [hh, setHH] = useState<number>(hours);
+    const [mm, setMM] = useState<number>(minutes);
+    const [ss, setSS] = useState<number>(seconds);
+    const [ms, setMS] = useState<number>(milSeconds);
+    const [resultMil, setResultMil] = useState<number>(0)
+
+    console.log("milseconds from results: ")
+    console.log(milSeconds)
+    console.log("milseconds from")
+    console.log(ms)
     
     useEffect(()=>{
+        setHH(hours)
+        setMM(minutes)
+        setSS(seconds)
+        setMS(milSeconds)
+    },[hours, minutes, seconds, milSeconds])
 
+    
+    useEffect(()=>{
         let hhMil = hh * 60 * 60 * 1000 | 0
         let mmMil = mm * 60 * 1000 | 0
         let ssMil = ss * 1000 | 0
         let Mil = ms < 10 ? ms * 10 : ms * 10 | 0
     
         let timeMil = hhMil + mmMil + ssMil + Mil
-         
-        props.timeInputHandler(timeMil)
-        console.log(timeMil)
         
-        console.log(`Message: ${errorMessage}`)
+        if (props.itemTimeValue != timeMil) {
+            props.timeInputHandler(timeMil)
+        }
+        
+        setResultMil(timeMil)
 
     },[hh, mm, ss, ms])
 
@@ -45,17 +67,16 @@ const TimeInput = (props: ITimeInputProps) => {
         setMS(0)
     }
 
-   
     return (
         <>  
-            <label className={styles.label}>Time</label>
-            <div  className={styles.container}>
-                <input className={styles.input} value={hh == 0 ? NaN.toString() : hh} min="0" max="59" type="number" onChange={(event)=>setHH(event?.target.valueAsNumber)} placeholder="hh"/>:
-                <input className={styles.input} value={mm == 0 ? NaN.toString() : mm} min="0" max="59" type="number" onChange={(event)=>setMM(event?.target.valueAsNumber)}  placeholder="mm"/>:
-                <input className={styles.input} value={ss == 0 ? NaN.toString() : ss} min="0" max="59" type="number" onChange={(event)=>setSS(event?.target.valueAsNumber)}  placeholder="ss"/>.
-                <input className={styles.input} value={ms == 0 ? NaN.toString() : ms} min="0" max="99" type="number" onChange={(event)=>setMS(event?.target.valueAsNumber)}  placeholder="ms"/>
+            <div  className={styles.timeinputcontainer}>
+                <input className={styles.input} value={hh == 0 ? NaN.toString() : hh} min="0" max="59" type="number" onChange={(event)=>setHH(event?.target.valueAsNumber)} placeholder="0"/>:
+                <input className={styles.input} value={mm == 0 ? NaN.toString() : mm} min="0" max="59" type="number" onChange={(event)=>setMM(event?.target.valueAsNumber)}  placeholder="0"/>:
+                <input className={styles.input} value={ss == 0 ? NaN.toString() : ss} min="0" max="59" type="number" onChange={(event)=>setSS(event?.target.valueAsNumber)}  placeholder="0"/>.
+                <input className={styles.input} value={ms == 0 ? NaN.toString() : ms} min="0" max="99" type="number" onChange={(event)=>setMS(event?.target.valueAsNumber)}  placeholder="0"/>
             </div>
         </>
     )
+    
 }
 export default TimeInput;

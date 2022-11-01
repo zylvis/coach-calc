@@ -14,6 +14,7 @@ import { useLoginContext } from "../../store/useLogincontext";
 import  Router  from "next/router";
 import parseJWT from "../../Helpers/parseJWT";
 import userAuth from "../../Helpers/userAuth";
+import AddResultss from "../../page-components/Athletee/AddResultss";
 
 interface IAthletee {
   id: number,
@@ -99,6 +100,12 @@ const Athletee: NextPage = () => {
       localStorage.setItem('athleteeObj', JSON.stringify(item));
     }
 
+    const onResultsClick = (item: IAthletee) =>{
+      setShowResults(true)
+      setAthleteeObj(item)
+      localStorage.setItem('athleteeObj', JSON.stringify(item));
+    }
+
     const menuHandler = (show: boolean, action: string) =>{
       setShowMenu(show)
       if(action == "delete"){
@@ -132,7 +139,6 @@ const Athletee: NextPage = () => {
 
     const resultsHandler = (show: boolean) => {
       setShowResults(show)
-      setShowMenu(true)
     }
 
     const objFormProps = {ShowForm: GetCancelForm, GetPost: GetPost};
@@ -148,12 +154,12 @@ const Athletee: NextPage = () => {
 
     const athletees = dataToShow.map((item: any, index: number) =>
       <div className={styles.athleteecontainer} key={item.id}>
-        <div className={styles.athletee} onClick={()=>{onAthleteeClick(item)}}>
-          <div className={styles.image} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
-          <div className={styles["container-items"]}>
+        <div className={styles.athletee}>
+          <div className={styles.image} onClick={()=>{onAthleteeClick(item)}} style={item.image.length > 0 ? {backgroundImage: `url(${item.image})`} : {backgroundImage: `url(./Avatar.png)`}}></div>
+          <div className={styles["container-items"]} onClick={()=>{onAthleteeClick(item)}}>
             <div>{item.firstName} {item.lastName}</div>  
           </div>
-          <div className={styles.tapforresults}>Click for results</div>
+          <button className={styles.tapforresults} onClick={()=>{onResultsClick(item)}}>Results</button>
         </div>
         <button className={styles.addresults} onClick={()=>{setShowAddResults(true); localStorage.setItem('athleteeObj', JSON.stringify(item))}}>Add Results</button>
       </div>)
@@ -189,8 +195,9 @@ const Athletee: NextPage = () => {
         {showForm && athleteeForm}
         {showMenu && <Menu {...objMenuProps}/>}
         {showEditForm && <AthleteeEditForm {... objEditMenuPrps}/>}
-        {showAddResults && <AddResults {...objAddResultsProps}/>}
+        {/* {showAddResults && <AddResults {...objAddResultsProps}/>} */}
         {showResults && <Results {...objResultsProps }/>}
+        {showAddResults && <AddResultss {...objAddResultsProps}/>}
       </>
     )
 }

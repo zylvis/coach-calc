@@ -1,23 +1,25 @@
-.container{
+.timeinputcontainer{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 0.25vh;
-    padding: 0.25vh;
-    background-color: white;
-    border-radius: 5px;
+    width: 28vw;
+
 }
 .label{
     margin-top: 2vh;
 }
 
-.input{
-    width: 8vw;
+.timeinputcontainer input{
     border: none;
     background-color: white;
+    width: 6vw;
+    font-size: 1.75vh;
 }
 
 .input::placeholder{
-    font-size: 2vh;;
+    font-size: 1.75vh;
+}
+.input::placeholder:active{
+    font-size: 2vh;
 }
