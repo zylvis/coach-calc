@@ -60,3 +60,9 @@
 .trouble-text {
   font-size: 0.75rem;
 }
+
+@media (min-width: 600px) {
+  .login-mode{
+    width: 20vw;
+  }
+}

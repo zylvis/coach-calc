@@ -45,7 +45,7 @@
     cursor: pointer;
     margin-top: 5vh;
     color:#F6F2F2;
-    font-size: 1.75vh;
+    font-size: 3vh;
 }
 
 .label{
@@ -65,3 +65,13 @@
     font-size: 2vh;
     height: 2vh;
 }
+
+@media (min-width: 600px) {
+    .input{
+        width: 20vw;
+    }
+    .button{
+        width: 3rem;
+        height: 1.5rem;
+    }
+  }
