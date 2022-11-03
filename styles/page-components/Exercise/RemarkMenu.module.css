@@ -13,3 +13,9 @@
     background-color: #F6F2F2;
     height: 2rem;
 }
+
+@media (min-width: 600px) {
+    .container{
+        width: 60vw;
+    }
+}

@@ -77,3 +77,9 @@
     font-size: 2vh;
     height: 2vh;
 }
+
+@media (min-width: 600px){
+    .input{
+        width: 20vw;
+    }
+}

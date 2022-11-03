@@ -22,6 +22,7 @@ input[type="text"], input[type="date"], input[type="number"], input[type="passwo
   border-radius: 0.25rem;
   transition: 0.25s;
   outline: none;
+  border: none;
 }
 
 
@@ -36,6 +37,12 @@ input[type="radio"] {
 
 * {
   box-sizing: border-box;
+}
+
+@media (min-width: 600px){
+  body{
+    background-color: #121212;
+  }
 }
 
 

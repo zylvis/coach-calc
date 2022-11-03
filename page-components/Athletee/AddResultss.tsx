@@ -172,7 +172,10 @@ const AddResultss = (props: IAddResultsProps) =>{
         let tempResult: IResult = JSON.parse(JSON.stringify(resultUpdateObj))
         tempResult.value = timeMil.toString()
         setResultUpdateObj(tempResult)
-        setValueInsert(timeMil.toString())
+
+        if(resultUpdateObj == {} as IResult){
+            setValueInsert(timeMil.toString())
+        }
 
     }
     

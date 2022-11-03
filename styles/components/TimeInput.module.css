@@ -3,8 +3,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 28vw;
-
 }
 .label{
     margin-top: 2vh;
@@ -13,7 +11,7 @@
 .timeinputcontainer input{
     border: none;
     background-color: white;
-    width: 6vw;
+    width: 5vw;
     font-size: 1.75vh;
 }
 
@@ -22,4 +20,11 @@
 }
 .input::placeholder:active{
     font-size: 2vh;
+}
+
+
+@media (min-width: 600px){
+    .timeinputcontainer input{
+        width: 3vw;
+    }
 }

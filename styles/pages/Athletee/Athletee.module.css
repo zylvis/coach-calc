@@ -113,6 +113,7 @@
     width: 3rem;
     height: 2.5rem;
     order: 3;
+    margin-left: auto;
     font-size: 0.7rem;
     font-weight: 500;
     padding: 0.5rem;
@@ -137,4 +138,46 @@
     border: 1px solid #121212;
     font-weight: 500;
     padding: .25rem;
+}
+.ichart{
+    font-size: 5vh;
+}
+
+@media (min-width: 600px){
+    .container{
+        width: 60vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn-search-container{
+        width:100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .wrapper{
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .button{
+        width: 20vw;
+    }
+    .search input {
+        width: 20vw;
+    }
+    .container-items{
+        width: 60%;
+    }
+    .tapforresults{
+        margin-right: 2%;
+        width: 2.5rem;
+        height: 2rem;
+        font-size: 0.5rem;
+    }
+    .addresults{
+        width: 2.5rem;
+        height: 2rem;
+        font-size: 0.5rem;
+    }
 }

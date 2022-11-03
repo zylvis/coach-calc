@@ -21,3 +21,9 @@
     color: #F6F2F2;
     background-color: #121212;
 }
+
+@media (min-width: 600px){
+    .container{
+        width: 100%;
+    }
+}

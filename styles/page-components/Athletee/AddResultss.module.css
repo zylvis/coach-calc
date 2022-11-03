@@ -6,9 +6,8 @@
     top: 0;
     left: 0;
     right: 0;
-    bottom:0;
+    bottom: 0;
     width: 100vw;
-    height: 100vh;
 
     background-color: #F6F2F2;
     border: 1px solid #909090;
@@ -53,8 +52,7 @@
     border: none;
     appearance: none;
     word-wrap: break-word;
-    width: 25vw;
-    max-width: 20vw;
+    width: 28vw;
     height: 5vh;
     font-size: 1.75vh;
 }
@@ -78,8 +76,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 12vw;
-    height: 4vh;
+    padding: 2vh 4vh;
     background-color: #909090;
     margin-left: auto;
     margin-right: auto;
@@ -161,4 +158,25 @@
 }
 .updown {
     width: 2vh;
+}
+
+@media (min-width: 600px){
+    .container{
+        width: 60vw;
+        left: 20%;
+    }
+    .search nput[type="text"]{
+        max-width: 25vw;
+    }
+    .container select {
+        width: 14vw;
+    }
+    
+    .container input[type="date"], .container input[type="text"] {
+        width: 14vw;
+    }
+    
+    .inputnumber {
+        width: 15vw;
+    }
 }

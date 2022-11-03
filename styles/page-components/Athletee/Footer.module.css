@@ -40,3 +40,11 @@
     height: 2rem;
     width: 2rem;
 }
+@media (min-width: 600px){
+    .container{
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}

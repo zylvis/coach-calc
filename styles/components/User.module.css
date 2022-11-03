@@ -1,9 +1,9 @@
 .container{
     position: absolute;
-    top: 1vh;
-    left: 2vw;
-    right: 2vw;
-    bottom: 1vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     gap: 2vh;
     flex-direction: column;

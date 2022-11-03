@@ -12,7 +12,7 @@ import AddResults from "../../page-components/Athletee/AddResults";
 import Results from "../../page-components/Athletee/Results";
 import { useLoginContext } from "../../store/useLogincontext";
 import  Router  from "next/router";
-import parseJWT from "../../Helpers/parseJWT";
+import IChart from "../../icons/IChart.svg"
 import userAuth from "../../Helpers/userAuth";
 import AddResultss from "../../page-components/Athletee/AddResultss";
 
@@ -159,7 +159,7 @@ const Athletee: NextPage = () => {
           <div className={styles["container-items"]} onClick={()=>{onAthleteeClick(item)}}>
             <div>{item.firstName} {item.lastName}</div>  
           </div>
-          <button className={styles.tapforresults} onClick={()=>{onResultsClick(item)}}>Results</button>
+          <button className={styles.tapforresults} onClick={()=>{onResultsClick(item)}}><IChart className={styles.ichart}/></button>
         </div>
         <button className={styles.addresults} onClick={()=>{setShowAddResults(true); localStorage.setItem('athleteeObj', JSON.stringify(item))}}>Add Results</button>
       </div>)
