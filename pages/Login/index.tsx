@@ -2,7 +2,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import {useRouter} from "next/router";
 import { useEffect, useState } from "react";
-import userAuth from "../../Helpers/userAuth";
+import ILogin from "../../icons/Ilogin.svg"
 import Register from "../../page-components/Login/Register";
 import { useLoginContext } from "../../store/useLogincontext";
 import styles from "../../styles/pages/Login/Login.module.css"
@@ -78,34 +78,42 @@ const Login = () => {
 
     return (
         <div className={styles.container}>
+            <ILogin className={styles.loginicon}/>
             <div className={styles.logintxt}>Login</div>
             <form className={styles.formcontainer} onSubmit={formik.handleSubmit}>
-                <label className={styles.label} htmlFor="email">Email</label>
-                <input
-                    className={styles.input}
-                    id="email"
-                    name="email"
-                    type="text"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                />
+       
+                <label className={styles.label} htmlFor="email">
+                    <input
+                        className={styles.input}
+                        id="email"
+                        name="email"
+                        type="text"
+                        placeholder="Email*"
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                    />
+                    <span className={styles.span}>Email*</span>
+                </label>
                 {formik.errors.email ? <div className={styles.error}>{formik.errors.email}</div> : <div className={styles.error}></div>}
 
-                <label className={styles.label} htmlFor="password">Password</label>
-                <input
-                    className={styles.input}
-                    id="password"
-                    name="password"
-                    type="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                />
+                <label className={styles.label} htmlFor="password">
+                    <input
+                        className={styles.input}
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Password*"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                    />
+                    <span className={styles.span}>Password*</span>
+                </label>
                 {formik.errors.password ? <div className={styles.error}>{formik.errors.password}</div> : <div className={styles.error}></div>}
 
                 <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>router.push("/")}>Cancel</button></span>
                 <div className={styles.success}></div>
 
-                <div className={styles.registertxt} onClick={() => setShowRegister(true)}>Click to Register new account ...</div>
+                <div className={styles.registertxt} onClick={() => setShowRegister(true)}>Click to <u>Register</u> new account ...</div>
 
             </form>
             {showRegister && <Register {...objRegisterProps}/>}

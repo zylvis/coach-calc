@@ -16,9 +16,6 @@ a {
   text-decoration: none;
 }
 input[type="text"], input[type="date"], input[type="number"], input[type="password"] {
-  font-size: 1.75vh;
-  text-align: center;
-  height: 4vh;
   border-radius: 0.25rem;
   transition: 0.25s;
   outline: none;
