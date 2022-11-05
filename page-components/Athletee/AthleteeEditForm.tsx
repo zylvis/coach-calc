@@ -118,98 +118,122 @@ const AthleteeEditForm = (props: IEditProps) => {
               </label>
             </div>
 
-            <label className={styles.label} htmlFor="firstName">First Name</label>
+            <label className={styles.label} htmlFor="firstName">
                 <input
                     className={styles.input}
                     id="firstName"
                     name="firstName"
                     type="text"
+                    placeholder="First Name"
                     onChange={formik.handleChange}
                     value={formik.values.firstName}
                 />
+                <span className={styles.span}>First Name*</span>
+            </label>
             {formik.errors.firstName ? <div className={styles.error}>{formik.errors.firstName}</div> : <div className={styles.error}></div>}
 
-            <label className={styles.label} htmlFor="lastName">Last Name</label>
+            <label className={styles.label} htmlFor="lastName">
                 <input
                     className={styles.input}
                     id="lastName"
                     name="lastName"
                     type="text"
+                    placeholder="Last Name"
                     onChange={formik.handleChange}
                     value={formik.values.lastName}
                 />
+                <span className={styles.span}>Last Name*</span>
+            </label>
             {formik.errors.lastName ? <div className={styles.error}>{formik.errors.lastName}</div> : <div className={styles.error}></div>}
 
-            <label className={styles.label} htmlFor="birthDate">Birth Date</label>
+            <label className={styles.label} htmlFor="birthDate">
             <input
                     className={styles.input}
                     id="birthDate"
                     name="birthDate"
                     type="date"
+                    placeholder="Birth Date"
                     onChange={formik.handleChange}
                     value={formik.values.birthDate}
                     min="1900-01-01"
                     max={FormatDateTOYYYYMMDD(new Date())}
                 />
+                <span className={styles.span}>Birth Date*</span>
+            </label>
             
-            <label className={styles.label} htmlFor="height">Height</label>
+            <label className={styles.label} htmlFor="height">
             <input
                     className={styles.input}
                     id="height"
                     name="height"
                     type="number"
+                    placeholder="Height"
                     step="0.001"
                     onChange={formik.handleChange}
                     value={formik.values.height}
                 />
+                <span className={styles.span}>Height*</span>
+            </label>
             {formik.errors.height ? <div className={styles.error}>{formik.errors.height}</div> : <div className={styles.error}></div>}
 
-            <label className={styles.label} htmlFor="weight">Weight</label>
+            <label className={styles.label} htmlFor="weight">
             <input
                     className={styles.input}
                     id="weight"
                     name="weight"
                     type="number"
+                    placeholder="Weight"
                     step="0.001"
                     onChange={formik.handleChange}
                     value={formik.values.weight}
                 />
+                <span className={styles.span}>Weight*</span>
+            </label>
             {formik.errors.weight ? <div className={styles.error}>{formik.errors.weight}</div> : <div className={styles.error}></div>}
 
-            <label className={styles.label} htmlFor="phone">Phone</label>
+            <label className={styles.label} htmlFor="phone">
             <input
                     className={styles.input}
                     id="phone"
                     name="phone"
                     type="text"
+                    placeholder="Phone"
                     onChange={formik.handleChange}
                     value={formik.values.phone}
                 />
+                <span className={styles.span}>Phone*</span>
+            </label>
             {formik.errors.phone ? <div className={styles.error}>{formik.errors.phone}</div> : <div className={styles.error}></div>}
 
-            <label className={styles.label} htmlFor="email">Email</label>
+            <label className={styles.label} htmlFor="email">
             <input
                     className={styles.input}
                     id="email"
                     name="email"
                     type="text"
+                    placeholder="Email"
                     onChange={formik.handleChange}
                     value={formik.values.email}
                 />
+                <span className={styles.span}>Email*</span>
+            </label>
             {formik.errors.email ? <div className={styles.error}>{formik.errors.email}</div> : <div className={styles.error}></div>}
 
-            <label className={styles.label} htmlFor="address">Address</label>
+            <label className={styles.label} htmlFor="address">
             <input
                     className={styles.input}
                     id="address"
                     name="address"
                     type="text"
+                    placeholder="Address"
                     onChange={formik.handleChange}
                     value={formik.values.address}
                 />
+                <span className={styles.span}>Address*</span>
+            </label>
             {formik.errors.address ? <div className={styles.error}>{formik.errors.address}</div> : <div className={styles.error}></div>}
 
-            <div>
+            <div className={styles.buttonscontainer}>
               <button className={styles.button} type="button" onClick={()=>props.editFormHandler(false)}> Cancel</button>
               <button className={styles.button} type="submit">Save</button>
             </div>

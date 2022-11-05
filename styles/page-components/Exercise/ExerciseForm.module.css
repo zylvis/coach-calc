@@ -9,8 +9,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: linear-gradient(0deg, #909090 0%, #F6F2F2 100%);
-    color: #121212;
+    background: #65655E;
+    color: #FFFFFF;
     font-size: 2.5vh;
 }
 
@@ -23,20 +23,21 @@
 }
 
 .button{
+    cursor: pointer;
     margin: 1rem;
-    width: 4rem;
+    width: 20vw;
     height: 2rem;
     border-radius: 0.5rem;
     border: 0px;
-    background-color: #97FB57;
-    color: #121212;
+    background-color: #648DE5;
+    color: #FFFFFF;
     flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
     font-size: 0.75rem;
 }
 
-.input{
+.container input[type="text"]{
     width: 40vw;
 }
 
@@ -79,7 +80,10 @@
 }
 
 @media (min-width: 600px){
-    .input{
+    .container input[type="text"]{
         width: 20vw;
+    }
+    .button{
+        width: 10vw;
     }
 }

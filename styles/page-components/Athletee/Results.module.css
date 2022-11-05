@@ -6,7 +6,8 @@
     height: 100vh;
     width: 100vw;
     padding: 0.5rem;
-    background-color: #F6F2F2;
+    background-color: #65655E;
+    color: white;
 
 }
 .menu{
@@ -20,9 +21,10 @@
     align-items: center;
     justify-content: center;
     width: 3rem;
-    background-color: #909090;
+    background-color: #648DE5;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    color: white;
 }
 
 .detailscontainer{
@@ -47,7 +49,7 @@
     align-items: center;
     width: 8rem;
     gap: 1vh;
-    background-color: #F6F2F2;
+    background-color: #65655E;
     padding: 1vh;
     border-radius: 0.5rem;
 }
@@ -55,7 +57,6 @@
     display: flex;
     height: 3vh;
     width: 3vh;
-    border: 0px solid #97FB57;
     border-radius: 50%;
     padding: 4vh;
     background-size: cover;
@@ -70,7 +71,7 @@
 .rendercontainer{
     position: relative;
     display: flex;
-    height: 25vh;
+    height: 35vh;
     width: 95vw;
     flex-direction: column;
     margin-top: 2vh;;
@@ -122,8 +123,8 @@
     border-radius: 5px;
     padding: 2px;
     border: none;
-    background-color:#97FB57;
-    color: #121212;
+    background-color:#648DE5;
+    color: white;
 }
 .statscontainer{
     display: flex;
@@ -160,12 +161,11 @@
         transform: translate(-50%, -50%);
         height: 100vh;
         width: 60vw;
-        padding: 0.5rem;
-        background-color: #F6F2F2;
     }
 
     .rendercontainer{
         width: 60vw;
+        height: 26vh;
     }
     
 }

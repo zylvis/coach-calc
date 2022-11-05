@@ -5,7 +5,7 @@
     transform: translate(-50%, -50%);
     height: 100vh;
     width: 100vw;
-    background-color: #F6F2F2;
+    background-color: #65655E;
 }
 .menu{
     display: flex;
@@ -18,20 +18,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 4rem;
-    background-color: #909090;
+    width: 2.25rem;
+    background-color: #648DE5;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    color: white;
 }
 .menuitemresults {
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 4rem;
-    background-color: #97FB57;
+    width: 2.25rem;
+    background-color: #648DE5;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    color: white;
+}
+.age{
+    color: white;;
 }
 .detailscontainer{
     display: flex;
@@ -63,7 +68,7 @@
     width: 100%;
     height: auto;
     gap: 1vh;
-    background-color: #F6F2F2;
+    background-color: #FFFFFF;
     padding: 1vh;;
     border-radius: 0.5rem;;
 }

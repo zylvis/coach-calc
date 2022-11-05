@@ -32,11 +32,11 @@ const ChartLine = (props: IChartProps) => {
   const canvasEl: any = useRef(null);
 
   const colors = {
-    purple: {
-      default: "rgba(149, 76, 233, 1)",
-      half: "rgba(149, 76, 233, 0.5)",
-      quarter: "rgba(149, 76, 233, 0.25)",
-      zero: "rgba(149, 76, 233, 0)"
+    blue: {
+      default: "rgba(100, 141, 229, 1)",
+      half: "rgba(100, 141, 229, 0.5)",
+      quarter: "rgba(100, 141, 229, 0.25)",
+      zero: "rgba(100, 141, 229, 0)"
     },
     indigo: {
       default: "rgba(80, 102, 120, 1)",
@@ -49,9 +49,9 @@ const ChartLine = (props: IChartProps) => {
     // const ctx = document.getElementById("myChart");
 
     const gradient = ctx.createLinearGradient(0, 16, 0, 600);
-    gradient.addColorStop(0, colors.purple.half);
-    gradient.addColorStop(0.65, colors.purple.quarter);
-    gradient.addColorStop(1, colors.purple.zero);
+    gradient.addColorStop(0, colors.blue.half);
+    gradient.addColorStop(0.65, colors.blue.quarter);
+    gradient.addColorStop(1, colors.blue.zero);
 
     const data = {
       labels: labels,
@@ -62,9 +62,9 @@ const ChartLine = (props: IChartProps) => {
           data: values,
           fill: true,
           borderWidth: 2,
-          borderColor: colors.purple.default,
-          lineTension: 0.2,
-          pointBackgroundColor: colors.purple.default,
+          borderColor: colors.blue.default,
+          lineTension: 0.5,
+          pointBackgroundColor: colors.blue.default,
           pointRadius: 3
         }
       ]
@@ -99,7 +99,11 @@ const ChartLine = (props: IChartProps) => {
           x:{
             grid: {
               display: false,
-            }
+              
+            },
+            ticks: {
+              fontColor: "#FFFFFF", // this here
+            },
           },
           y:{
             grid: {
@@ -128,6 +132,7 @@ const ChartLine = (props: IChartProps) => {
     myLineChart.options.responsive = false;
     myLineChart.options.maintainAspectRatio = false;
     Chart.defaults.font.size = 10;
+    Chart.defaults.color = "#FFFFFF"
 
     return function cleanup() {
       myLineChart.destroy();

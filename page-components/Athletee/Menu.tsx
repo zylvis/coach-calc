@@ -2,6 +2,7 @@ import Modal from "../../components/Modal";
 import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
 import FormatDate from "../../Helpers/FormatDate";
 import styles from "../../styles/page-components/Athletee/Menu.module.css"
+import IChart from "../../icons/IChart.svg"
 
 interface IMenuProps{
     menuHandler: (show:boolean, actuin: string) => void
@@ -31,16 +32,15 @@ const Menu =(props:IMenuProps) =>{
                 <div className={styles.menu}>
                     <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "back")}>&lt;</div>
                     <div className={styles.menuitem} onClick={()=>props.menuHandler(false, "edit")}>Edit</div>
-                    <div className={styles.menuitemresults} onClick={()=>props.menuHandler(false, "results")}>Results</div>
+                    <div className={styles.menuitemresults} onClick={()=>props.menuHandler(false, "results")}><IChart fill="white"/></div>
                 </div>
                 <div className={styles.detailscontainer}>
 
-                    <div className={styles.item}>
                         <div className={styles.image}
                                 style={ athleteeObj.image.length !== 0 ? {backgroundImage: `url(${athleteeObj.image})`} : {backgroundImage: `url(./Avatar.png)`}}>  
                         </div>
-                        <div>({ConvertBirthDateToAge(athleteeObj.birthDate)})</div>
-                    </div>
+                        <div className={styles.age}>({ConvertBirthDateToAge(athleteeObj.birthDate)})</div>
+
                     <div className={styles.detailsitemcontainer}>
                         <div className={styles.item}>
                             <label><b>First Name</b></label>

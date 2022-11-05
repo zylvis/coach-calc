@@ -4,7 +4,7 @@
     height: 85vh;
     width:90%;
     gap: 0.5rem;
-    background: linear-gradient(0deg, #909090 0%, #F6F2F2 100%);
+    background: #65655E;
     color: #121212;
     flex-direction: column;
     align-items: center;
@@ -14,29 +14,36 @@
     transform: translate(-50%, -50%);
     text-align: center;
     border-radius: 0.5rem;
-    padding: 1rem;
     overflow-y: scroll;
+}
+
+.container input[type="text"],
+.container input[type="date"],
+.container input[type="number"]{
+    width: 40vw;
+    height: 5vh;
+    font-size: 2.5vh;
 }
 
 .button{
     cursor: pointer;
-    width: 4rem;
-    height: 1.25rem;
+    width: 20vw;
+    height: 2rem;
     border-radius: 0.5rem;
     border: 0px;
-    background-color: #97FB57;
-    color: #121212;
+    background-color: #648DE5;
     flex-wrap: wrap;
     margin-left: auto;
     font-size: 2vh;
+    color: white;
 }
 
 .upload-container{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 8vh;
-    width: 8vh;
+    height: 10vh;
+    width: 10vh;
     border-radius: 50%;
     background-color: #909090;
     background-image: url('~/public/Avatar.png');
@@ -48,12 +55,37 @@
     margin-top: 5vh;
     padding: 0.3vh 1vh;
     border-radius: 0.5rem;
-    background-color: #97FB57;
+    background-color: #648DE5;
     font-size: 1.5vh;
+    color: white;
+}
+
+.input::placeholder{
+    opacity:0;
 }
 
 .label{
-    font-size: 1.5vh;
+    position:relative;
+    margin-top: 1vh;
+    font-size: 1.75vh;
+}
+
+
+.span{
+    position:absolute;
+    top:25%;
+    left: 1vh;
+    font-size: 2.5vh;
+    transition-duration:300ms;
+    opacity: 0.5;
+}
+
+.label:focus-within > .span,
+input:not(:placeholder-shown) + .span{
+    background-color: #FFFFFF;
+    font-size: 1.75vh;
+    transform:translateY(-2.5vh);
+    opacity: 1;
 }
 
 .buttonscontainer{
@@ -61,7 +93,7 @@
     align-items: center;
     justify-content:space-between;
     margin-top: 2vh;
-    gap: 3vw;
+    gap: 1vw;
 }
 .success{
     height: 1.5vh;
@@ -75,5 +107,13 @@
         height: 100vh;
         width: 60%;
 
+    }
+    .container input[type="text"],
+    .container input[type="date"],
+    .container input[type="number"]{
+        width: 20vw;
+    }
+    .button{
+        width: 10vw;
     }
 }

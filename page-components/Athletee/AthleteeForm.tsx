@@ -32,8 +32,8 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
     const [lastName, SetLastName] = useState("");
     const [birthDate, SetBirthDate] = useState("");
     const [imageString, SetImage] = useState("");
-    const [height, setHeight] = useState(0);
-    const [weight, setWeight] = useState(0);
+    const [height, setHeight] = useState<number>(0);
+    const [weight, setWeight] = useState<number>(0);
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
@@ -122,74 +122,97 @@ const AthleteeForm: React.FC<AthleteeProps> = (props) => {
               </label>
             </div>
            
-            <label className={styles.label}>First Name*</label>
-            <input
-              className={styles.input}
-              type="text"
-              value={firstName}
-              onChange={(event) => SetFirstName(event.target.value)}
-              required
-            ></input>
+            <label className={styles.label}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(event) => SetFirstName(event.target.value)}
+                required
+              />
+              <span className={styles.span}>First Name*</span>
+            </label>
 
-            <label className={styles.label}>Last Name*</label>
-            <input
-              className={styles.input}
-              type="text"
-              value={lastName}
-              onChange={(event) => SetLastName(event.target.value)}
-              required
-            ></input>
+            <label className={styles.label}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(event) => SetLastName(event.target.value)}
+                required
+              />
+              <span className={styles.span}>Last Name*</span>
+            </label>
 
-            <label className={styles.label}>Birth Date*</label>
-            <input
-              className={styles.input}
-              type="Date"
-              value={birthDate}
-              onChange={(event) => SetBirthDate(event.target.value)}
-              min="1900-01-01"
-              max={FormatDateTOYYYYMMDD(new Date())}
-              required
-            ></input>
+            <label className={styles.label}>
+              <input
+                className={styles.input}
+                type="Date"
+                value={birthDate}
+                onChange={(event) => SetBirthDate(event.target.value)}
+                min="1900-01-01"
+                max={FormatDateTOYYYYMMDD(new Date())}
+                required
+              />
+              <span className={styles.span}>Birth Date*</span>
+            </label>
 
-            <label className={styles.label}>Height</label>
-            <input
-              className={styles.input}
-              type="number"
-              value={height}
-              onChange={(event) => setHeight(event.target.valueAsNumber)}
-            ></input>
+            <label className={styles.label}>
+              <input
+                className={styles.input}
+                type="number"
+                placeholder="Height"
+                value={height}
+                onChange={(event) => setHeight(event.target.valueAsNumber)}
+              />
+              <span className={styles.span}>Height*</span>
+            </label>
 
-            <label className={styles.label}>Weight</label>
-            <input
-              className={styles.input}
-              type="number"
-              value={weight}
-              onChange={(event) => setWeight(event.target.valueAsNumber)}
-            ></input>
+            <label className={styles.label}>
+              <input
+                className={styles.input}
+                type="number"
+                placeholder="Weight"
+                value={weight}
+                onChange={(event) => setWeight(event.target.valueAsNumber)}
+              />
+              <span className={styles.span}>Weight*</span>
+            </label>
 
-            <label className={styles.label}>Phone</label>
-            <input
-              className={styles.input}
-              type="text"
-              value={phone}
-              onChange={(event) => setPhone(event.target.value)}
-            ></input>
+            <label className={styles.label}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Phone"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+              />
+              <span className={styles.span}>Phone*</span>
+            </label>
 
-            <label className={styles.label}>Email</label>
-            <input
-              className={styles.input}
-              type="text"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            ></input>
+            <label className={styles.label}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <span className={styles.span}>Email*</span>
+            </label>
 
-            <label className={styles.label}>Address</label>
-            <input
-              className={styles.input}
-              type="text"
-              value={address}
-              onChange={(event) => setAddress(event.target.value)}
-            ></input>
+            <label className={styles.label}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Address"
+                value={address}
+                onChange={(event) => setAddress(event.target.value)}
+              />
+              <span className={styles.span}>Address*</span>
+            </label>
             
             <div className={styles.buttonscontainer}>
               <button className={styles.button} type="button" onClick={CancelButtonHandler}> Cancel</button>
