@@ -9,8 +9,8 @@
     bottom: 0;
     width: 100vw;
 
-    background-color: #F6F2F2;
-    border: 1px solid #909090;
+    background-color: #65655E;
+    border: 1px solid #C1BDB3;
     font-size: 2vh;
 
     overflow-y: scroll;
@@ -26,14 +26,17 @@
     width: 28vw;
     height: 5vh;
     background-color: white;
+    font-size: 2vh;
+    text-align: center;
 }
 
-
-.inputnumber {
+.container input[type="number"]{
+    font-size: 2vh;
+    text-align: center;
+}
+.inputnumber{
     width: 28vw;
-    border: none;
 }
-
 
 .container input:focus {
     border: none;
@@ -54,7 +57,7 @@
     word-wrap: break-word;
     width: 28vw;
     height: 5vh;
-    font-size: 1.75vh;
+    font-size: 2vh;
 }
 
 .container select:active select:focus {
@@ -77,12 +80,12 @@
     justify-content: center;
     align-items: center;
     padding: 2vh 4vh;
-    background-color: #909090;
+    background-color: #648DE5;
     margin-left: auto;
     margin-right: auto;
     margin: 2vh 2vh;
     border-radius: 5px;
-
+    color: white;
 }
 
 .newresult {
@@ -146,6 +149,10 @@
 }
 .age{
     margin-bottom: 2vh;
+    color: white;
+}
+.name{
+    color: white;
 }
 .search{
     border: 1px solid #909090;
@@ -157,6 +164,7 @@
     max-width: 35vw;
 }
 .updown {
+    cursor: pointer;
     width: 2vh;
 }
 

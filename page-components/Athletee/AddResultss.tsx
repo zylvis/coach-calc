@@ -403,7 +403,7 @@ const AddResultss = (props: IAddResultsProps) =>{
                 <div className={styles.image}
                     style={ athleteeObj.image.length !== 0 ? {backgroundImage: `url(${athleteeObj.image})`} : {backgroundImage: `url(./Avatar.png)`}}>
                 </div>
-                <div>{athleteeObj.firstName}</div>
+                <div className={styles.name}>{athleteeObj.firstName}</div>
                 <div className={styles.age}>({ConvertBirthDateToAge(athleteeObj.birthDate)})</div>
                 <div className={styles.search}><input type="text" placeholder="Search ..." onChange={(event) => searchHandler(event)}/></div>
                 <table className={styles.table}>

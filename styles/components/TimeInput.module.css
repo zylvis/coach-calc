@@ -12,11 +12,11 @@
     border: none;
     background-color: white;
     width: 5vw;
-    font-size: 1.75vh;
+    font-size: 2vh;
 }
 
 .input::placeholder{
-    font-size: 1.75vh;
+    font-size: 2vh;
 }
 .input::placeholder:active{
     font-size: 2vh;
@@ -25,6 +25,6 @@
 
 @media (min-width: 600px){
     .timeinputcontainer input{
-        width: 3vw;
+        width: 3.25vw;
     }
 }
