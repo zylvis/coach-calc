@@ -13,7 +13,7 @@ const Footer = () => {
             <Link href="/Athletee">
                 <div className={styles.iexercises}>
                     <div className={styles.ihome}>
-                        <IHome fill={'#121212'}/>
+                        <IHome fill={'#000000'}/>
                     </div>
                     <div>Home</div>
                 </div>
@@ -22,12 +22,12 @@ const Footer = () => {
             <Link href="/Exercise">
                 <div className={styles.iexercises}>
                     <div className={styles.icoinline}>
-                        <ISwiming fill={'#121212'}/>
-                        <IRuning fill={'#909090'}/>
+                        <ISwiming fill={'#000000'}/>
+                        <IRuning fill={'#65655E'}/>
                     </div>
                     <div className={styles.icoinline}>
-                        <IDumbell fill={'#909090'}/>
-                        <IPulse fill={'#121212'}/>
+                        <IDumbell fill={'#65655E'}/>
+                        <IPulse fill={'#000000'}/>
                     </div>
                     <div>Exercises</div>
                 </div>

@@ -16,7 +16,9 @@ const Login = () => {
     const router = useRouter()
 
     const[showRegister, setShowRegister] = useState(false);
+    const[loading, setLoading] = useState(false)
     const{isLoggedIn, setIsLoggedIn} = useLoginContext()
+    
 
     const client = axios.create({
         baseURL: `${process.env.API_URL}/api/UsersAuth/login`
@@ -30,11 +32,15 @@ const Login = () => {
               if(response.data.result.token){
                 setIsLoggedIn(true)
                 localStorage.setItem("coachCalcUserToken", response.data.result.token)
-                router.replace("/Athletee")
               }
+              setLoading(true)
            }).catch((error) => {
+            setLoading(false)
             console.log(error);
             error.response.data?.errorMesseges[0] !== undefined ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
+         }).finally(()=>{
+            setLoading(false)
+            router.replace("/Athletee")
          });
       };
 
@@ -68,6 +74,7 @@ const Login = () => {
             //alert(JSON.stringify(values, null, 2));
             AddPost(values)
             formik.resetForm()
+            setLoading(true)
         },
     });
 
@@ -117,6 +124,7 @@ const Login = () => {
 
             </form>
             {showRegister && <Register {...objRegisterProps}/>}
+            {loading && <div className={styles.loading}><div className={styles.rotation}>CoachCalc</div></div>}
         </div>
     )
 }

@@ -5,8 +5,8 @@
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background: linear-gradient(0deg, #909090 0%, #F6F2F2 100%);
-    color: #121212;
+    background: #65655E;
+    color: #000000;
     font-size: 2.5vh;
 }
 
@@ -25,12 +25,13 @@
     height: 2rem;
     border-radius: 0.5rem;
     border: 0px;
-    background-color: #97FB57;
+    background-color: #648DE5;
     color: #121212;
     flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
     font-size: 2vh;
+    color: white;
 }
 
 
@@ -63,7 +64,7 @@
 
 .label:focus-within > .span,
 input:not(:placeholder-shown) + .span{
-    background-color: #F6F2F2;
+    background-color: #FFFFFF;
     font-size: 1.75vh;
     transform:translateY(-2.5vh);
     opacity: 1;
@@ -92,11 +93,33 @@ input:not(:placeholder-shown) + .span{
     margin-bottom: 2vh;
 }
 
-.success{
-    color: #97FB57;
-    font-size: 2vh;
-    height: 2vh;
+.loading{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    background-color: #65655E;
 }
+.rotation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
 
 @media (min-width: 600px) {
     .input{

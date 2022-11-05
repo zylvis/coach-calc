@@ -159,9 +159,10 @@ const Athletee: NextPage = () => {
           <div className={styles["container-items"]} onClick={()=>{onAthleteeClick(item)}}>
             <div>{item.firstName} {item.lastName}</div>  
           </div>
-          <button className={styles.tapforresults} onClick={()=>{onResultsClick(item)}}><IChart className={styles.ichart}/></button>
+          <button className={styles.tapforresults} onClick={()=>{onResultsClick(item)}}><IChart fill='#FFFFFF' className={styles.ichart}/></button>
+          <button className={styles.addresults} onClick={()=>{setShowAddResults(true); localStorage.setItem('athleteeObj', JSON.stringify(item))}}>Add Results</button>
         </div>
-        <button className={styles.addresults} onClick={()=>{setShowAddResults(true); localStorage.setItem('athleteeObj', JSON.stringify(item))}}>Add Results</button>
+       
       </div>)
 
 
