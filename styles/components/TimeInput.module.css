@@ -10,7 +10,7 @@
 
 .timeinputcontainer input{
     border: none;
-    background-color: white;
+    background-color: var(--white-color);
     width: 5vw;
     font-size: 2vh;
 }

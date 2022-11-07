@@ -9,8 +9,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #65655E;
-    color: #FFFFFF;
+    background: var(--main-color);
+    color: var(--white-color);
     font-size: 2.5vh;
 }
 
@@ -29,8 +29,8 @@
     height: 2rem;
     border-radius: 0.5rem;
     border: 0px;
-    background-color: #648DE5;
-    color: #FFFFFF;
+    background-color: var(--accent-color);
+    color: var(--white-color);
     flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;

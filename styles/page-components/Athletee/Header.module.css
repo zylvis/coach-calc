@@ -6,7 +6,7 @@
     align-items: center;
     height: 6vh;
     width: 100%;
-    border-bottom: solid 1px #C1BDB3;
+    border-bottom: solid 1px var(--light-color);;
 }
 
 .profile {
@@ -18,8 +18,8 @@
     height: 5vh;
     width: 5vh;
     border-radius: 50%;
-    color: #F6F2F2;
-    background-color: #C1BDB3;
+    color: var(--white-color);
+    background-color: var(--light-color);
 }
 
 @media (min-width: 600px){

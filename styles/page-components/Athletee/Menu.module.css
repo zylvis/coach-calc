@@ -18,25 +18,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    background-color: #648DE5;
+    width: 3rem;
+    background-color: var(--accent-color);;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    color: white;
+    color: var(--white-color);
 }
 .menuitemresults {
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    background-color: #648DE5;
+    width: 3rem;
+    background-color: var(--accent-color);;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    color: white;
+    color: var(--white-color);
 }
 .age{
-    color: white;;
+    color: var(--white-color);
 }
 .detailscontainer{
     display: flex;
@@ -45,7 +45,7 @@
     margin-top: 0vh;
     gap: 2vh;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: hidden;
     font-size: 2vh;;
 }
 .detailsitemcontainer{
@@ -57,7 +57,7 @@
     gap: 1vh;
     padding: 1vh;
     border-radius: 5px;;
-    background-color: #909090;
+    background-color: var(--main-color);;
    
 }
 .item{
@@ -68,7 +68,7 @@
     width: 100%;
     height: auto;
     gap: 1vh;
-    background-color: #FFFFFF;
+    background-color: var(--white-color);
     padding: 1vh;;
     border-radius: 0.5rem;;
 }

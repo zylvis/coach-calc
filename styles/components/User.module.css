@@ -8,16 +8,16 @@
     gap: 2vh;
     flex-direction: column;
     align-items:center;
-    background-color: #C1BDB3;
+    background-color: var(--light-color);
     padding: 1vh;
-    color: #FFFFFF
+    color: var(--white-color);
 }
 .backbutton {
     cursor: pointer;
-    padding: 1vh 6vw;
+    padding: 1vh 3vw;
     border-radius: 5px;
     font-size: 3vh;
-    background-color: #65655E;
+    background-color: var(--accent-color);;
 }
 
 .logoutcontainer{

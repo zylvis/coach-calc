@@ -39,8 +39,8 @@ const Login = () => {
             console.log(error);
             error.response.data?.errorMesseges[0] !== undefined ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
          }).finally(()=>{
-            setLoading(false)
             router.replace("/Athletee")
+            setLoading(false)
          });
       };
 

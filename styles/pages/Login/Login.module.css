@@ -5,8 +5,8 @@
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background: #65655E;
-    color: #000000;
+    background: var(--main-color);;
+    color: var(--dark-color);;
     font-size: 2.5vh;
 }
 
@@ -25,8 +25,8 @@
     height: 2rem;
     border-radius: 0.5rem;
     border: 0px;
-    background-color: #648DE5;
-    color: #121212;
+    background-color: var(--accent-color);;
+    color: var(--dark-color);;
     flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
@@ -64,7 +64,7 @@
 
 .label:focus-within > .span,
 input:not(:placeholder-shown) + .span{
-    background-color: #FFFFFF;
+    background-color: var(--white-color);
     font-size: 1.75vh;
     transform:translateY(-2.5vh);
     opacity: 1;
@@ -76,7 +76,7 @@ input:not(:placeholder-shown) + .span{
 
 .registertxt{
     cursor: pointer;
-    color:#F6F2F2;
+    color: var(--white-color);
     font-size: 2.5vh;
 }
 
@@ -103,13 +103,13 @@ input:not(:placeholder-shown) + .span{
     right: 0;
     bottom: 0;
     height: 100vh;
-    background-color: #65655E;
+    background-color: var(--main-color);;
 }
 .rotation{
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--white-color);
     animation: rotation 2s infinite linear;
 }
 @keyframes rotation {

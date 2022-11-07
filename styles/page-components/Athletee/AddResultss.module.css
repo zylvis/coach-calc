@@ -9,8 +9,8 @@
     bottom: 0;
     width: 100vw;
 
-    background-color: #65655E;
-    border: 1px solid #C1BDB3;
+    background-color: var(--main-color);;
+    border: 1px solid var(--light-color);;
     font-size: 2vh;
 
     overflow-y: scroll;
@@ -21,13 +21,21 @@
     text-align: center;
 }
 
-.container input[type="date"], .container input[type="text"] {
+.container input[type="date"]{
     border: none;
     width: 28vw;
     height: 5vh;
-    background-color: white;
+    background-color: var(--white-color);
     font-size: 2vh;
     text-align: center;
+}
+
+.container input[type="text"]{
+    width: 28vw;
+    height: 5vh;
+    border-radius: 0;
+    font-size: 2vh;
+    border: var(--white-color);
 }
 
 .container input[type="number"]{
@@ -47,8 +55,8 @@
 }
 
 .container th, .container td {
-    border: 1px solid #909090;
-    background-color: white;
+    border: 1px solid var(--main-color);;
+    background-color: var(--white-color);
 }
 .container select {
     text-align: center;
@@ -79,8 +87,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2vh 4vh;
-    background-color: #648DE5;
+    width: 3rem;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    background-color: var(--accent-color);;
     margin-left: auto;
     margin-right: auto;
     margin: 2vh 2vh;
@@ -105,9 +115,9 @@
     height: 3vh;
     width: 3vh;
     border-radius: 50%;
-    background-color: #97FB57;
+    background-color: var(--accent-color);
     font-size: 1.5vh;
-    color: #121212;
+    color: var(--white-color);
     margin-left: auto;
     margin-right: auto;
 }
@@ -115,7 +125,7 @@
     cursor: pointer;
     height: 6vh;
     width: 8vw;
-    border: 0px solid #121212;
+    border: 0px solid var(--dark-color);
 }
 .ban{
     cursor: pointer;
@@ -131,7 +141,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color:#97FB57;
-    background-color: #F6F2F2;
+    background-color: var(--white-color);
     border-radius: 5px;
     width:30vw;
     height: 8vh;
@@ -141,7 +151,6 @@
     display: flex;
     height: 3vh;
     width: 3vh;
-    border: 0px solid #97FB57;
     border-radius: 50%;
     padding: 4vh;
     background-size: cover;
@@ -149,13 +158,13 @@
 }
 .age{
     margin-bottom: 2vh;
-    color: white;
+    color: var(--white-color);
 }
 .name{
-    color: white;
+    color: var(--white-color);
 }
 .search{
-    border: 1px solid #909090;
+    border: 1px solid var(--light-color);
     margin-bottom: 1vh;
     margin-right: auto;
 }

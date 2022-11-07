@@ -6,14 +6,15 @@
     height: 100vh;
     width: 100vw;
     padding: 0.5rem;
-    background-color: #65655E;
-    color: white;
+    background-color: var(--main-color);
+    color: var(--white-color);
 
 }
 .menu{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    margin-top: 4vh;
 }
 .menuitem{
     cursor: pointer;
@@ -21,10 +22,10 @@
     align-items: center;
     justify-content: center;
     width: 3rem;
-    background-color: #648DE5;
+    background-color: var(--accent-color);;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    color: white;
+    color: var(--white-color);
 }
 
 .detailscontainer{
@@ -41,7 +42,7 @@
     gap: 1vh;
     padding: 1vh;
     border-radius: 5px;;
-    background-color: #909090;
+    background-color: var(--light-color);
 }
 .item{
     display: flex;
@@ -49,7 +50,7 @@
     align-items: center;
     width: 8rem;
     gap: 1vh;
-    background-color: #65655E;
+    background-color: var(--main-color);
     padding: 1vh;
     border-radius: 0.5rem;
 }
@@ -71,7 +72,7 @@
 .rendercontainer{
     position: relative;
     display: flex;
-    height: 35vh;
+    height: 30vh;
     width: 95vw;
     flex-direction: column;
     margin-top: 2vh;;
@@ -123,8 +124,8 @@
     border-radius: 5px;
     padding: 2px;
     border: none;
-    background-color:#648DE5;
-    color: white;
+    background-color: var(--accent-color);;
+    color: var(--white-color);
 }
 .statscontainer{
     display: flex;
@@ -165,7 +166,7 @@
 
     .rendercontainer{
         width: 60vw;
-        height: 26vh;
+        height: 23vh;
     }
     
 }

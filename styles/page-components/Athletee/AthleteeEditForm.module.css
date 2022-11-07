@@ -10,7 +10,7 @@
     left: 0;
     height: 100vh;
     width: 100vw;
-    background: #65655E;
+    background: var(--main-color);;
 
 }
 
@@ -44,7 +44,7 @@
 
 .label:focus-within > .span,
 input:not(:placeholder-shown) + .span{
-    background-color: #FFFFFF;
+    background-color: var(--white-color);
     font-size: 1.75vh;
     transform:translateY(-2.5vh);
     opacity: 1;
@@ -65,8 +65,8 @@ input:not(:placeholder-shown) + .span{
     height: 2rem;
     border-radius: 0.5rem;
     border: 0px;
-    background-color: #648DE5;
-    color: #FFFFFF;
+    background-color: var(--accent-color);;
+    color: var(--white-color);
     flex-wrap: wrap;
     font-size: 2vh;
 }
@@ -84,7 +84,7 @@ input:not(:placeholder-shown) + .span{
     width: 10vh;
     margin-bottom: 2vh;
     border-radius: 50%;
-    background-color: #909090;
+    background-color: var(--main-color-color);
     background-image: url('~/public/Avatar.png');
     background-size: cover;
     background-position: center;
@@ -94,8 +94,8 @@ input:not(:placeholder-shown) + .span{
     margin-top: 6vh;
     padding: 0.5vh 1vw;
     border-radius: 0.5rem;
-    background-color: #648DE5;
-    color: #FFFFFF;
+    background-color: var(--accent-color);
+    color: var(--white-color);
     font-size: 2vh;
 }
 .success{
