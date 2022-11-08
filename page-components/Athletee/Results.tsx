@@ -6,8 +6,8 @@ import FormatDate from "../../Helpers/FormatDate";
 import styles from "../../styles/page-components/Athletee/Results.module.css"
 import ITrash from "../../icons/ITrash.svg"
 import MilSecStringToTimeString from "../../Helpers/MilSecStringToTmeString";
-import { MiddlewareNotFoundError } from "next/dist/shared/lib/utils";
 import ChartLine from "../../components/ChartLine";
+import DateRangePicker from "../../components/DateRangePicker";
 
 interface IAthletee{
     id: number,
@@ -33,7 +33,6 @@ interface IDictinctExercise{
     name?: string,
     metricType?: string
 }
-
 
 const Results = (props: IResultsProps) => {
 
@@ -83,7 +82,7 @@ const Results = (props: IResultsProps) => {
         };
         getData();
 
-      }, []);
+    }, []);
 
     const handleDelete =(id:number) => {
         if(confirm("Delete Result?")){
@@ -161,10 +160,28 @@ const Results = (props: IResultsProps) => {
     
     console.log(event.target.value);
     }
+
+    const handleSelectRange = (startDate: string, endDate: string) => {
+        console.log( dataToShow)
+
+        let temp = dataToShow.filter((item: IResults) => {
+             return new Date(item.date).getTime() >= new Date(startDate).getTime() &&
+                    new Date(item.date).getTime() <= new Date(endDate).getTime();
+        });
+
+        //let tempResult: IResults[] = JSON.parse(JSON.stringify(temp))
+
+       // tempResult.sort((a, b) => +new Date(a.date) - +new Date(b.date))
+        console.log("brrrrrrrrrrrrrrr")
+        console.log(temp.sort((a, b) => +new Date(a.date) - +new Date(b.date)))
+        setDataToShow(temp.sort((a, b) => +new Date(b.date) - +new Date(a.date)))
+    }
  
     console.log(dataToShow)
     console.log(distinctExercises)
+
     const objChartProps = {dataToShow: dataToShow, metricType: metricType}
+    const objDateRangePickerProps = {dataToShow: dataToShow, handleSelectRange: handleSelectRange}
 
     const addfirstAthletee = <div className={styles.loading}>Add Results ...</div>
     const loadingAthletees = <div className={styles.loading}>Loading ...</div>
@@ -213,15 +230,15 @@ const Results = (props: IResultsProps) => {
                 <div className={styles.chart}>
                      <ChartLine {...objChartProps}/>
                 </div>
-               
+                <div className={styles.daterangepicker}>
+                    <DateRangePicker {... objDateRangePickerProps}/>
+                </div>
                 <div className={styles.itemslabelcontainer}>
                     <div className={styles.items}><b>Exercise</b></div>
                     <div className={styles.items}><b>Value</b></div>
                     <div className={styles.items}><b>Date</b></div>
                     <div></div>
                 </div>
-                
-
                 <div className={styles.rendercontainer}>
                     {emptyData && addfirstAthletee}
                     {loading && loadingAthletees}

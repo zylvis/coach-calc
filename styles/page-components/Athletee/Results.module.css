@@ -72,7 +72,7 @@
 .rendercontainer{
     position: relative;
     display: flex;
-    height: 30vh;
+    height: 28vh;
     width: 95vw;
     flex-direction: column;
     margin-top: 2vh;;
@@ -148,6 +148,11 @@
     width: 3rem;
 }
 .loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.daterangepicker{
     display: flex;
     justify-content: center;
     align-items: center;

@@ -23,7 +23,7 @@ const ChartLine = (props: IChartProps) => {
   let values: string[] = [];
   let labels: string[] = [];
   props.metricType != "" ?  values = props.dataToShow.sort((a, b) => +new Date(a.date) - +new Date(b.date)).map(x => x.value) : values = []
-  props.metricType != ""? labels = props.dataToShow.sort((a, b) => +new Date(a.date) - +new Date(b.date)).map(x => x.date as string) : labels = []
+  props.metricType != "" ? labels = props.dataToShow.sort((a, b) => +new Date(a.date) - +new Date(b.date)).map(x => x.date as string) : labels = []
 
   console.log(values)
   console.log(new Date())

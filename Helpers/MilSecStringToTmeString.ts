@@ -8,8 +8,6 @@ const MilSecStringToTimeString = (milSec: string):string => {
     const seconds = ("0" + date.getUTCSeconds()).slice(-2)
     const milSeconds = ("00" + date.getUTCMilliseconds()).slice(-3, -1)
 
-    console.log(`dddddddd ${date.getUTCMilliseconds()}`)
-
     return hours + ":" + minutes + ":" + seconds + "." + milSeconds
        // return `${hours}:${minutes}:${seconds}.${milSeconds}`
 

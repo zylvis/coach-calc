@@ -9,9 +9,10 @@ body, html {
   --accent-color: #648DE5;
   --main-color: #65655E;
   --dark-color: #000000;
-  --light-color: #C1BDB3;
+  --light-color: #c1bdb3;
   --white-color: #FFFFFF;
 }
+
 
 a {
   color: #000000;
