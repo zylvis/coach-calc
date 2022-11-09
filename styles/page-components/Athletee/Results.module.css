@@ -72,7 +72,7 @@
 .rendercontainer{
     position: relative;
     display: flex;
-    height: 28vh;
+    height: 26vh;
     width: 95vw;
     flex-direction: column;
     margin-top: 2vh;;
@@ -96,7 +96,7 @@
 .items{
     width: 4rem;
     text-align: center;
-    font-size: 10px;;
+    font-size: 10px;
 }
 .trash{
     cursor: pointer;
@@ -110,6 +110,7 @@
     font-size: 0.75rem;
     padding: 0.5rem;
 }
+
 .selectcontainer{
     display: flex;
     flex-direction: column;
@@ -119,14 +120,16 @@
     padding: 0.5rem;
     width: 50vw;
 }
-.option{
+
+.select {
     font-size: 12px;
     border-radius: 5px;
     padding: 2px;
     border: none;
-    background-color: var(--accent-color);;
+    background-color: var(--accent-color);
     color: var(--white-color);
 }
+
 .statscontainer{
     display: flex;
     flex-direction: column;
@@ -156,6 +159,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0.5vh;;
+}
+.filterby {
+    font-size: 0.7rem;
+    text-align: center;
 }
 
 @media (min-width: 600px){
@@ -171,7 +179,7 @@
 
     .rendercontainer{
         width: 60vw;
-        height: 23vh;
+        height: 18vh;
     }
     
 }

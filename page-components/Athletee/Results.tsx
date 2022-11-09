@@ -162,26 +162,30 @@ const Results = (props: IResultsProps) => {
     }
 
     const handleSelectRange = (startDate: string, endDate: string) => {
-        console.log( dataToShow)
 
         let temp = dataToShow.filter((item: IResults) => {
              return new Date(item.date).getTime() >= new Date(startDate).getTime() &&
                     new Date(item.date).getTime() <= new Date(endDate).getTime();
         });
 
-        //let tempResult: IResults[] = JSON.parse(JSON.stringify(temp))
-
-       // tempResult.sort((a, b) => +new Date(a.date) - +new Date(b.date))
-        console.log("brrrrrrrrrrrrrrr")
-        console.log(temp.sort((a, b) => +new Date(a.date) - +new Date(b.date)))
         setDataToShow(temp.sort((a, b) => +new Date(b.date) - +new Date(a.date)))
     }
+
+    const handleResetRange = () =>{
+        if(exerciseId == 0) {
+            setDataToShow(data)
+            return
+        }
+        setDataToShow(data?.filter(x => x.exerciseId == exerciseId));
+    }
+
+
  
     console.log(dataToShow)
     console.log(distinctExercises)
 
     const objChartProps = {dataToShow: dataToShow, metricType: metricType}
-    const objDateRangePickerProps = {dataToShow: dataToShow, handleSelectRange: handleSelectRange}
+    const objDateRangePickerProps = {data: data, dataToShow: dataToShow, handleSelectRange: handleSelectRange, handleResetRange: handleResetRange}
 
     const addfirstAthletee = <div className={styles.loading}>Add Results ...</div>
     const loadingAthletees = <div className={styles.loading}>Loading ...</div>
@@ -196,15 +200,15 @@ const Results = (props: IResultsProps) => {
                 <div className={styles.detailscontainer}>
                     <div className={styles.item}>
                         <div className={styles.image}
-                            style={ athleteeObj.image.length !== 0 ? {backgroundImage: `url(${athleteeObj.image})`} : {backgroundImage: `url(./Avatar.png)`}}>  
+                            style={athleteeObj.image.length !== 0 ? {backgroundImage: `url(${athleteeObj.image})`} : {backgroundImage: `url(./Avatar.png)`}}>  
                         </div>
                     </div>
                 </div>
                 <div className={styles.selectstatscontainer}>
                     <div className={styles.selectcontainer}>
                         <div><b>Select Exercise:</b></div>
-                        <select  className={styles.option} value={exerciseId} onChange={handleSelectExercise}>
-                            <option value="all">All Exercises</option>
+                        <select  className={styles.select} value={exerciseId} onChange={handleSelectExercise}>
+                            <option className={styles.option} value="all">All Exercises</option>
                                     {distinctExercises?.map((item: IDictinctExercise) =>{
                                         return (                                
                                             <option value={item.exerciseId} key={item.exerciseId}>{item.name}</option>
@@ -230,6 +234,7 @@ const Results = (props: IResultsProps) => {
                 <div className={styles.chart}>
                      <ChartLine {...objChartProps}/>
                 </div>
+                <div className={styles.filterby}>Filter by date range: </div>
                 <div className={styles.daterangepicker}>
                     <DateRangePicker {... objDateRangePickerProps}/>
                 </div>
