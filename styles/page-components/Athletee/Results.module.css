@@ -176,10 +176,35 @@
         height: 100vh;
         width: 60vw;
     }
-
     .rendercontainer{
         width: 60vw;
-        height: 18vh;
-    }
-    
+    } 
+}
+
+@media (min-height: 700px){
+
+    .rendercontainer{
+        height: 30vh;
+    } 
+}
+
+@media (min-height: 800px){
+
+    .rendercontainer{
+        height: 34vh;
+    } 
+}
+
+@media (min-height: 900px){
+
+    .rendercontainer{
+        height: 36vh;
+    } 
+}
+
+@media (min-height: 1000px){
+
+    .rendercontainer{
+        height: 38vh;
+    } 
 }

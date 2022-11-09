@@ -33,7 +33,7 @@ const User =(props: IUserProps)=>{
             <Modal/>
             <div className={styles.container}>
                 <div className={styles.backbutton} onClick={()=>props.handleShowUser(false)}>&lt;</div>
-                <span><span>User: </span>{name}</span>
+                <span>User: {name}</span>
                 <div className={styles.logoutcontainer} onClick={logoutHandler}>
                     <Logout className={styles.logout} fill="#121212"/>
                     <div>Logout</div>
