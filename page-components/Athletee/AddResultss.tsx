@@ -139,7 +139,7 @@ const AddResultss = (props: IAddResultsProps) =>{
               setTimeout(() => {
               setSuccess("");
               setShowSuccess(false)
-              }, 2000);
+              }, 3000);
               setReloadTrigger(reloadTrigger + 1)
            }).catch((error) => {
             console.log(error);
@@ -365,8 +365,8 @@ const AddResultss = (props: IAddResultsProps) =>{
         if (name == "Value") {
             setOrderValue(!orderValue)
             setDataToShow(dataToShow.sort((a, b) => {
-                const nameA = a.value.toUpperCase(); 
-                const nameB = b.value.toUpperCase(); 
+                const nameA = parseInt(a.value); 
+                const nameB = parseInt(b.value); 
                 if ( orderValue ? nameA < nameB : nameA > nameB) {
                   return -1;
                 }
@@ -411,7 +411,7 @@ const AddResultss = (props: IAddResultsProps) =>{
                         <tr>
                             <th></th>
                             <th onClick={(event) => onSortClick("Exercise")}>Exercise <UpDown className={styles.updown}/></th>
-                            <th onClick={(event)=>onSortClick("Value")}>Value <UpDown className={styles.updown}/></th>
+                            <th onClick={(event)=> onSortClick("Value")}>Value <UpDown className={styles.updown}/></th>
                             <th onClick={(event) => onSortClick("Date")}>Date <UpDown className={styles.updown}/></th>
                             <th></th>
                         </tr>
