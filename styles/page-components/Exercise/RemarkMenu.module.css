@@ -11,8 +11,9 @@
     justify-content: center;
     align-items: center;
     margin: 0.5rem;
+    padding: 2.5vh;
     background-color: var(--accent-color);
-    height: 2rem;
+    height: 3vh;
     color: var(--white-color);
 }
 

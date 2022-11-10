@@ -19,7 +19,6 @@ const Login = () => {
     const[loading, setLoading] = useState(false)
     const{isLoggedIn, setIsLoggedIn} = useLoginContext()
     
-
     const client = axios.create({
         baseURL: `${process.env.API_URL}/api/UsersAuth/login`
       });
@@ -40,7 +39,9 @@ const Login = () => {
             error.response.data?.errorMesseges[0] !== undefined ? alert(error.response.data.errorMesseges[0]) : alert(error.message)
          }).finally(()=>{
             router.replace("/Athletee")
-            setLoading(false)
+            setTimeout(()=>{
+               setLoading(false) 
+            }, 1000)
          });
       };
 
@@ -81,6 +82,7 @@ const Login = () => {
     const registerHandler = (showRegister:boolean) => {
         setShowRegister(showRegister)
     }
+    
     const objRegisterProps = {registerHandler: registerHandler}
 
     return (

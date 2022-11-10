@@ -36,14 +36,14 @@ interface IDictinctExercise{
 
 const Results = (props: IResultsProps) => {
 
-    const[dataToShow, setDataToShow] = useState<IResults[]>([])
-    const[data, setData] = useState<IResults[]>([])
-    const[distinctExercises, setDistinctExercises] = useState<IDictinctExercise[]>([]);
-    const[exerciseId, setExerciseId] = useState(0);
-    const[averageValue, setAverageValue] = useState("");
-    const[maxValue, setMaxValue] = useState("");
-    const[minValue, setMinValue] = useState("")
-    const[metricType, setMetricType] = useState("")
+    const [dataToShow, setDataToShow] = useState<IResults[]>([])
+    const [data, setData] = useState<IResults[]>([])
+    const [distinctExercises, setDistinctExercises] = useState<IDictinctExercise[]>([]);
+    const [exerciseId, setExerciseId] = useState(0);
+    const [averageValue, setAverageValue] = useState("");
+    const [maxValue, setMaxValue] = useState("");
+    const [minValue, setMinValue] = useState("")
+    const [metricType, setMetricType] = useState("")
     const [emptyData, setEmptyData] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -156,14 +156,19 @@ const Results = (props: IResultsProps) => {
             setMinValue("")
             setMaxValue("")
         }
-
-    
-    console.log(event.target.value);
     }
 
     const handleSelectRange = (startDate: string, endDate: string) => {
 
-        let temp = dataToShow.filter((item: IResults) => {
+        let temp: IResults[] = []
+
+        if (exerciseId == 0) {
+            temp = data;
+        } else {
+            temp = data?.filter(x => x.exerciseId == exerciseId)
+        }
+
+        temp = temp.filter((item: IResults) => {
              return new Date(item.date).getTime() >= new Date(startDate).getTime() &&
                     new Date(item.date).getTime() <= new Date(endDate).getTime();
         });
@@ -179,8 +184,6 @@ const Results = (props: IResultsProps) => {
         setDataToShow(data?.filter(x => x.exerciseId == exerciseId));
     }
 
-
- 
     console.log(dataToShow)
     console.log(distinctExercises)
 

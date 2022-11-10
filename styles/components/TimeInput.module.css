@@ -11,12 +11,13 @@
 .timeinputcontainer input{
     border: none;
     background-color: var(--white-color);
-    width: 5vw;
+    width: 5.5vw;
     font-size: 2vh;
 }
 
 .input::placeholder{
     font-size: 2vh;
+    color: var(--dark-color)
 }
 .input::placeholder:active{
     font-size: 2vh;

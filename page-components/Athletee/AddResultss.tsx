@@ -415,8 +415,8 @@ const AddResultss = (props: IAddResultsProps) =>{
                             <th onClick={(event) => onSortClick("Date")}>Date <UpDown className={styles.updown}/></th>
                             <th></th>
                         </tr>
-                        <tr>
-                            <th style={{"height": "5vh"}} colSpan={5}> Add Result</th>
+                        <tr className={styles.addresult}>
+                            <th  colSpan={5}> Add Result:</th>
                         </tr>
 
                         <tr style={{border: "3px solid #909090", height: "8vh"}}>
@@ -442,8 +442,8 @@ const AddResultss = (props: IAddResultsProps) =>{
                             <td onClick={(event)=>onInsertRowClick(event)}><input type="date" value={dateInsert} onChange={(event)=>setDateInsert(event?.target.value)}/></td>
                             <td style={{width: "8vw"}}>{showOkInsert && <div onClick={onClickBanInsert}><IBan className={styles.ban} fill="#167dc2"/></div>}</td>
                         </tr>
-                        <tr>
-                            <th style={{"height": "5vh"}} colSpan={5}>Results list </th>
+                        <tr className={styles.addresult}>
+                            <th colSpan={5}>Results list: </th>
                         </tr>
                         <tr>
                             <td></td>
@@ -492,7 +492,7 @@ const AddResultss = (props: IAddResultsProps) =>{
                         </tr>
                         )}
                         <tr>
-                            {loading && <div>Loading ... </div>}
+                            {loading && <td colSpan={5}>Loading ... </td>}
                         </tr>
                     </tbody>
                     
