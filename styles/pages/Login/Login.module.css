@@ -127,6 +127,6 @@ input:not(:placeholder-shown) + .span{
     }
     .button{
         width: 10vw;
-        height: 2rem;
+        height: 3rem;
     }
   }

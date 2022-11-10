@@ -130,6 +130,7 @@ const Register = (props: IRegisterProps) => {
 
                 <span><button className={styles.button} type="submit">Submit</button>&nbsp;<button className={styles.button} type="button" onClick={()=>router.push("/")}>Cancel</button></span>
                 <div className={styles.success}>{success}</div>
+                <div className={styles.description}>* You can enter any email when registering, because no confirmation or validation is required due app is in development.</div>
             </form>
         </div>
     )
