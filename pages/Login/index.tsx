@@ -2,7 +2,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import {useRouter} from "next/router";
 import { useEffect, useState } from "react";
-import ILogin from "../../icons/Ilogin.svg"
+import ILogin from "../../icons/ILogin.svg"
 import Register from "../../page-components/Login/Register";
 import { useLoginContext } from "../../store/useLogincontext";
 import styles from "../../styles/pages/Login/Login.module.css"
