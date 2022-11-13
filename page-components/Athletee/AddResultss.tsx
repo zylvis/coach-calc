@@ -8,6 +8,7 @@ import IBan from "../../icons/IBan.svg"
 import TimeInput from "../../components/TimeInput";
 import { ConvertBirthDateToAge } from "../../Helpers/ConverBirthDateToAge";
 import UpDown from "../../icons/UpDown.svg"
+import { isEmptyArray } from "formik";
 
 interface IAddResultsProps{
     addResultsHandler: (show:boolean) => void
@@ -102,9 +103,9 @@ const AddResultss = (props: IAddResultsProps) =>{
         };
         getData();
 
-      }, [reloadTrigger]);
+    }, [reloadTrigger]);
 
-      useEffect(() => {
+    useEffect(() => {
         const getData = async () => {
           try {
             const response = await axios.get(
@@ -137,8 +138,8 @@ const AddResultss = (props: IAddResultsProps) =>{
               setSuccess("Success");
               setShowSuccess(true)
               setTimeout(() => {
-              setSuccess("");
-              setShowSuccess(false)
+                setSuccess("");
+                setShowSuccess(false)
               }, 3000);
               setReloadTrigger(reloadTrigger + 1)
            }).catch((error) => {
@@ -157,7 +158,7 @@ const AddResultss = (props: IAddResultsProps) =>{
                 setSuccess("")
                 setShowSuccess(false)
             },1000)
-            
+            setReloadTrigger(reloadTrigger + 1)
             console.log(response.data);
         })
         .catch(error => {
@@ -168,12 +169,16 @@ const AddResultss = (props: IAddResultsProps) =>{
 
 
     const timeInputHandler = (timeMil: number) => {
-        
-        let tempResult: IResult = JSON.parse(JSON.stringify(resultUpdateObj))
-        tempResult.value = timeMil.toString()
-        setResultUpdateObj(tempResult)
 
-        if(resultUpdateObj == {} as IResult){
+        console.log(timeMil)
+        
+        if (Object.keys(resultUpdateObj).length > 0) {
+            let tempResult: IResult = JSON.parse(JSON.stringify(resultUpdateObj))
+            tempResult.value = timeMil.toString()
+            setResultUpdateObj(tempResult)
+        }
+
+        if (Object.keys(resultUpdateObj).length === 0){
             setValueInsert(timeMil.toString())
         }
 
@@ -192,9 +197,10 @@ const AddResultss = (props: IAddResultsProps) =>{
     }
 
     const handleMetricTypeOnInsert = (event: any) => {
-
+        
         const mtype = exercises.filter(x => x.id == event.target.value)[0].metricType
         setMetricTypeInsert(mtype)
+  
     }
 
     const updateHandlerExercise = (event: any, result: IResult) => {
@@ -209,7 +215,6 @@ const AddResultss = (props: IAddResultsProps) =>{
         result.metricType = exercises[foundExerciseIndex].metricType // change dataToShow Item property!
         tempResult.value = "0"
         setResultUpdateObj(tempResult)
-
         setShowOkUpdate(true)
         setShowBanUpdate(true)
         setShowDelete(false)
@@ -225,7 +230,6 @@ const AddResultss = (props: IAddResultsProps) =>{
         setShowOkUpdate(true)
         setShowBanUpdate(true)
         setShowDelete(false)
-
     }
 
     const onClickOkInsert =() => {
@@ -242,7 +246,6 @@ const AddResultss = (props: IAddResultsProps) =>{
             return
         }
 
-
         const insertObj: IResultPost = {
             athleteeId: athleteeObj.id,
             exerciseId: insertExerciseId,
@@ -251,16 +254,19 @@ const AddResultss = (props: IAddResultsProps) =>{
         }
         addPost(insertObj)
         setShowOkInsert(false)
-        setValueInsert("0")
+        setValueInsert("")
+        setMetricTypeInsert("")
         setDateInsert(FormatDate(new Date().toLocaleDateString()))
         setInsertExerciseId(0)
     }
 
     const onClickBanInsert = () => {
         setShowOkInsert(false)
-        setValueInsert("")
+        setValueInsert("0")
+        setMetricTypeInsert("")
         setDateInsert(FormatDate(new Date().toLocaleDateString()))
         setInsertExerciseId(0)
+        setResultUpdateObj({} as IResult)
     }
     const onClickOkUpdate = () => {
 
@@ -279,7 +285,7 @@ const AddResultss = (props: IAddResultsProps) =>{
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
-        //setResultUpdateObj({} as IResult)
+        setResultUpdateObj({} as IResult)
         setActiveResultId(0)
     }
 
@@ -288,7 +294,9 @@ const AddResultss = (props: IAddResultsProps) =>{
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
+        setActiveResultId(0);
         setResultUpdateObj({} as IResult)
+        setReloadTrigger(reloadTrigger + 1)
     }
 
     const onNextRowClick = (lastId: number, itemR: IResult) =>{
@@ -298,7 +306,6 @@ const AddResultss = (props: IAddResultsProps) =>{
             setActiveResultId(itemR.id);
             let tempResult: IResult = JSON.parse(JSON.stringify(itemR))
             setResultUpdateObj(tempResult)
-            //setActiveResultId(0)
             setReloadTrigger(reloadTrigger + 1)
             setShowOkUpdate(true)
             setShowBanUpdate(true)
@@ -308,15 +315,15 @@ const AddResultss = (props: IAddResultsProps) =>{
         
     }
 
-    const onClickBanUpdate = (result:IResult) => {
+    const onClickBanUpdate = (itemR:IResult) => {
 
         setActiveResultId(0)
-        
-        setResultUpdateObj(result)
+        itemR.metricType = mainData.find( x => x.id == itemR.id)?.metricType //change back dataToShow Item property to original!  
+        setResultUpdateObj(itemR)
         setShowOkUpdate(false)
         setShowBanUpdate(false)
         setShowDelete(true)
-        result.metricType = mainData.find( x => x.id == result.id)?.metricType //change back dataToShow Item property to original! 
+        
     }
 
     const handleDelete =(id:number) => {
@@ -423,7 +430,7 @@ const AddResultss = (props: IAddResultsProps) =>{
                             <td  className={styles.tdok}>{showOkInsert && <div className={styles.ok} onClick={onClickOkInsert}>OK</div>}</td>
                             <td onClick={(event)=>onInsertRowClick(event)}>
                                 <select value={insertExerciseId}
-                                        onChange={(event) => {setInsertExerciseId(parseInt(event.target.value)); setValueInsert(""); handleMetricTypeOnInsert(event)}}
+                                        onChange={(event) => {setInsertExerciseId(parseInt(event.target.value)); setValueInsert("0"); handleMetricTypeOnInsert(event)}}
                                         >
                                         <option disabled value={0}>Select:</option>
                                         {exercises.map((itemE) =>{
@@ -436,7 +443,7 @@ const AddResultss = (props: IAddResultsProps) =>{
                             <td onClick={(event)=>onInsertRowClick(event)}>
                                 {metricTypeInsert == "Number" || metricTypeInsert == "" ?
                                     <input className={styles.inputnumber} type="number" value={valueInsert} onChange={(event)=>setValueInsert(event?.target.value)} placeholder="0"/> :
-                                    <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: !resultUpdateObj ? parseInt(valueInsert) : 0}}/>}
+                                    <TimeInput { ...{timeInputHandler: timeInputHandler, itemTimeValue: Object.keys(resultUpdateObj).length == 0 ? parseInt(valueInsert) : 0}}/>}
 
                             </td>
                             <td onClick={(event)=>onInsertRowClick(event)}><input type="date" value={dateInsert} onChange={(event)=>setDateInsert(event?.target.value)}/></td>

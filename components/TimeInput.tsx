@@ -8,15 +8,12 @@ interface ITimeInputProps{
 
 const TimeInput = (props: ITimeInputProps) => {
 
-    
-
     const date = new Date(props.itemTimeValue)
     const hours = date.getUTCHours()
     const minutes = date.getUTCMinutes()
     const seconds = date.getUTCSeconds()
     const milSeconds = date.getUTCMilliseconds() / 10
     
-
     const [hh, setHH] = useState<number>(hours);
     const [mm, setMM] = useState<number>(minutes);
     const [ss, setSS] = useState<number>(seconds);
@@ -69,6 +66,5 @@ const TimeInput = (props: ITimeInputProps) => {
             </div>
         </>
     )
-    
 }
 export default TimeInput;
