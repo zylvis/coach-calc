@@ -45,7 +45,7 @@ const Login = () => {
          });
       };
 
-    const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
+    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
     const validate = (values : ILogin) => {
 
         return sleep(500).then(() => {
